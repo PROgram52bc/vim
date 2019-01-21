@@ -115,6 +115,7 @@ set hidden					" Required by CtrlSpace
 set ignorecase			  "检索时忽略大小写
 set hls					 "检索时高亮显示匹配项
 set foldmethod=syntax	   "代码折叠
+set foldcolumn=1			"Display folder column
 " END setting from www.jianshu.com/p/510924f5723b -------- }}}
 
 " START Vundle setting -------- {{{
@@ -158,6 +159,7 @@ Plugin 'raimondi/delimitmate'
 Plugin 'gregsexton/MatchTag'
 Plugin 'iamcco/mathjax-support-for-mkdp'
 Plugin 'iamcco/markdown-preview.vim'
+Plugin 'PROgram52bc/vim_potion'
 " Plugin 'shepherdwind/vim-velocity'
 " Plugin 'jiangmiao/auto-pairs.git'
 " Plugin 'harenome/vim-mipssyntax' 			"For MIPS syntax
@@ -182,7 +184,6 @@ filetype plugin indent on	" required
 " see :h vundle for more details or wiki for FAQ
 " Put your non-Plugin stuff after this line
 " END Vundle setting -------- }}}
-
 
 " START Plugin settings -------- {{{
 nnoremap <C-n> :NERDTree<CR>
@@ -212,16 +213,30 @@ augroup END
 " END autocmd settings -------- }}}
 
 " START common map settings -------- {{{
+function! ToggleFoldcolumn(...)
+	" Toggles the folder indication column
+	let width = get(a:000,0,0) " width of the column, default to 0
+	" if no width specified, do normal toggle
+	if ! width
+		let &l:foldcolumn = &l:foldcolumn ? 0 : 1
+		echom "Toggling foldcolumn"
+	" else display the specified width
+	else
+		let &l:foldcolumn = width
+		echom "Setting foldcolumn to ".width
+	endif
+endfunction
 let mapleader = ','
+nnoremap <leader>f :<C-U>call ToggleFoldcolumn(v:count)<CR>
 " mapping for changing tabs
-nnoremap <C-l> gt
-nnoremap <C-h> gT
+" nnoremap <C-l> gt
+" nnoremap <C-h> gT
 " END tab settings
 " mapping the split
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
-" nnoremap <C-H> <C-W><C-H>
-" nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
+nnoremap <C-L> <C-W><C-L>
 inoremap jk <esc>
 " inoremap <esc> <nop> " Well... maybe not yet
 " END common map settings -------- }}}
