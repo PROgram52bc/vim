@@ -72,9 +72,17 @@ func! RunResult()
 		if search("mpi\.h") != 0
 			exec "!mpirun -np 4 ./%<"
 		elseif &filetype == "cpp"
-			exec "! ./%<"
+			if expand("%<") =~ "^/"
+				exec "! %<"
+			else
+				exec "! ./%<"
+			endif
 		elseif &filetype == "c"
-			exec "! ./%<"
+			if expand("%<") =~ "^/"
+				exec "! %<"
+			else
+				exec "! ./%<"
+			endif
 		elseif &filetype == "python"
 			exec "!python3 %<.py"
 		elseif &filetype == "java"
