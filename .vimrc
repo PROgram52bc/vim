@@ -187,6 +187,8 @@ filetype plugin indent on	" required
 
 " START Plugin settings -------- {{{
 nnoremap <C-n> :NERDTree<CR>
+let g:syntastic_python_checkers = ['python']
+let g:syntastic_python_python_exec = 'python3'
 let g:syntastic_cpp_compiler_options = ' -std=c++11 -stdlib=libc++'
 let g:syntastic_mode_map = {"mode": "active", "passive_filetypes": ["asm"]}
 let g:delimitMate_expand_cr = 2
@@ -203,6 +205,10 @@ augroup html_related
 	autocmd FileType vtl let b:syntax=html
 	autocmd FileType vtl,html,xhtml,phtml,vue let b:delimitMate_matchpairs = "(:),[:],{:}"
 augroup END
+augroup python_related
+	autocmd!
+	autocmd FileType python set tabstop=4
+augroup END
 augroup vim_related
 	autocmd!
 	autocmd FileType vim setlocal foldmethod=marker
@@ -210,6 +216,11 @@ augroup vim_related
 	"abbreviation for creating a new augroup
 	autocmd FileType vim inoreabbrev augroup augroup maautocmd!augroup END`a
 augroup END
+augroup md_related
+	autocmd!
+	autocmd FileType markdown nnoremap <F7> :MarkdownPreview<CR>
+augroup END
+
 " END autocmd settings -------- }}}
 
 " START common map settings -------- {{{
