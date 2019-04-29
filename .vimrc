@@ -203,7 +203,7 @@ let g:delimitMate_expand_cr = 2
 let g:delimitMate_expand_space = 1
 let g:closetag_filenames = '*.vtl,*.html,*.xhtml,*.phtml,*.vue'
 let g:ctrlp_map='<c-p>'
-let g:ctrlp_cmd = 'CtrlPMRU'
+let g:ctrlp_cmd = 'CtrlP'
 " END Plugin settings -------- }}}
 
 " START autocmd settings -------- {{{
