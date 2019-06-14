@@ -99,32 +99,34 @@ vmap <F5> <ESC>:call CompileCode()<CR>
 map <F6> :call RunResult()<CR>
 " END compile function -------- }}}
 
-" START setting from www.jianshu.com/p/510924f5723b -------- {{{
-syn on					  "语法支持
-set ruler				   "在编辑过程中，在右下角显示光标位置的状态行
-set incsearch			   " 输入搜索内容时就显示搜索结果
-set showcmd				 " 输入的命令显示出来，看的清楚些
-set ignorecase smartcase	" 搜索时忽略大小写，但在有一个或以上大写字母时仍保持对大小写敏感
-set smartindent			 " 开启新行时使用智能自动缩进
-set autoindent			  " 使用自动对起，即把当前行的对起格式应用到下一行
-set laststatus=2			" 显示状态栏 (默认值为 1, 无法显示状态栏)
-set history=1000			"设置VIM记录的历史数
-set si					  "自动缩进
-set bs=2					"在insert模式下用退格键删除
-set showmatch			   "代码匹配
-set laststatus=2			"总是显示状态行
-set noexpandtab			   "以下三个配置配合使用，设置tab和缩进空格数
+" START Common settings -------- {{{
+syntax on					" display syntax
+set background=dark			" dark background
+set number				  	" display line number
+set incsearch			   	" dynamically show result while typing the search
+set ignorecase			  	" ignore case in search
+set smartcase				" ignore case, but not when there is upper case in searched word
+set autoindent			  	" apply current indent to the new line
+set smartindent			 	" c-style autoindent on new line
+set laststatus=2			" always show status line
+set history=1000			" maximum commandline entries remembered
+set backspace=2				" same as set backspace="indent,eol,start". allow backspace over original text in insert mode 
+set showmatch			   	" show matching parenthesis briefly when paired up
+set noexpandtab			   	" set tab behavior
 set tabstop=4
 set shiftwidth=4
-"set cursorline			  "为光标所在行加下划线
-set number				  "显示行号
-" set autoread				"文件在Vim之外修改过，自动重新读入
-set hidden					" Required by CtrlSpace
-set ignorecase			  "检索时忽略大小写
-set hls					 "检索时高亮显示匹配项
-set foldmethod=syntax	   "代码折叠
-set foldcolumn=1			"Display folder column
-" END setting from www.jianshu.com/p/510924f5723b -------- }}}
+set autoread				" auto read in when file is edited out of vim
+set hidden					" keep closed buffers. required by CtrlSpace
+set hlsearch				" highlight search
+set foldmethod=syntax	   	" fold according to syntax highlighting items
+set foldcolumn=1			" display folder column
+
+"set ruler				   	" show status line at the bottom, this is automatically enabled by vim-airline
+"set showcmd				" show the command typed. no effect when vim-airline is enabled
+"set cursorline			  	" add visual cues for the cursor poisition
+"set cursorcolumn
+
+" END Common settings --------- }}}
 
 " START Vundle setting -------- {{{
 " set the runtime path to include Vundle and initialize
