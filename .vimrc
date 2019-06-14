@@ -169,7 +169,8 @@ Plugin 'raimondi/delimitmate'
 Plugin 'gregsexton/MatchTag'
 Plugin 'iamcco/mathjax-support-for-mkdp'
 Plugin 'iamcco/markdown-preview.vim'
-Plugin 'PROgram52bc/vim_potion'
+Plugin 'tpope/vim-fugitive'
+" Plugin 'PROgram52bc/vim_potion'
 " Plugin 'shepherdwind/vim-velocity'
 " Plugin 'jiangmiao/auto-pairs.git'
 " Plugin 'harenome/vim-mipssyntax' 			"For MIPS syntax
@@ -206,6 +207,10 @@ let g:delimitMate_expand_space = 1
 let g:closetag_filenames = '*.vtl,*.html,*.xhtml,*.phtml,*.vue'
 let g:ctrlp_map='<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
+
+" airline settings
+let g:airline_symbols.branch = '⎇'
+
 " END Plugin settings -------- }}}
 
 " START autocmd settings -------- {{{
