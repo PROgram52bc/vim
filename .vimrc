@@ -209,6 +209,9 @@ let g:ctrlp_map='<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
 
 " airline settings
+if !exists('g:airline_symbols')
+	let g:airline_symbols = {}
+endif
 let g:airline_symbols.branch = '⎇'
 
 " END Plugin settings -------- }}}
