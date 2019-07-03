@@ -170,6 +170,7 @@ Plugin 'gregsexton/MatchTag'
 Plugin 'iamcco/mathjax-support-for-mkdp'
 Plugin 'iamcco/markdown-preview.vim'
 Plugin 'PROgram52bc/vim_potion'
+Plugin 'tpope/vim-fugitive'
 " Plugin 'shepherdwind/vim-velocity'
 " Plugin 'jiangmiao/auto-pairs.git'
 " Plugin 'harenome/vim-mipssyntax' 			"For MIPS syntax
