@@ -179,6 +179,7 @@ Plugin 'gregsexton/MatchTag'
 Plugin 'iamcco/mathjax-support-for-mkdp'
 Plugin 'iamcco/markdown-preview.vim'
 Plugin 'tpope/vim-fugitive'
+Plugin 'prettier/vim-prettier'
 " Plugin 'shepherdwind/vim-velocity'
 " Plugin 'jiangmiao/auto-pairs.git'
 " Plugin 'harenome/vim-mipssyntax' 			"For MIPS syntax
@@ -221,6 +222,20 @@ if !exists('g:airline_symbols')
 	let g:airline_symbols = {}
 endif
 let g:airline_symbols.branch = '⎇'
+
+" START Prettier settings ------ {{{
+let g:prettier#quickfix_enabled = 0 " Don't display the quickfix box for errors 
+let g:prettier#autoformat = 0 " Don't automatically format
+autocmd BufWritePre,TextChanged,InsertLeave *.md,*.vue,*.yaml,*.html PrettierAsync " Auto run only on those files
+
+let g:prettier#config#tab_width = 4 " number of spaces per indentation level
+let g:prettier#config#use_tabs = 'true' " use tabs over spaces
+let g:prettier#config#bracket_spacing = 'true' " print spaces between brackets
+let g:prettier#config#semi = 'true' " print semicolons
+let g:prettier#config#single_quote = 'true' " single quotes over double quotes
+let g:prettier#config#jsx_bracket_same_line = 'true' " put > on the last line instead of new line
+
+" END Prettier settings }}}
 
 " END Plugin settings -------- }}}
 

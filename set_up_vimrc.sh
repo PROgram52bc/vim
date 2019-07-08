@@ -1,3 +1,4 @@
+# Create a link to ~/.vimrc
 create_link() {
 	echo "Creating a link of .vimrc to $HOME..."
 	ln -s $(realpath .vimrc) ~/.vimrc && echo "done!" || echo "Error occurred when trying to create symbolic link" 
@@ -31,6 +32,7 @@ else
 	create_link
 fi
 
+# Install Vundle
 VUNDLEPATH=$HOME/.vim/bundle/Vundle.vim
 VUNDLELINK=https://github.com/VundleVim/Vundle.vim.git 
 ls $VUNDLEPATH 1>/dev/null 2>&1
@@ -59,4 +61,13 @@ else
 				;;
 		esac
 	done
+fi
+
+# temporary solution: install prettier (should be done with vim plugin manager's post-install hook)
+PRETTIERPATH=$HOME/.vim/bundle/vim-prettier
+ls $PRETTIERPATH/ 1>/dev/null 2>&1
+if [ $? -eq 0 ]; then # if prettier installed
+	cd $PRETTIERPATH
+	echo "Installing prettier..."
+	npm install 1>/dev/null 2>&1 && echo "Prettier installed in $PRETTIERPATH" || "Failed to install prettier"
 fi
