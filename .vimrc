@@ -92,6 +92,15 @@ func! RunResult()
 		elseif &filetype == "cs"
 			exec "!mono %<.exe"
 		endif
+	elseif &filetype == "python"
+		exec "!python3 %<.py"
+	elseif &filetype == "java"
+		exec "!java %<"
+	elseif &filetype == "vb"
+		exec "!mono %<.exe"
+	elseif &filetype == "cs"
+		exec "!mono %<.exe"
+	endif
 endfunc
 map <F5> :call CompileCode()<CR>
 imap <F5> <ESC>:call CompileCode()<CR>
@@ -170,7 +179,6 @@ Plugin 'gregsexton/MatchTag'
 Plugin 'iamcco/mathjax-support-for-mkdp'
 Plugin 'iamcco/markdown-preview.vim'
 Plugin 'tpope/vim-fugitive'
-" Plugin 'PROgram52bc/vim_potion'
 " Plugin 'shepherdwind/vim-velocity'
 " Plugin 'jiangmiao/auto-pairs.git'
 " Plugin 'harenome/vim-mipssyntax' 			"For MIPS syntax
