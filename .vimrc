@@ -224,9 +224,9 @@ endif
 let g:airline_symbols.branch = '⎇'
 
 " START Prettier settings ------ {{{
-let g:prettier#quickfix_enabled = 0 " Don't display the quickfix box for errors 
+let g:prettier#quickfix_enabled = 1 " Display the quickfix box for errors 
 let g:prettier#autoformat = 0 " Don't automatically format
-autocmd BufWritePre,TextChanged,InsertLeave *.md,*.vue,*.yaml,*.html PrettierAsync " Auto run only on those files
+autocmd BufWritePre *.md,*.vue,*.yaml,*.html PrettierAsync " Auto run only on those files
 
 let g:prettier#config#tab_width = 4 " number of spaces per indentation level
 let g:prettier#config#use_tabs = 'true' " use tabs over spaces
@@ -291,6 +291,11 @@ nnoremap <C-H> <C-W><C-H>
 nnoremap <C-L> <C-W><C-L>
 inoremap jk <esc>
 " inoremap <esc> <nop> " Well... maybe not yet
+" mapping the quickfix window
+nnoremap <leader>n :cnext<CR>
+nnoremap <leader>N :cprevious<CR>
+nnoremap <leader>ln :lnext<CR>
+nnoremap <leader>lp :lprevious<CR>
 " END common map settings -------- }}}
 
 
