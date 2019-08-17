@@ -94,15 +94,6 @@ func! RunResult()
 		elseif &filetype == "cs"
 			exec "!mono %<.exe"
 		endif
-	elseif &filetype == "python"
-		exec "!python3 %<.py"
-	elseif &filetype == "java"
-		exec "!java %<"
-	elseif &filetype == "vb"
-		exec "!mono %<.exe"
-	elseif &filetype == "cs"
-		exec "!mono %<.exe"
-	endif
 endfunc
 map <F5> :call CompileCode()<CR>
 imap <F5> <ESC>:call CompileCode()<CR>
