@@ -64,6 +64,8 @@ func! CompileCode()
 			exec "!vbnc %"
 		elseif &filetype == "cs"
 			exec "!mcs %"
+		elseif &filetype == "java"
+			exec "!javac %"
 		endif
 endfunc
 
