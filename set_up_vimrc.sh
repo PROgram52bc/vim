@@ -1,14 +1,19 @@
 # Create a link to ~/.vimrc
 create_link() {
 	echo "Creating a link of .vimrc to $HOME..."
-	ln -s $(realpath .vimrc) ~/.vimrc && echo "done!" || echo "Error occurred when trying to create symbolic link" 
+	ln -s $(realpath .vimrc) $HOME/.vimrc && echo "done!" || echo "Error occurred when trying to create symbolic link" 
 }
 
-ls $HOME/.vimrc 1>/dev/null 2>&1
-if [ $? -eq 0 ]; then # if the file exists
+if [ ! -e $HOME/.vimrc ]; then # if vimrc does not exist
+	create_link
+elif [ -L $HOME/.vimrc -a "$(readlink $HOME/.vimrc)" -ef .vimrc ]; then # if vimrc exists and is a link to the current directory
+	#: # do nothing
+	echo "$HOME/.vimrc already points to the .vimrc in the current directory"
+else # if vimrc exists and is not pointing to the current directory
 	while true; do
 		echo ".vimrc already exists in $HOME, to continue, enter one option: "
-		echo "r) replace the current file"
+		echo "r) replace with a symlink to the .vimrc in current directory"
+		echo "c) replace with a copy of the .vimrc in current directory"
 		echo "s) show diff"
 		echo "*) do nothing"
 		read -n 1 answer
@@ -19,8 +24,12 @@ if [ $? -eq 0 ]; then # if the file exists
 				create_link
 				break
 				;;
+			c)
+				cp .vimrc ~/.vimrc && echo "replaced with a copy of .vimrc in current directory"
+				break
+				;;
 			s)
-				diff -u .vimrc $HOME/.vimrc | less
+				diff -u $HOME/.vimrc .vimrc | less
 				echo
 				;;
 			*)
@@ -28,8 +37,6 @@ if [ $? -eq 0 ]; then # if the file exists
 				;;
 		esac
 	done
-else
-	create_link
 fi
 
 # Install Vundle
@@ -65,9 +72,12 @@ fi
 
 # temporary solution: install prettier (should be done with vim plugin manager's post-install hook)
 PRETTIERPATH=$HOME/.vim/bundle/vim-prettier
-ls $PRETTIERPATH/ 1>/dev/null 2>&1
-if [ $? -eq 0 ]; then # if prettier installed
+if [ ! -d ${PRETTIERPATH} ]; then # if prettier not installed
+	echo "Prettier not installed (install with Vundle by executing :PluginInstall in vim)"
+elif [ ! -d ${PRETTIERPATH}/node_modules ]; then # if prettier installed but not built
 	cd $PRETTIERPATH
-	echo "Installing prettier..."
-	npm install 1>/dev/null 2>&1 && echo "Prettier installed in $PRETTIERPATH" || "Failed to install prettier"
+	echo "Building prettier..."
+	npm install 1>/dev/null 2>&1 && echo "Prettier built in $PRETTIERPATH" || "Failed to install prettier"
+else
+	echo "Prettier already built."
 fi
