@@ -206,7 +206,7 @@ let g:syntastic_cpp_compiler_options = ' -std=c++11 -stdlib=libc++'
 let g:syntastic_mode_map = {"mode": "active", "passive_filetypes": ["asm"]}
 let g:delimitMate_expand_cr = 2
 let g:delimitMate_expand_space = 1
-let g:closetag_filenames = '*.vtl,*.html,*.xhtml,*.phtml,*.vue'
+let g:closetag_filenames = '*.vtl,*.html,*.xhtml,*.phtml,*.vue,*.md'
 let g:ctrlp_map='<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
 
@@ -253,6 +253,7 @@ augroup END
 augroup md_related
 	autocmd!
 	autocmd FileType markdown nnoremap <F7> :MarkdownPreview<CR>
+	autocmd FileType markdown let b:delimitMate_matchpairs = "(:),[:],{:}"
 augroup END
 
 " END autocmd settings -------- }}}
