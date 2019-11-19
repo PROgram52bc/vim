@@ -172,6 +172,7 @@ Plugin 'iamcco/mathjax-support-for-mkdp'
 Plugin 'iamcco/markdown-preview.vim'
 Plugin 'tpope/vim-fugitive'
 Plugin 'prettier/vim-prettier'
+Plugin 'thinca/vim-visualstar'
 " Plugin 'szw/vim-ctrlspace' 				"Too big, bug on open in tabs
 " Plugin 'shepherdwind/vim-velocity'
 " Plugin 'jiangmiao/auto-pairs.git'
