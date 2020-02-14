@@ -220,7 +220,7 @@ let g:airline_symbols.branch = '⎇'
 " START Prettier settings ------ {{{
 let g:prettier#quickfix_enabled = 1 " Display the quickfix box for errors 
 let g:prettier#autoformat = 0 " Don't automatically format
-autocmd BufWritePre *.md,*.vue,*.yaml,*.html PrettierAsync " Auto run only on those files
+autocmd BufWritePre *.md,*.vue,*.yaml PrettierAsync " Auto run only on those files
 
 let g:prettier#config#tab_width = 4 " number of spaces per indentation level
 let g:prettier#config#use_tabs = 'true' " use tabs over spaces
