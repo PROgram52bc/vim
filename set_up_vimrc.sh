@@ -1,10 +1,17 @@
+# directory of the current script
+DIR=$(dirname "$(readlink -f "$0")") # get current directory
+if [ ! -f "$DIR/.vimrc" ]; then
+	echo ".vimrc not detected in $DIR, terminating script"
+	return -1
+fi
+
 # Create a link to ~/.vimrc
 create_link() {
-	echo "Creating a link of .vimrc to $HOME..."
-	ln -s $(realpath .vimrc) $HOME/.vimrc && echo "done!" || echo "Error occurred when trying to create symbolic link" 
+	echo "Creating a link of $DIR/.vimrc to $HOME..."
+	ln -s $DIR/.vimrc $HOME/.vimrc && echo "done!" || echo "Error occurred when trying to create symbolic link" 
 }
 
-if [ ! -e $HOME/.vimrc ]; then # if vimrc does not exist
+if [ ! -e $HOME/.vimrc -a ! -L $HOME/.vimrc ]; then # if vimrc does not exist (the second condition makes sure it is not a broken link) 
 	create_link
 elif [ -L $HOME/.vimrc -a "$(readlink $HOME/.vimrc)" -ef .vimrc ]; then # if vimrc exists and is a link to the current directory
 	#: # do nothing
@@ -25,11 +32,12 @@ else # if vimrc exists and is not pointing to the current directory
 				break
 				;;
 			c)
-				cp .vimrc ~/.vimrc && echo "replaced with a copy of .vimrc in current directory"
+				rm $HOME/.vimrc
+				cp $DIR/.vimrc $HOME/.vimrc && echo "replaced with a copy of .vimrc in current directory"
 				break
 				;;
 			s)
-				diff -u $HOME/.vimrc .vimrc | less
+				diff -u $HOME/.vimrc $DIR/.vimrc | less
 				echo
 				;;
 			*)
