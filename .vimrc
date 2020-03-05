@@ -173,6 +173,8 @@ Plugin 'iamcco/markdown-preview.vim'
 Plugin 'tpope/vim-fugitive'
 Plugin 'prettier/vim-prettier'
 Plugin 'thinca/vim-visualstar'
+Plugin 'lervag/vimtex'
+Plugin 'aymericbeaumet/vim-symlink'			"Automatically resolve the symlink
 " Plugin 'szw/vim-ctrlspace' 				"Too big, bug on open in tabs
 " Plugin 'shepherdwind/vim-velocity'
 " Plugin 'jiangmiao/auto-pairs.git'
