@@ -174,7 +174,6 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'prettier/vim-prettier'
 Plugin 'thinca/vim-visualstar'
 Plugin 'lervag/vimtex'
-Plugin 'xuhdev/vim-latex-live-preview'
 Plugin 'aymericbeaumet/vim-symlink'			"Automatically resolve the symlink
 " Plugin 'szw/vim-ctrlspace' 				"Too big, bug on open in tabs
 " Plugin 'shepherdwind/vim-velocity'
@@ -234,6 +233,23 @@ let g:prettier#config#jsx_bracket_same_line = 'true' " put > on the last line in
 
 " END Prettier settings }}}
 
+" START vimtex settings ------ {{{
+" Add custom imaps binding
+" Map <localleader>/ to \div
+call vimtex#imaps#add_map({
+			\ 'lhs' : '/',
+			\ 'rhs' : '\div',
+			\ 'wrapper' : 'vimtex#imaps#wrap_math'
+			\})
+" Map <localleader>- to \over
+call vimtex#imaps#add_map({
+			\ 'lhs' : '-',
+			\ 'rhs' : '\over',
+			\ 'wrapper' : 'vimtex#imaps#wrap_math'
+			\})
+
+" END vimtex settings }}}
+
 " END Plugin settings -------- }}}
 
 " START autocmd settings -------- {{{
@@ -258,6 +274,11 @@ augroup md_related
 	autocmd!
 	autocmd FileType markdown nnoremap <F7> :MarkdownPreview<CR>
 	autocmd FileType markdown let b:delimitMate_matchpairs = "(:),[:],{:}"
+augroup END
+augroup latex_related 
+	autocmd!
+	autocmd FileType tex nnoremap <F7> :LLPStartPreview<CR>
+	autocmd FileType tex let b:delimitMate_autoclose = 0
 augroup END
 
 " END autocmd settings -------- }}}
