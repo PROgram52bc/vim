@@ -234,6 +234,10 @@ let g:prettier#config#jsx_bracket_same_line = 'true' " put > on the last line in
 " END Prettier settings }}}
 
 " START vimtex settings ------ {{{
+" Output directory for build
+let g:vimtex_compiler_latexmk = {
+	\ 'build_dir' : 'build',
+\}
 " Add custom imaps binding
 " Map <localleader>/ to \div
 call vimtex#imaps#add_map({
