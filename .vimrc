@@ -212,6 +212,10 @@ let g:delimitMate_expand_space = 1
 let g:closetag_filenames = '*.vtl,*.html,*.xhtml,*.phtml,*.vue,*.md'
 let g:ctrlp_map='<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
+let g:ctrlp_custom_ignore = {
+  \ 'dir':  '\v[\/](__pycache__|node_modules|\.git)$',
+  \ 'file': '\v\.(pyc)$',
+  \ }
 
 " airline settings
 if !exists('g:airline_symbols')
@@ -223,7 +227,7 @@ let g:airline_symbols.branch = '⎇'
 let g:prettier#quickfix_enabled = 1 " Display the quickfix box for errors 
 let g:prettier#autoformat = 0 " Don't automatically format
 autocmd BufWritePre *.md,*.vue,*.yaml PrettierAsync " Auto run only on those files
-
+vnoremap <leader>p :PrettierAsync<cr> " allow block formatting
 let g:prettier#config#tab_width = 4 " number of spaces per indentation level
 let g:prettier#config#use_tabs = 'true' " use tabs over spaces
 let g:prettier#config#bracket_spacing = 'true' " print spaces between brackets
