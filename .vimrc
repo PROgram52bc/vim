@@ -86,9 +86,11 @@ func! RunResult()
 				exec "! ./%<"
 			endif
 		elseif &filetype == "python"
-			exec "!python3 %<.py"
+			exec "!python3 %"
 		elseif &filetype == "java"
 			exec "!java %<"
+		elseif &filetype == "sh"
+			exec "!bash %"
 		elseif &filetype == "vb"
 			exec "!mono %<.exe"
 		elseif &filetype == "cs"
