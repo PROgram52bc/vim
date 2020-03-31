@@ -266,7 +266,7 @@ call vimtex#imaps#add_map({
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<c-b>"
 let g:UltiSnipsJumpBackwardTrigger="<c-z>"
-let g:UltiSnipsSnippetDirectories=[$HOME."/.vim/UltiSnips"]
+let g:UltiSnipsSnippetDirectories=["UltiSnips"]
 
 " If you want :UltiSnipsEdit to split your window.
 let g:UltiSnipsEditSplit="vertical"
