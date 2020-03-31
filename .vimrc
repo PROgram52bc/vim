@@ -177,6 +177,8 @@ Plugin 'prettier/vim-prettier'
 Plugin 'thinca/vim-visualstar'
 Plugin 'lervag/vimtex'
 Plugin 'aymericbeaumet/vim-symlink'			"Automatically resolve the symlink
+Plugin 'SirVer/ultisnips'
+Plugin 'honza/vim-snippets'
 " Plugin 'szw/vim-ctrlspace' 				"Too big, bug on open in tabs
 " Plugin 'shepherdwind/vim-velocity'
 " Plugin 'jiangmiao/auto-pairs.git'
@@ -259,6 +261,14 @@ call vimtex#imaps#add_map({
 			\})
 
 " END vimtex settings }}}
+
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+let g:UltiSnipsSnippetDirectories=["UltiSnips"]
+
+" If you want :UltiSnipsEdit to split your window.
+let g:UltiSnipsEditSplit="vertical"
 
 " END Plugin settings -------- }}}
 
