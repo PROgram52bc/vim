@@ -231,7 +231,6 @@ let g:airline_symbols.branch = '⎇'
 let g:prettier#quickfix_enabled = 1 " Display the quickfix box for errors 
 let g:prettier#autoformat = 0 " Don't automatically format
 autocmd BufWritePre *.md,*.vue,*.yaml PrettierAsync " Auto run only on those files
-vnoremap <leader>p :PrettierAsync<cr> " allow block formatting
 let g:prettier#config#tab_width = 4 " number of spaces per indentation level
 let g:prettier#config#use_tabs = 'true' " use tabs over spaces
 let g:prettier#config#bracket_spacing = 'true' " print spaces between brackets
@@ -262,13 +261,18 @@ call vimtex#imaps#add_map({
 
 " END vimtex settings }}}
 
+" START ultisnips settings ------ {{{
+
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<c-b>"
 let g:UltiSnipsJumpBackwardTrigger="<c-z>"
-let g:UltiSnipsSnippetDirectories=["UltiSnips"]
+let g:UltiSnipsSnippetDirectories=[$HOME."/.vim/UltiSnips"]
 
 " If you want :UltiSnipsEdit to split your window.
 let g:UltiSnipsEditSplit="vertical"
+
+
+" END UltiSnips settings -------- }}}
 
 " END Plugin settings -------- }}}
 
@@ -335,6 +339,11 @@ nnoremap <leader>n :cnext<CR>
 nnoremap <leader>N :cprevious<CR>
 nnoremap <leader>ln :lnext<CR>
 nnoremap <leader>lp :lprevious<CR>
+
+nnoremap <leader>u :UltiSnipsEdit<CR>
+nnoremap <leader>U :UltiSnipsEdit!<CR>
+
+vnoremap <leader>p :PrettierAsync<cr> " allow block formatting
 " END common map settings -------- }}}
 
 
