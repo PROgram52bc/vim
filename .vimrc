@@ -220,6 +220,7 @@ let g:ctrlp_custom_ignore = {
   \ 'dir':  '\v[\/](__pycache__|node_modules|\.git|lib)$',
   \ 'file': '\v\.(pyc)$',
   \ }
+let g:ctrlp_show_hidden = 1
 
 " airline settings
 if !exists('g:airline_symbols')
