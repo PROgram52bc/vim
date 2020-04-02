@@ -7,14 +7,6 @@ else:
 `$2
 endsnippet
 
-snippet mk "Math" wA
-$${1}$`!p
-if t[2] and t[2][0] not in [',', '.', '?', '-', ' ']:
-    snip.rv = ' '
-else:
-    snip.rv = ''
-`$2
-endsnippet
 
 # from https://github.com/SirVer/ultisnips/issues/913#issuecomment-392086829
 global !p
@@ -26,3 +18,31 @@ post_expand "fix_indent(snip)"
 snippet it "Individual item" b
 \item $0
 endsnippet
+
+# from https://castel.dev/post/lecture-notes-1/#latex-snippets
+snippet mk "Math" wA
+$${1}$`!p
+if t[2] and t[2][0] not in [',', '.', '?', '-', ' ']:
+    snip.rv = ' '
+else:
+    snip.rv = ''
+`$2
+endsnippet
+
+snippet "([a-zA-Z])([0-9])" "add subscription" rwA
+`!p
+snip.rv = match.group(1) + '_' + match.group(2)
+`$0
+endsnippet
+
+snippet "([a-zA-Z])_([0-9]{2})" "add curly braces in subscription" rwA
+`!p
+snip.rv = match.group(1) + "_{" + match.group(2)
+`$1}$0
+endsnippet
+
+# FIXME: when backspacing, expansion is automatically triggered again <2020-04-02, David Deng> #
+# snippet '\\\\' "new line in matrix" rA
+# \\\\
+# $0
+# endsnippet
