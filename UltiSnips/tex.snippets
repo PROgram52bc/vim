@@ -1,0 +1,28 @@
+snippet vec "vector" w
+\vec{${1:u}}`!p
+if t[2]:
+	snip.rv = ' '
+else:
+	snip.rv = ''
+`$2
+endsnippet
+
+snippet mk "Math" wA
+$${1}$`!p
+if t[2] and t[2][0] not in [',', '.', '?', '-', ' ']:
+    snip.rv = ' '
+else:
+    snip.rv = ''
+`$2
+endsnippet
+
+# from https://github.com/SirVer/ultisnips/issues/913#issuecomment-392086829
+global !p
+def fix_indent(snip):
+    vim.eval('feedkeys("\<c-f>")')
+endglobal
+
+post_expand "fix_indent(snip)"
+snippet it "Individual item" b
+\item $0
+endsnippet
