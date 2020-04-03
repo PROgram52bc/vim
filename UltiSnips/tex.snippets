@@ -1,6 +1,6 @@
 snippet vec "vector" w
 \vec{${1:u}}`!p
-if t[2]:
+if t[2] and t[2][0] not in [',', '.', '?', '-', ' ']:
 	snip.rv = ' '
 else:
 	snip.rv = ''
@@ -14,9 +14,10 @@ def fix_indent(snip):
     vim.eval('feedkeys("\<c-f>")')
 endglobal
 
+# TODO: Add optional spacing after item <02-04-20, David Deng> #
 post_expand "fix_indent(snip)"
 snippet it "Individual item" b
-\item $0
+\item$0
 endsnippet
 
 # from https://castel.dev/post/lecture-notes-1/#latex-snippets
@@ -41,8 +42,4 @@ snip.rv = match.group(1) + "_{" + match.group(2)
 `$1}$0
 endsnippet
 
-# FIXME: when backspacing, expansion is automatically triggered again <2020-04-02, David Deng> #
-# snippet '\\\\' "new line in matrix" rA
-# \\\\
-# $0
-# endsnippet
+# TODO: implement mat command with visual transformation <02-04-20, David Deng> #
