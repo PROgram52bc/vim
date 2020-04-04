@@ -1,19 +1,27 @@
 global !p
+from UltiSnips.indent_util import IndentUtil
 def generate_print_snippet(snip):
-	count = int(snip.buffer[snip.line])
-	snip.buffer[snip.line] = ''
+	line = snip.buffer[snip.line]
+	count = int(line)
+	# Remove the trailing numbers directly, rather than reindent the line; since this function does not need to be compatible else where, so tight coupling with the specific snippet is accepted.
+	snip.buffer[snip.line] = re.sub(r"\d+$", "", line)
+
+	# generate a snippet of the following form
 	# print("${1:var1}: {}\n${2:var2}: {}\n".format($1, $2))
 	prefix = 'var'
-	snippet = 'print("' + \
-			"".join(['${{{:d}:{:s}{:d}}}: {{}}\\n'.format(i,prefix,i) for i in range(1, count+1)]) + \
-			'".format(' + \
-			", ".join(['${:d}'.format(i) for i in range(1, count+1)]) + \
-			'))$0'
+	snippet = ('print("' +
+			"".join(['${{{:d}:{:s}{:d}}}: {{}}\\n'.format(i,prefix,i) for i in range(1, count+1)]) +
+			'"' +
+			('\n\t' if count >= 2 else '') + # new line if more than 2 variables
+			'.format(' +
+			", ".join(['${:d}'.format(i) for i in range(1, count+1)]) +
+			'))$0')
 	snip.expand_anon(snippet)
 endglobal
 
 post_jump "generate_print_snippet(snip)"
-snippet "print(\d+)" "print x variables" br
+snippet "pr(\d+)?" "print x variables" br
 `!p
-snip.rv = match.group(1)`
+snip.rv = match.group(1) if match.group(1) else 1`
 endsnippet
+
