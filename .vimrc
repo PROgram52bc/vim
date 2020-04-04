@@ -1,3 +1,5 @@
+" START Custom function -------- {{{
+
 " START compile function -------- {{{
 func! CompileGcc()
 	exec "w"
@@ -102,6 +104,17 @@ imap <F5> <ESC>:call CompileCode()<CR>
 vmap <F5> <ESC>:call CompileCode()<CR>
 map <F6> :call RunResult()<CR>
 " END compile function -------- }}}
+
+" START Terminal function -------- {{{
+
+" END Terminal function -------- }}}
+func! OpenNewTerminal()
+	" TODO: Add terminal environment detection and activate only if
+	" gnome-terminal is available <2020-04-04, David Deng> "
+	exec "!gnome-terminal --working-directory='%:p:h'"
+endfunc
+
+" END Custom function -------- }}}
 
 " START Common settings -------- {{{
 syntax on					" display syntax
@@ -348,6 +361,7 @@ nnoremap <leader>u :UltiSnipsEdit<CR>
 nnoremap <leader>U :UltiSnipsEdit!<CR>
 
 vnoremap <leader>p :PrettierAsync<cr> " allow block formatting
+nnoremap <leader>t :call OpenNewTerminal()<CR>
 " END common map settings -------- }}}
 
 
