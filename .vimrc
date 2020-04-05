@@ -106,14 +106,19 @@ map <F6> :call RunResult()<CR>
 " END compile function -------- }}}
 
 " START Terminal function -------- {{{
-
-" END Terminal function -------- }}}
 func! OpenNewTerminal()
 	" TODO: Add terminal environment detection and activate only if
 	" gnome-terminal is available <2020-04-04, David Deng> "
 	exec "!gnome-terminal --working-directory='%:p:h'"
 endfunc
 
+func! OpenNewWindow()
+    " Assuming nautilus is the file explorer
+    exec "!nautilus %:p:h &"
+endfunc
+
+
+" END Terminal function -------- }}}
 " END Custom function -------- }}}
 
 " START Common settings -------- {{{
@@ -362,6 +367,7 @@ nnoremap <leader>U :UltiSnipsEdit!<CR>
 
 vnoremap <leader>p :PrettierAsync<cr> " allow block formatting
 nnoremap <leader>t :call OpenNewTerminal()<CR>
+nnoremap <leader>w :call OpenNewWindow()<CR>
 " END common map settings -------- }}}
 
 
