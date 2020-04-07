@@ -11,7 +11,7 @@ endsnippet
 # from https://github.com/SirVer/ultisnips/issues/913#issuecomment-392086829
 global !p
 def fix_indent(snip):
-    vim.eval('feedkeys("\<c-f>")')
+	vim.eval('feedkeys("\<c-f>")')
 endglobal
 
 # TODO: Add optional spacing after item <02-04-20, David Deng> #
@@ -24,9 +24,9 @@ endsnippet
 snippet mk "Math" wA
 $${1}$`!p
 if t[2] and t[2][0] not in [',', '.', '?', '-', ' ']:
-    snip.rv = ' '
+	snip.rv = ' '
 else:
-    snip.rv = ''
+	snip.rv = ''
 `$2
 endsnippet
 
@@ -42,4 +42,29 @@ snip.rv = match.group(1) + "_{" + match.group(2)
 `$1}$0
 endsnippet
 
-# TODO: implement mat command with visual transformation <02-04-20, David Deng> #
+global !p
+def transform_matrix_body(snip):
+	body = snip.v.text
+	if not body:
+		return
+	# remove all indent
+	body = re.sub(r'^\s+', '', body, flags=re.M)
+	# replace spacing between numbers with ' & '
+	body = re.sub(r'(\d+)[\t ]+(?=\d+)', r'\1 & ', body)
+	# replace new line with double back slash '\\'
+	body = re.sub(r'\n(?=.)', r'\\\\\n', body)
+	# indent the lines
+	lines = body.splitlines()
+	snip.rv = lines[0]
+	snip >> 1
+	for line in body.splitlines()[1:]:
+		snip += line
+		pass
+endglobal
+
+# Borrowed from texmath.snippets
+snippet matr "matrix with visual expansion" b
+\begin{${1:p/b/v/V/B/small}matrix}
+	${2:`!p transform_matrix_body(snip)`}
+\end{$1matrix}$0
+endsnippet
