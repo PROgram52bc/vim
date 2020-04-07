@@ -14,10 +14,14 @@ def fix_indent(snip):
 	vim.eval('feedkeys("\<c-f>")')
 endglobal
 
-# TODO: Add optional spacing after item <02-04-20, David Deng> #
 post_expand "fix_indent(snip)"
 snippet it "Individual item" b
-\item$0
+\item`!p
+if t[1] and t[1][0] == '\n':
+	snip.rv = ''
+else:
+	snip.rv = ' '
+`$1
 endsnippet
 
 # from https://castel.dev/post/lecture-notes-1/#latex-snippets
