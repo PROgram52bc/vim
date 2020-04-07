@@ -54,8 +54,8 @@ def transform_matrix_body(snip):
 		return
 	# remove all indent
 	body = re.sub(r'^\s+', '', body, flags=re.M)
-	# replace spacing between numbers with ' & '
-	body = re.sub(r'(\d+)[\t ]+(?=\d+)', r'\1 & ', body)
+	# replace spacing between non-space characters with ' & '
+	body = re.sub(r'(\S+)[\t ]+(?=\S+)', r'\1 & ', body)
 	# replace new line with double back slash '\\'
 	body = re.sub(r'\n(?=.)', r'\\\\\n', body)
 	# indent the lines
