@@ -1,6 +1,10 @@
+global !p
+def is_punctuation(c):
+	return c in [',', '.', '?', '-', ' ', "'"]
+endglobal
 snippet vec "vector" w
-\vec{${1:u}}`!p
-if t[2] and t[2][0] not in [',', '.', '?', '-', ' ']:
+\vec{${1:${VISUAL:u}}}`!p
+if t[2] and not is_punctuation(t[2][0]):
 	snip.rv = ' '
 else:
 	snip.rv = ''
@@ -28,7 +32,7 @@ endsnippet
 snippet mk "Math" wA
 $${1}`!p
 if t[1] and t[1][0] == '\n': snip += ''`$`!p
-if t[2] and t[2][0] not in [',', '.', '?', '-', ' ']:
+if t[2] and not is_punctuation(t[2][0]):
 	snip.rv = ' '
 else:
 	snip.rv = ''

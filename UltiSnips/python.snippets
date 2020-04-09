@@ -10,7 +10,7 @@ def generate_print_snippet(snip):
 	# print("${1:var1}: {}\n${2:var2}: {}\n".format($1, $2))
 	prefix = 'var'
 	snippet = ('print("' +
-			"".join(['${{{:d}:{:s}{:d}}}: {{}}\\n'.format(i,prefix,i) for i in range(1, count+1)]) +
+			"\\n".join(['${{{:d}:{:s}{:d}}}: {{}}'.format(i,prefix,i) for i in range(1, count+1)]) +
 			'"' +
 			('\n\t' if count >= 2 else '') + # new line if more than 2 variables
 			'.format(' +
