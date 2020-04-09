@@ -195,7 +195,9 @@ Plugin 'prettier/vim-prettier'
 Plugin 'thinca/vim-visualstar'
 Plugin 'lervag/vimtex'
 Plugin 'aymericbeaumet/vim-symlink'			"Automatically resolve the symlink
-Plugin 'SirVer/ultisnips'
+if has('python3')
+	Plugin 'SirVer/ultisnips'
+endif
 Plugin 'honza/vim-snippets'
 " Plugin 'szw/vim-ctrlspace' 				"Too big, bug on open in tabs
 " Plugin 'shepherdwind/vim-velocity'
@@ -266,17 +268,19 @@ let g:vimtex_compiler_latexmk = {
 \}
 " Add custom imaps binding
 " Map <localleader>/ to \div
-call vimtex#imaps#add_map({
-			\ 'lhs' : '/',
-			\ 'rhs' : '\div',
-			\ 'wrapper' : 'vimtex#imaps#wrap_math'
-			\})
-" Map <localleader>- to \over
-call vimtex#imaps#add_map({
-			\ 'lhs' : '-',
-			\ 'rhs' : '\over',
-			\ 'wrapper' : 'vimtex#imaps#wrap_math'
-			\})
+if exists('vimtex#imaps#add_map')
+	call vimtex#imaps#add_map({
+				\ 'lhs' : '/',
+				\ 'rhs' : '\div',
+				\ 'wrapper' : 'vimtex#imaps#wrap_math'
+				\})
+	" Map <localleader>- to \over
+	call vimtex#imaps#add_map({
+				\ 'lhs' : '-',
+				\ 'rhs' : '\over',
+				\ 'wrapper' : 'vimtex#imaps#wrap_math'
+				\})
+endif
 
 " END vimtex settings }}}
 
