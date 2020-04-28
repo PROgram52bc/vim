@@ -185,6 +185,7 @@ Plugin 'scrooloose/nerdtree'
 Plugin 'kien/ctrlp.vim.git'
 Plugin 'bling/vim-airline'
 Plugin 'tpope/vim-surround.git'
+Plugin 'wellle/targets.vim'
 Plugin 'tpope/vim-repeat'
 Plugin 'raimondi/delimitmate'
 Plugin 'gregsexton/MatchTag'
@@ -268,7 +269,7 @@ let g:vimtex_compiler_latexmk = {
 \}
 " Add custom imaps binding
 " Map <localleader>/ to \div
-if exists('vimtex#imaps#add_map')
+if exists('*vimtex#imaps#add_map')
 	call vimtex#imaps#add_map({
 				\ 'lhs' : '/',
 				\ 'rhs' : '\div',
@@ -331,6 +332,12 @@ augroup latex_related
 	autocmd FileType tex let b:delimitMate_autoclose = 0
 	" overriding the default behavior of '{' to surround text with '\{...\}'
 	autocmd FileType tex let b:surround_{char2nr("{")} = "\\{\r\\}"
+	" TODO: override in latex file the target '{' to be '\{\}'. Investigate
+	" how to combine FileType and User autocmd 
+	" https://github.com/wellle/targets.vim#targetsmappingsextend <2020-04-28, David Deng> "
+	" autocmd FileType tex autocmd User targets#mappings#user call targets#mappings#extend({
+    " \ '{': {'pair': [{'o':'\\{', '\\}':')'}]}
+    " \ })
 augroup END
 
 " END autocmd settings -------- }}}
