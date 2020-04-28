@@ -329,6 +329,8 @@ augroup latex_related
 	autocmd!
 	autocmd FileType tex nnoremap <F7> :LLPStartPreview<CR>
 	autocmd FileType tex let b:delimitMate_autoclose = 0
+	" overriding the default behavior of '{' to surround text with '\{...\}'
+	autocmd FileType tex let b:surround_{char2nr("{")} = "\\{\r\\}"
 augroup END
 
 " END autocmd settings -------- }}}
