@@ -124,7 +124,7 @@ endfunc
 " START Common settings -------- {{{
 syntax on					" display syntax
 set background=dark			" dark background
-set number				  	" display line number
+set number relativenumber	" display relative line number
 set incsearch			   	" dynamically show result while typing the search
 set ignorecase			  	" ignore case in search
 set smartcase				" ignore case, but not when there is upper case in searched word
