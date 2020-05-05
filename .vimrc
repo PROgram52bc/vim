@@ -248,6 +248,11 @@ if !exists('g:airline_symbols')
 	let g:airline_symbols = {}
 endif
 let g:airline_symbols.branch = '⎇'
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#fnamemod = ':t'
+let g:airline#extensions#tabline#buffer_nr_show = 1
+let g:airline#extensions#tabline#show_tabs = 0
+let g:airline#extensions#tabline#switch_buffers_and_tabs = 1
 
 " START Prettier settings ------ {{{
 let g:prettier#quickfix_enabled = 1 " Display the quickfix box for errors 
@@ -381,8 +386,29 @@ nnoremap <leader>U :UltiSnipsEdit!<CR>
 vnoremap <leader>p :PrettierAsync<cr> " allow block formatting
 nnoremap <leader>t :call OpenNewTerminal()<CR>
 nnoremap <leader>w :call OpenNewWindow()<CR>
-" END common map settings -------- }}}
 
+" 4gb => switch to buffer 4
+" ,bn => switch to next buffer
+nnoremap gb 		:<C-U>exe (v:count ? "b ".v:count : "bnext")<CR>
+nnoremap <leader>bn :<C-U>exe (v:count ? "b ".v:count : "bnext")<CR>
+
+" go to previous buffer
+nnoremap gB :bN<CR>
+nnoremap <leader>bN :bNext<CR>
+
+" go to last accessed buffer
+nnoremap gp :b#<CR>
+nnoremap <leader>bp :b#<CR>
+
+" list all buffers
+nnoremap <leader>bl :ls<CR>
+
+" 4,bd => delete buffer 4
+" ,bd => delete current buffer
+nnoremap <silent> <leader>bd 	:<C-U>exe "bd".(v:count ? " ".v:count : "")<CR>  
+nnoremap <silent> gd 			:<C-U>exe "bd".(v:count ? " ".v:count : "")<CR>  
+
+" END common map settings -------- }}}
 
 " START vim programming practice/notes -------- {{{
 
