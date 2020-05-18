@@ -72,6 +72,25 @@ def transform_matrix_body(snip):
 	for line in body.splitlines()[1:]:
 		snip += line
 		pass
+
+def transform_list_body(snip):
+	body = snip.v.text
+	if not body:
+		snip.rv = r'\item '
+		return
+	# remove all indent
+	body = re.sub(r'^\s+', '', body, flags=re.M)
+	# remove all trailing spaces
+	body = re.sub(r'\s+$', '', body, flags=re.M)
+	# add \item in front of each line
+	body = re.sub(r'^', r'\item ', body, flags=re.M)
+	# indent the lines
+	lines = body.splitlines()
+	snip.rv = lines[0]
+	snip >> 1
+	for line in body.splitlines()[1:]:
+		snip += line
+		pass
 endglobal
 
 # Borrowed from texmath.snippets
@@ -97,4 +116,16 @@ endsnippet
 
 snippet text "text" w
 \text{${1:${VISUAL:text here}}}$0
+endsnippet
+
+snippet enum "enumerate environment with visual expansion" b
+\begin{enumerate}
+	`!p transform_list_body(snip) or r'\item '`$1
+\end{enumerate}$0
+endsnippet
+
+snippet item "itemize environment with visual expansion" b
+\begin{itemize}
+	`!p transform_list_body(snip) or r'\item '`$1
+\end{itemize}$0
 endsnippet
