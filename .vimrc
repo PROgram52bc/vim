@@ -287,6 +287,7 @@ if exists('*vimtex#imaps#add_map')
 				\ 'wrapper' : 'vimtex#imaps#wrap_math'
 				\})
 endif
+let g:tex_flavor = 'latex'
 
 " END vimtex settings }}}
 
