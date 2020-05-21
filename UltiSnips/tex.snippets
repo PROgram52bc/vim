@@ -82,8 +82,8 @@ def transform_list_body(snip):
 	body = re.sub(r'^\s+', '', body, flags=re.M)
 	# remove all trailing spaces
 	body = re.sub(r'\s+$', '', body, flags=re.M)
-	# add \item in front of each line
-	body = re.sub(r'^', r'\item ', body, flags=re.M)
+	# add \item in front of each line if not already there
+	body = re.sub(r'^(?!\\item )', r'\item ', body, flags=re.M)
 	# indent the lines
 	lines = body.splitlines()
 	snip.rv = lines[0]
