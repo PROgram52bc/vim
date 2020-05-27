@@ -132,7 +132,7 @@ set autoindent			  	" apply current indent to the new line
 set smartindent			 	" c-style autoindent on new line
 set laststatus=2			" always show status line
 set history=1000			" maximum commandline entries remembered
-set backspace=2				" same as set backspace="indent,eol,start". allow backspace over original text in insert mode 
+set backspace=2				" same as set backspace="indent,eol,start". allow backspace over original text in insert mode
 set showmatch			   	" show matching parenthesis briefly when paired up
 set noexpandtab			   	" set tab behavior
 set tabstop=4
@@ -255,7 +255,7 @@ let g:airline#extensions#tabline#show_tabs = 0
 let g:airline#extensions#tabline#switch_buffers_and_tabs = 1
 
 " START Prettier settings ------ {{{
-let g:prettier#quickfix_enabled = 1 " Display the quickfix box for errors 
+let g:prettier#quickfix_enabled = 1 " Display the quickfix box for errors
 let g:prettier#autoformat = 0 " Don't automatically format
 autocmd BufWritePre *.md,*.vue,*.yaml PrettierAsync " Auto run only on those files
 let g:prettier#config#tab_width = 4 " number of spaces per indentation level
@@ -332,14 +332,14 @@ augroup md_related
 	autocmd FileType markdown nnoremap <F7> :MarkdownPreview<CR>
 	autocmd FileType markdown let b:delimitMate_matchpairs = "(:),[:],{:}"
 augroup END
-augroup latex_related 
+augroup latex_related
 	autocmd!
 	autocmd FileType tex nnoremap <F7> :LLPStartPreview<CR>
 	autocmd FileType tex let b:delimitMate_autoclose = 0
 	" overriding the default behavior of '{' to surround text with '\{...\}'
 	autocmd FileType tex let b:surround_{char2nr("{")} = "\\{\r\\}"
 	" TODO: override in latex file the target '{' to be '\{\}'. Investigate
-	" how to combine FileType and User autocmd 
+	" how to combine FileType and User autocmd
 	" https://github.com/wellle/targets.vim#targetsmappingsextend <2020-04-28, David Deng> "
 	" autocmd FileType tex autocmd User targets#mappings#user call targets#mappings#extend({
     " \ '{': {'pair': [{'o':'\\{', '\\}':')'}]}
@@ -406,8 +406,8 @@ nnoremap <leader>bl :ls<CR>
 
 " 4,bd => delete buffer 4
 " ,bd => delete current buffer
-nnoremap <silent> <leader>bd 	:<C-U>exe "bd".(v:count ? " ".v:count : "")<CR>  
-nnoremap <silent> gd 			:<C-U>exe "bd".(v:count ? " ".v:count : "")<CR>  
+nnoremap <silent> <leader>bd 	:<C-U>exe "bd".(v:count ? " ".v:count : "")<CR>
+nnoremap <silent> gd 			:<C-U>exe "bd".(v:count ? " ".v:count : "")<CR>
 
 " END common map settings -------- }}}
 
@@ -457,6 +457,8 @@ function! SetupEnvironment()
 	" for corpus christi project
 	if l:path =~ '/home/wallet/Documents/Taylor/corpus-christi'
 		setlocal expandtab " Use space instead of tabs in the project
+		let g:prettier#config#tab_width = 2
+		let g:prettier#config#use_tabs = 0
 		if &filetype == 'vue' || &filetype == 'javascript' " for vue/js files, tab is 2 spaces
 			setlocal tabstop=2 shiftwidth=2
 		else " for other(e.g. python) files, tab is 4 spaces
