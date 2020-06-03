@@ -178,7 +178,6 @@ Plugin 'VundleVim/Vundle.vim'
 " Avoid a name conflict with L9
 "Plugin 'user/L9', {'name': 'newL9'}
 
-Plugin 'posva/vim-vue'
 Plugin 'alvan/vim-closetag'
 Plugin 'scrooloose/syntastic'
 Plugin 'scrooloose/nerdtree'
@@ -200,6 +199,10 @@ if has('python3')
 	Plugin 'SirVer/ultisnips'
 endif
 Plugin 'honza/vim-snippets'
+Plugin 'tpope/vim-abolish'
+Plugin 'posva/vim-vue'
+" Plugin 'leafOfTree/vim-vue-plugin' 		"Alternative plugin for vue
+Plugin 'leafgarland/typescript-vim'
 " Plugin 'szw/vim-ctrlspace' 				"Too big, bug on open in tabs
 " Plugin 'shepherdwind/vim-velocity'
 " Plugin 'jiangmiao/auto-pairs.git'
@@ -257,14 +260,14 @@ let g:airline#extensions#tabline#switch_buffers_and_tabs = 1
 " START Prettier settings ------ {{{
 let g:prettier#quickfix_enabled = 1 " Display the quickfix box for errors
 let g:prettier#autoformat = 0 " Don't automatically format
-autocmd BufWritePre *.md,*.vue,*.yaml PrettierAsync " Auto run only on those files
-let g:prettier#config#tab_width = 4 " number of spaces per indentation level
-let g:prettier#config#use_tabs = 'true' " use tabs over spaces
-let g:prettier#config#bracket_spacing = 'true' " print spaces between brackets
-let g:prettier#config#semi = 'true' " print semicolons
-let g:prettier#config#single_quote = 'true' " single quotes over double quotes
-let g:prettier#config#jsx_bracket_same_line = 'true' " put > on the last line instead of new line
-
+let g:prettier#autoformat_config_present = 1 " Automatically format when there is a config file
+" Below removed temporarily for project-wise config files to take effect
+" let g:prettier#config#tab_width = 4 " number of spaces per indentation level
+" let g:prettier#config#use_tabs = 'true' " use tabs over spaces
+" let g:prettier#config#bracket_spacing = 'true' " print spaces between brackets
+" let g:prettier#config#semi = 'true' " print semicolons
+" let g:prettier#config#single_quote = 'true' " single quotes over double quotes
+" let g:prettier#config#jsx_bracket_same_line = 'true' " put > on the last line instead of new line
 " END Prettier settings }}}
 
 " START vimtex settings ------ {{{
@@ -290,6 +293,8 @@ endif
 let g:tex_flavor = 'latex'
 
 " END vimtex settings }}}
+
+let g:vue_pre_processors = [] "Make vue processing faster
 
 " START ultisnips settings ------ {{{
 
@@ -457,9 +462,10 @@ function! SetupEnvironment()
 	" for corpus christi project
 	if l:path =~ '/home/wallet/Documents/Taylor/corpus-christi'
 		setlocal expandtab " Use space instead of tabs in the project
-		let g:prettier#config#tab_width = 2
-		let g:prettier#config#use_tabs = 0
-		if &filetype == 'vue' || &filetype == 'javascript' " for vue/js files, tab is 2 spaces
+		if &filetype == 'vue' ||
+					\ &filetype == 'javascript' || 
+					\ &filetype == 'yaml' || 
+					\ &filetype == 'typescript' " for vue/js/yaml files, tab is 2 spaces
 			setlocal tabstop=2 shiftwidth=2
 		else " for other(e.g. python) files, tab is 4 spaces
 			setlocal tabstop=4 shiftwidth=4
