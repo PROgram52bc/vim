@@ -119,6 +119,9 @@ endfunc
 
 
 " END Terminal function -------- }}}
+
+command! BuildCtags :!ctags -R .
+
 " END Custom function -------- }}}
 
 " START Common settings -------- {{{
@@ -142,6 +145,9 @@ set hidden					" keep closed buffers. required by CtrlSpace
 set hlsearch				" highlight search
 set foldmethod=syntax	   	" fold according to syntax highlighting items
 set foldcolumn=1			" display folder column
+
+set path+=**				" search all subdirectories recursively
+set wildmenu				" display option list when using tab completion
 
 "set ruler				   	" show status line at the bottom, this is automatically enabled by vim-airline
 "set showcmd				" show the command typed. no effect when vim-airline is enabled
@@ -180,11 +186,11 @@ Plugin 'VundleVim/Vundle.vim'
 
 Plugin 'alvan/vim-closetag'
 Plugin 'scrooloose/syntastic'
+Plugin 'mtscout6/syntastic-local-eslint.vim'
 Plugin 'scrooloose/nerdtree'
 Plugin 'kien/ctrlp.vim.git'
 Plugin 'bling/vim-airline'
 Plugin 'tpope/vim-surround.git'
-Plugin 'wellle/targets.vim'
 Plugin 'tpope/vim-repeat'
 Plugin 'raimondi/delimitmate'
 Plugin 'gregsexton/MatchTag'
@@ -203,6 +209,10 @@ Plugin 'tpope/vim-abolish'
 Plugin 'posva/vim-vue'
 " Plugin 'leafOfTree/vim-vue-plugin' 		"Alternative plugin for vue
 Plugin 'leafgarland/typescript-vim'
+Plugin 'tpope/vim-commentary'
+Plugin 'tommcdo/vim-exchange'
+Plugin 'vim-scripts/ReplaceWithRegister'
+" Plugin 'jaxbot/github-issues.vim'
 " Plugin 'szw/vim-ctrlspace' 				"Too big, bug on open in tabs
 " Plugin 'shepherdwind/vim-velocity'
 " Plugin 'jiangmiao/auto-pairs.git'
@@ -234,6 +244,8 @@ nnoremap <C-n> :NERDTreeFind<CR>
 let g:syntastic_python_checkers = ['python']
 let g:syntastic_python_python_exec = 'python3'
 let g:syntastic_cpp_compiler_options = ' -std=c++11 -stdlib=libc++'
+let g:syntastic_javascript_checkers = ['eslint']
+let g:syntastic_javascript_eslint_exec = ['yarn lint -- ']
 let g:syntastic_mode_map = {"mode": "active", "passive_filetypes": ["asm"]}
 let g:delimitMate_expand_cr = 2
 let g:delimitMate_expand_space = 1
@@ -261,6 +273,7 @@ let g:airline#extensions#tabline#switch_buffers_and_tabs = 1
 let g:prettier#quickfix_enabled = 1 " Display the quickfix box for errors
 let g:prettier#autoformat = 0 " Don't automatically format
 let g:prettier#autoformat_config_present = 1 " Automatically format when there is a config file
+autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.yaml,*.html PrettierAsync
 " Below removed temporarily for project-wise config files to take effect
 " let g:prettier#config#tab_width = 4 " number of spaces per indentation level
 " let g:prettier#config#use_tabs = 'true' " use tabs over spaces
@@ -457,14 +470,36 @@ inoreabbrev makr mark
 " END vim programming practice/notes -------- }}}
 
 " START project specific settings -------- {{{
+function! Eslint(...)
+	if a:0 == 0
+		let l:entry = expand("%") 	" if no arguments, lint only the current file
+		let l:options = "" 
+	else
+		let l:entry = a:1			" otherwise, search for vue and js files
+		let l:options = "--ext js,vue "
+	endif
+	let l:cmd = "npx eslint -f unix " . l:options . shellescape(l:entry)
+	cexpr system(l:cmd)				" populate the quickfix list
+	if len(getqflist())
+		copen
+		let w:quickfix_title = l:cmd
+	else
+		echom "No linting error found :)"
+	endif
+endfunction
+
 function! SetupEnvironment()
 	let l:path = expand("%:p")
 	" for corpus christi project
-	if l:path =~ '/home/wallet/Documents/Taylor/corpus-christi'
+	if l:path =~ 'corpus-christi'
+		command! -nargs=? -complete=file Eslint call Eslint(<f-args>)
+		nnoremap <leader>e :Eslint<cr>
+		" autocmd BufWritePost *.vue make
 		setlocal expandtab " Use space instead of tabs in the project
 		if &filetype == 'vue' ||
 					\ &filetype == 'javascript' || 
 					\ &filetype == 'yaml' || 
+					\ &filetype == 'json' || 
 					\ &filetype == 'typescript' " for vue/js/yaml files, tab is 2 spaces
 			setlocal tabstop=2 shiftwidth=2
 		else " for other(e.g. python) files, tab is 4 spaces
