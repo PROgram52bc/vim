@@ -57,47 +57,47 @@ func! CompileGpp()
 endfunc
 
 func! CompileCode()
-		exec "w"
-		if &filetype == "cpp"
-			exec "call CompileGpp()"
-		elseif &filetype == "c"
-			exec "call CompileGcc()"
-		elseif &filetype == "vb"
-			exec "!vbnc %"
-		elseif &filetype == "cs"
-			exec "!mcs %"
-		elseif &filetype == "java"
-			exec "!javac %"
-		endif
+	exec "w"
+	if &filetype == "cpp"
+		exec "call CompileGpp()"
+	elseif &filetype == "c"
+		exec "call CompileGcc()"
+	elseif &filetype == "vb"
+		exec "!vbnc %"
+	elseif &filetype == "cs"
+		exec "!mcs %"
+	elseif &filetype == "java"
+		exec "!javac %"
+	endif
 endfunc
 
 func! RunResult()
-		exec "w"
-		if search("mpi\.h") != 0
-			exec "!mpirun -np 4 ./%<"
-		elseif &filetype == "cpp"
-			if expand("%<") =~ "^/"
-				exec "! %<"
-			else
-				exec "! ./%<"
-			endif
-		elseif &filetype == "c"
-			if expand("%<") =~ "^/"
-				exec "! %<"
-			else
-				exec "! ./%<"
-			endif
-		elseif &filetype == "python"
-			exec "!python3 %"
-		elseif &filetype == "java"
-			exec "!java %<"
-		elseif &filetype == "sh"
-			exec "!bash %"
-		elseif &filetype == "vb"
-			exec "!mono %<.exe"
-		elseif &filetype == "cs"
-			exec "!mono %<.exe"
+	exec "w"
+	if search("mpi\.h") != 0
+		exec "!mpirun -np 4 ./%<"
+	elseif &filetype == "cpp"
+		if expand("%<") =~ "^/"
+			exec "! %<"
+		else
+			exec "! ./%<"
 		endif
+	elseif &filetype == "c"
+		if expand("%<") =~ "^/"
+			exec "! %<"
+		else
+			exec "! ./%<"
+		endif
+	elseif &filetype == "python"
+		exec "!python3 %"
+	elseif &filetype == "java"
+		exec "!java %<"
+	elseif &filetype == "sh"
+		exec "!bash %"
+	elseif &filetype == "vb"
+		exec "!mono %<.exe"
+	elseif &filetype == "cs"
+		exec "!mono %<.exe"
+	endif
 endfunc
 map <F5> :call CompileCode()<CR>
 imap <F5> <ESC>:call CompileCode()<CR>
@@ -113,8 +113,8 @@ func! OpenNewTerminal()
 endfunc
 
 func! OpenNewWindow()
-    " Assuming nautilus is the file explorer
-    exec "!nautilus %:p:h &"
+	" Assuming nautilus is the file explorer
+	exec "!nautilus %:p:h &"
 endfunc
 
 
@@ -225,9 +225,9 @@ let g:closetag_filenames = '*.vtl,*.html,*.xhtml,*.phtml,*.vue,*.md'
 let g:ctrlp_map='<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
 let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\v[\/](__pycache__|node_modules|\.git|lib)$',
-  \ 'file': '\v\.(pyc|swp)$',
-  \ }
+			\ 'dir':  '\v[\/](__pycache__|node_modules|\.git|lib)$',
+			\ 'file': '\v\.(pyc|swp)$',
+			\ }
 let g:ctrlp_show_hidden = 1
 
 " airline settings
@@ -284,8 +284,8 @@ let g:sandwich#recipes += [
 " START vimtex settings ------ {{{
 " Output directory for build
 let g:vimtex_compiler_latexmk = {
-	\ 'build_dir' : 'build',
-\}
+			\ 'build_dir' : 'build',
+			\}
 " Add custom imaps binding
 " Map <localleader>/ to \div
 if exists('*vimtex#imaps#add_map')
@@ -356,8 +356,8 @@ augroup latex_related
 	" how to combine FileType and User autocmd
 	" https://github.com/wellle/targets.vim#targetsmappingsextend <2020-04-28, David Deng> "
 	" autocmd FileType tex autocmd User targets#mappings#user call targets#mappings#extend({
-    " \ '{': {'pair': [{'o':'\\{', '\\}':')'}]}
-    " \ })
+	" \ '{': {'pair': [{'o':'\\{', '\\}':')'}]}
+	" \ })
 augroup END
 
 " END autocmd settings -------- }}}
@@ -370,7 +370,7 @@ function! ToggleFoldcolumn(...)
 	if ! width
 		let &l:foldcolumn = &l:foldcolumn ? 0 : 1
 		echom "Toggling foldcolumn"
-	" else display the specified width
+		" else display the specified width
 	else
 		let &l:foldcolumn = width
 		echom "Setting foldcolumn to ".width
