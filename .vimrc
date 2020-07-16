@@ -180,6 +180,7 @@ Plug 'tommcdo/vim-exchange'
 Plug 'tpope/vim-abolish'
 Plug 'vim-scripts/ReplaceWithRegister'
 Plug 'wellle/targets.vim'
+Plug 'machakann/vim-swap'
 
 " Completion/snippets
 Plug 'raimondi/delimitmate'
