@@ -255,6 +255,32 @@ autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.gra
 " let g:prettier#config#jsx_bracket_same_line = 'true' " put > on the last line instead of new line
 " END Prettier settings }}}
 
+" START Sandwich settings ------ {{{
+let g:sandwich#recipes = deepcopy(g:sandwich#default_recipes)
+let g:sandwich#recipes += [
+			\   {'buns': ['{ ', ' }'], 'nesting': 1, 'match_syntax': 1,
+			\    'kind': ['add', 'replace'], 'action': ['add'], 'input': ['{']},
+			\
+			\   {'buns': ['[ ', ' ]'], 'nesting': 1, 'match_syntax': 1,
+			\    'kind': ['add', 'replace'], 'action': ['add'], 'input': ['[']},
+			\
+			\   {'buns': ['( ', ' )'], 'nesting': 1, 'match_syntax': 1,
+			\    'kind': ['add', 'replace'], 'action': ['add'], 'input': ['(']},
+			\
+			\   {'buns': ['{\s*', '\s*}'],   'nesting': 1, 'regex': 1,
+			\    'match_syntax': 1, 'kind': ['delete', 'replace', 'textobj'],
+			\    'action': ['delete'], 'input': ['{']},
+			\
+			\   {'buns': ['\[\s*', '\s*\]'], 'nesting': 1, 'regex': 1,
+			\    'match_syntax': 1, 'kind': ['delete', 'replace', 'textobj'],
+			\    'action': ['delete'], 'input': ['[']},
+			\
+			\   {'buns': ['(\s*', '\s*)'],   'nesting': 1, 'regex': 1,
+			\    'match_syntax': 1, 'kind': ['delete', 'replace', 'textobj'],
+			\    'action': ['delete'], 'input': ['(']},
+			\ ]
+" END Sandwich settings }}}
+
 " START vimtex settings ------ {{{
 " Output directory for build
 let g:vimtex_compiler_latexmk = {
