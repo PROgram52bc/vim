@@ -52,47 +52,40 @@ else
 	echo "Undetected file type $HOME/.vimrc, symlink not created"
 fi
 
-# Install Vundle
-VUNDLEPATH=$HOME/.vim/bundle/Vundle.vim
-VUNDLELINK=https://github.com/VundleVim/Vundle.vim.git 
-ls $VUNDLEPATH 1>/dev/null 2>&1
-if [ $? -eq 0 ]; then # if Vundle installed
-	echo "Vundle detected in $VUNDLEPATH."
+# Install Plug
+PLUGPATH=$HOME/.vim/autoload/plug.vim
+PLUGLINK=https://github.com/junegunn/vim-plug.git
+ls $PLUGPATH 1>/dev/null 2>&1
+if [ $? -eq 0 ]; then # if Plug installed
+	echo "Plug detected in $PLUGPATH."
 else
 	while true; do
 		echo
-		echo "Vundle not detected, install it now? (requires network)"
+		echo "Plug not detected, install it now? (requires network)"
 		echo "y) yes, install"
 		echo "*) no, don't install now"
 		read -n 1 answer
 		echo
 		case $answer in
 			y)
-				mkdir -p ${VUNDLEPATH%/*}
-				echo "Start Installing vundle"
-				echo "cloning from $VUNDLELINK..."
-				git clone $VUNDLELINK $VUNDLEPATH 1>/dev/null 2>&1 && echo "Vundle installed in $VUNDLEPATH" || echo "Failed to install Vundle"
+				mkdir -p ${PLUGPATH%/*}
+				echo "Start Installing Plug"
+				echo "cloning from $PLUGLINK..."
+				curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+				if [ $? -eq 0 ]; then
+					echo "Plug installed in $PLUGPATH" 
+				else
+					echo "Failed to install Plug"
+				fi
 				break
 				;;
 			*)
 				echo
-				echo "Not install vundle"
+				echo "Not install plug"
 				break
 				;;
 		esac
 	done
-fi
-
-# temporary solution: install prettier (should be done with vim plugin manager's post-install hook)
-PRETTIERPATH=$HOME/.vim/bundle/vim-prettier
-if [ ! -d "${PRETTIERPATH}" ]; then # if prettier not installed
-	echo "Prettier not installed (install with Vundle by executing :PluginInstall in vim)"
-elif [ ! -d "${PRETTIERPATH}/node_modules" ]; then # if prettier installed but not built
-	cd $PRETTIERPATH
-	echo "Building prettier..."
-	npm install 1>/dev/null 2>&1 && echo "Prettier built in $PRETTIERPATH" || "Failed to install prettier"
-else
-	echo "Prettier already built."
 fi
 
 # Set up UltiSnips

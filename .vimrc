@@ -156,91 +156,63 @@ set wildmenu				" display option list when using tab completion
 
 " END Common settings --------- }}}
 
-" START Vundle setting -------- {{{
+" START Plug setting -------- {{{
 " set the runtime path to include Vundle and initialize
-set nocompatible
-filetype off				  " required
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-" alternatively, pass a path where Vundle should install plugins
-"call vundle#begin('~/some/path/here')
 
-" let Vundle manage Vundle, required
-Plugin 'VundleVim/Vundle.vim'
+call plug#begin('~/.vim/bundle')
 
-" The following are examples of different formats supported.
-" Keep Plugin commands between vundle#begin/end.
-" plugin on GitHub repo
-"Plugin 'tpope/vim-fugitive'
-" plugin from http://vim-scripts.org/vim/scripts.html
-"Plugin 'L9'
-" Git plugin not hosted on GitHub
-"Plugin 'git://git.wincent.com/command-t.git'
-" git repos on your local machine (i.e. when working on your own plugin)
-"Plugin 'file:///home/gmarik/path/to/plugin'
-" The sparkup vim script is in a subdirectory of this repo called vim.
-" Pass the path to set the runtimepath properly.
-"Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
-" Avoid a name conflict with L9
-"Plugin 'user/L9', {'name': 'newL9'}
+" Display
+Plug 'bling/vim-airline'
 
-Plugin 'alvan/vim-closetag'
-Plugin 'scrooloose/syntastic'
-Plugin 'mtscout6/syntastic-local-eslint.vim'
-Plugin 'scrooloose/nerdtree'
-Plugin 'kien/ctrlp.vim.git'
-Plugin 'bling/vim-airline'
-Plugin 'tpope/vim-surround.git'
-Plugin 'tpope/vim-repeat'
-Plugin 'raimondi/delimitmate'
-Plugin 'gregsexton/MatchTag'
-Plugin 'iamcco/mathjax-support-for-mkdp'
-Plugin 'iamcco/markdown-preview.vim'
-Plugin 'tpope/vim-fugitive'
-Plugin 'prettier/vim-prettier'
-Plugin 'thinca/vim-visualstar'
-Plugin 'lervag/vimtex'
-Plugin 'aymericbeaumet/vim-symlink'			"Automatically resolve the symlink
+" Formatting
+Plug 'prettier/vim-prettier', { 'do': 'npm install' }
+Plug 'scrooloose/syntastic'
+Plug 'mtscout6/syntastic-local-eslint.vim'
+
+" Integration
+Plug 'tpope/vim-fugitive'
+
+" Text objects
+Plug 'machakann/vim-sandwich'
+Plug 'thinca/vim-visualstar'
+Plug 'gregsexton/MatchTag'
+Plug 'tommcdo/vim-exchange'
+Plug 'tpope/vim-abolish'
+Plug 'vim-scripts/ReplaceWithRegister'
+Plug 'wellle/targets.vim'
+
+" Completion/snippets
+Plug 'raimondi/delimitmate'
+Plug 'honza/vim-snippets'
+Plug 'tpope/vim-commentary'
+Plug 'alvan/vim-closetag'
 if has('python3')
-	Plugin 'SirVer/ultisnips'
+	Plug 'SirVer/ultisnips'
 endif
-Plugin 'honza/vim-snippets'
-Plugin 'tpope/vim-abolish'
-Plugin 'posva/vim-vue'
-" Plugin 'leafOfTree/vim-vue-plugin' 		"Alternative plugin for vue
-Plugin 'leafgarland/typescript-vim'
-Plugin 'tpope/vim-commentary'
-Plugin 'tommcdo/vim-exchange'
-Plugin 'vim-scripts/ReplaceWithRegister'
-" Plugin 'jaxbot/github-issues.vim'
-" Plugin 'szw/vim-ctrlspace' 				"Too big, bug on open in tabs
-" Plugin 'shepherdwind/vim-velocity'
-" Plugin 'jiangmiao/auto-pairs.git'
-" Plugin 'harenome/vim-mipssyntax' 			"For MIPS syntax
 
-" The compile & analysis in Youcompleteme give errors, so don't enable it
-" unless you know what you are doing
-" Plugin 'Valloric/YouCompleteMe'
+" Filetypes
+Plug 'lervag/vimtex', { 'for': 'tex' }
+Plug 'iamcco/markdown-preview.vim', { 'for': 'markdown' }
+Plug 'iamcco/mathjax-support-for-mkdp', { 'for': 'markdown' }
+Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
+Plug 'posva/vim-vue', { 'for': 'vue' }
+" Plug 'leafOfTree/vim-vue-plugin' 		"Alternative plugin for vue
 
+" File Management
+Plug 'kien/ctrlp.vim'
+Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeFind' }
 
-" All of your Plugins must be added before the following line
-call vundle#end()			" required
-filetype plugin indent on	" required
-" To ignore plugin indent changes, instead use:
-"filetype plugin on
-"
-" Brief help
-" :PluginList	   - lists configured plugins
-" :PluginInstall	- installs plugins; append `!` to update or just :PluginUpdate
-" :PluginSearch foo - searches for foo; append `!` to refresh local cache
-" :PluginClean	  - confirms removal of unused plugins; append `!` to auto-approve removal
-"
-" see :h vundle for more details or wiki for FAQ
-" Put your non-Plugin stuff after this line
-" END Vundle setting -------- }}}
+" Internals
+Plug 'tpope/vim-repeat'
+Plug 'aymericbeaumet/vim-symlink'			"Automatically resolve the symlink
+Plug 'junegunn/vim-plug'
+call plug#end()
 
-" START Plugin settings -------- {{{
+" END Plug setting -------- }}}
+
+" START Plugins settings -------- {{{
 nnoremap <C-n> :NERDTreeFind<CR>
+runtime macros/sandwich/keymap/surround.vim
 let g:syntastic_python_checkers = ['python']
 let g:syntastic_python_python_exec = 'python3'
 let g:syntastic_cpp_compiler_options = ' -std=c++11 -stdlib=libc++'
@@ -325,7 +297,7 @@ let g:snips_author="David Deng"
 
 " END UltiSnips settings -------- }}}
 
-" END Plugin settings -------- }}}
+" END Plugins settings -------- }}}
 
 " START autocmd settings -------- {{{
 
@@ -354,8 +326,6 @@ augroup latex_related
 	autocmd!
 	autocmd FileType tex nnoremap <F7> :LLPStartPreview<CR>
 	autocmd FileType tex let b:delimitMate_autoclose = 0
-	" overriding the default behavior of '{' to surround text with '\{...\}'
-	autocmd FileType tex let b:surround_{char2nr("{")} = "\\{\r\\}"
 	" TODO: override in latex file the target '{' to be '\{\}'. Investigate
 	" how to combine FileType and User autocmd
 	" https://github.com/wellle/targets.vim#targetsmappingsextend <2020-04-28, David Deng> "
