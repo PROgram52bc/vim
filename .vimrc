@@ -68,6 +68,8 @@ func! CompileCode()
 		exec "!mcs %"
 	elseif &filetype == "java"
 		exec "!javac %"
+	elseif &filetype == "dot"
+		exec "!dot -Tpng % | magick display png:-"
 	endif
 endfunc
 
@@ -197,6 +199,7 @@ Plug 'iamcco/markdown-preview.vim', { 'for': 'markdown' }
 Plug 'iamcco/mathjax-support-for-mkdp', { 'for': 'markdown' }
 Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
 Plug 'posva/vim-vue', { 'for': 'vue' }
+Plug 'wannesm/wmgraphviz.vim'
 " Plug 'leafOfTree/vim-vue-plugin' 		"Alternative plugin for vue
 
 " File Management
@@ -246,7 +249,7 @@ let g:airline#extensions#tabline#switch_buffers_and_tabs = 1
 let g:prettier#quickfix_enabled = 1 " Display the quickfix box for errors
 let g:prettier#autoformat = 0 " Don't automatically format
 let g:prettier#autoformat_config_present = 1 " Automatically format when there is a config file
-autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.yaml,*.html PrettierAsync
+autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.vue,*.yaml,*.html PrettierAsync
 " Below removed temporarily for project-wise config files to take effect
 " let g:prettier#config#tab_width = 4 " number of spaces per indentation level
 " let g:prettier#config#use_tabs = 'true' " use tabs over spaces
