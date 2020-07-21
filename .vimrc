@@ -199,7 +199,7 @@ Plug 'iamcco/markdown-preview.vim', { 'for': 'markdown' }
 Plug 'iamcco/mathjax-support-for-mkdp', { 'for': 'markdown' }
 Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
 Plug 'posva/vim-vue', { 'for': 'vue' }
-Plug 'wannesm/wmgraphviz.vim'
+Plug 'PROgram52bc/wmgraphviz.vim'
 " Plug 'leafOfTree/vim-vue-plugin' 		"Alternative plugin for vue
 
 " File Management
@@ -351,6 +351,7 @@ augroup md_related
 	autocmd!
 	autocmd FileType markdown nnoremap <F7> :MarkdownPreview<CR>
 	autocmd FileType markdown let b:delimitMate_matchpairs = "(:),[:],{:}"
+	autocmd FileType markdown setlocal formatoptions+=a
 augroup END
 augroup latex_related
 	autocmd!
@@ -426,6 +427,56 @@ nnoremap <leader>bl :ls<CR>
 " ,bd => delete current buffer
 nnoremap <silent> <leader>bd 	:<C-U>exe "bd".(v:count ? " ".v:count : "")<CR>
 nnoremap <silent> gd 			:<C-U>exe "bd".(v:count ? " ".v:count : "")<CR>
+
+" match next email address
+" onoremap in@ :exec "normal! /[[:alnum:]_-]\\+@[[:alnum:]-]\\+\\.[[:alpha:]]\\{2,3}\r:noh\rgn"<CR>
+
+
+" START url encode/decode -------- {{{
+
+nnoremap <silent> gee :set opfunc=<SID>EncodeUrlOpfunc<CR>g@
+nnoremap <silent> ged :set opfunc=<SID>DecodeUrlOpfunc<CR>g@
+vnoremap <silent> gee d:silent exe "normal!" "\"=\<SID>ProcessedUrl(0, @@)\rP"<CR>
+vnoremap <silent> ged d:silent exe "normal!" "\"=\<SID>ProcessedUrl(1, @@)\rP"<CR>
+
+function! s:DecodeUrlOpfunc(type)
+	call s:ReplaceWithProcessedUrl(a:type, 1)
+endfunction
+
+function! s:EncodeUrlOpfunc(type)
+	call s:ReplaceWithProcessedUrl(a:type, 0)
+endfunction
+
+" replace the region bounded by '[ '] with the encoded/decoded result
+function! s:ReplaceWithProcessedUrl(type, decode)
+	let sel_save = &selection
+	let reg_save = @"
+	let &selection = "inclusive" 	" cursor can past line, last char included 
+	if a:type == "line"				" linewise motion
+		silent exe "normal! '[V']d"
+	else							" if a:type == 'char' character wise motion
+		silent exe "normal! `[v`]d"
+	endif
+	let result = ProcessedUrl(a:decode, @")
+	silent exe "normal!" "\"=result\<cr>P"
+	let @" = reg_save
+	let &selection = sel_save
+endfunction
+
+" encode or decode text
+function! s:ProcessedUrl(decode, text)
+	python3 << EOF
+from urllib.parse import quote, unquote
+import vim
+if vim.eval("a:decode") != "0":
+	func = unquote
+else:
+	func = quote
+vim.command("let result = '%s'" % func(vim.eval("a:text")))
+EOF
+	return result
+endfunction
+" END url encode/decode -------- }}}
 
 " END common map settings -------- }}}
 
