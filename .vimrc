@@ -148,8 +148,12 @@ set hlsearch				" highlight search
 set foldmethod=syntax	   	" fold according to syntax highlighting items
 set foldcolumn=1			" display folder column
 
+set autochdir				" automatically change the current directory to that of the opened file
 set path+=**				" search all subdirectories recursively
+set wildignore+= 			" ignored paths in expanding wildcards
+			\ */node_modules/* 
 set wildmenu				" display option list when using tab completion
+set tags=tags;/				" keep searching up for tag files until root
 
 "set ruler				   	" show status line at the bottom, this is automatically enabled by vim-airline
 "set showcmd				" show the command typed. no effect when vim-airline is enabled
@@ -173,6 +177,8 @@ Plug 'mtscout6/syntastic-local-eslint.vim'
 
 " Integration
 Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-dispatch'
+Plug 'vim-test/vim-test'
 
 " Text objects
 Plug 'machakann/vim-sandwich'
@@ -327,6 +333,12 @@ let g:snips_author="David Deng"
 
 " END UltiSnips settings -------- }}}
 
+" testing
+let g:test#strategy = {
+  \ 'nearest': 'dispatch',
+  \ 'last':	   'dispatch',
+  \ 'file':    'dispatch_background',
+\}
 " END Plugins settings -------- }}}
 
 " START autocmd settings -------- {{{
@@ -335,6 +347,7 @@ augroup html_related
 	autocmd!
 	autocmd FileType vtl let b:syntax=html
 	autocmd FileType vtl,html,xhtml,phtml,vue let b:delimitMate_matchpairs = "(:),[:],{:}"
+	autocmd FileType vtl,html,xhtml,phtml,vue set iskeyword+=-
 augroup END
 augroup python_related
 	autocmd!
@@ -407,6 +420,10 @@ vnoremap <leader>p :PrettierAsync<cr> " allow block formatting
 nnoremap <leader>t :call OpenNewTerminal()<CR>
 nnoremap <leader>w :call OpenNewWindow()<CR>
 
+nnoremap <silent> <leader>tn :TestNearest<CR>
+nnoremap <silent> <leader>tf :TestFile<CR>
+nnoremap <silent> <leader>tl :TestLast<CR>
+
 " 4gb => switch to buffer 4
 " ,bn => switch to next buffer
 nnoremap gb 		:<C-U>exe (v:count ? "b ".v:count : "bnext")<CR>
@@ -457,7 +474,7 @@ function! s:ReplaceWithProcessedUrl(type, decode)
 	else							" if a:type == 'char' character wise motion
 		silent exe "normal! `[v`]d"
 	endif
-	let result = ProcessedUrl(a:decode, @")
+	let result = s:ProcessedUrl(a:decode, @")
 	silent exe "normal!" "\"=result\<cr>P"
 	let @" = reg_save
 	let &selection = sel_save
