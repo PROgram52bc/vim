@@ -152,6 +152,8 @@ set autochdir				" automatically change the current directory to that of the ope
 set path+=**				" search all subdirectories recursively
 set wildignore+= 			" ignored paths in expanding wildcards
 			\ */node_modules/* 
+			\ */venv/*
+			\ */__pycache__/*
 set wildmenu				" display option list when using tab completion
 set tags=tags;/				" keep searching up for tag files until root
 
@@ -174,6 +176,7 @@ Plug 'bling/vim-airline'
 Plug 'prettier/vim-prettier', { 'do': 'npm install' }
 Plug 'scrooloose/syntastic'
 Plug 'mtscout6/syntastic-local-eslint.vim'
+Plug 'tell-k/vim-autopep8', { 'do': 'pip install --user --upgrade autopep8' }
 
 " Integration
 Plug 'tpope/vim-fugitive'
@@ -209,7 +212,7 @@ Plug 'PROgram52bc/wmgraphviz.vim'
 " Plug 'leafOfTree/vim-vue-plugin' 		"Alternative plugin for vue
 
 " File Management
-Plug 'kien/ctrlp.vim'
+Plug 'ctrlpvim/ctrlp.vim'
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeFind' }
 
 " Internals
@@ -221,8 +224,8 @@ call plug#end()
 " END Plug setting -------- }}}
 
 " START Plugins settings -------- {{{
-nnoremap <C-n> :NERDTreeFind<CR>
 runtime macros/sandwich/keymap/surround.vim
+
 let g:syntastic_python_checkers = ['python']
 let g:syntastic_python_python_exec = 'python3'
 let g:syntastic_cpp_compiler_options = ' -std=c++11 -stdlib=libc++'
@@ -232,6 +235,8 @@ let g:syntastic_mode_map = {"mode": "active", "passive_filetypes": ["asm"]}
 let g:delimitMate_expand_cr = 2
 let g:delimitMate_expand_space = 1
 let g:closetag_filenames = '*.vtl,*.html,*.xhtml,*.phtml,*.vue,*.md'
+
+" ctrlp settings
 let g:ctrlp_map='<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
 let g:ctrlp_custom_ignore = {
@@ -239,6 +244,12 @@ let g:ctrlp_custom_ignore = {
 			\ 'file': '\v\.(pyc|swp)$',
 			\ }
 let g:ctrlp_show_hidden = 1
+let g:ctrlp_open_multiple_files = '1ij'
+
+" nerdtree settings
+nnoremap <C-n> :NERDTreeFind<CR>
+let g:NERDTreeChDirMode = 3
+let g:NERDTreeQuitOnOpen = 1
 
 " airline settings
 if !exists('g:airline_symbols')
@@ -264,6 +275,12 @@ autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.gra
 " let g:prettier#config#single_quote = 'true' " single quotes over double quotes
 " let g:prettier#config#jsx_bracket_same_line = 'true' " put > on the last line instead of new line
 " END Prettier settings }}}
+
+" START autopep8 settings ------ {{{
+let g:autopep8_disable_show_diff = 1
+" let g:autopep8_on_save = 1
+" autocmd Filetype python set equalprg=autopep8\ - " doesn't look at context
+" END autopep8 settings }}}
 
 " START Sandwich settings ------ {{{
 let g:sandwich#recipes = deepcopy(g:sandwich#default_recipes)
@@ -348,10 +365,13 @@ augroup html_related
 	autocmd FileType vtl let b:syntax=html
 	autocmd FileType vtl,html,xhtml,phtml,vue let b:delimitMate_matchpairs = "(:),[:],{:}"
 	autocmd FileType vtl,html,xhtml,phtml,vue set iskeyword+=-
+	" allow block formatting
+	autocmd FileType markdown,typescript,vue,html,js vnoremap <buffer> <leader>p :PrettierAsync<cr>
 augroup END
 augroup python_related
 	autocmd!
 	autocmd FileType python set tabstop=4
+	autocmd FileType python noremap <buffer> <leader>p :Autopep8 -a -a<cr>
 augroup END
 augroup vim_related
 	autocmd!
@@ -412,17 +432,18 @@ nnoremap <leader>n :cnext<CR>
 nnoremap <leader>N :cprevious<CR>
 nnoremap <leader>ln :lnext<CR>
 nnoremap <leader>lp :lprevious<CR>
+nnoremap <leader>co :copen<CR>
+nnoremap <leader>cl :cclose<CR>
 
 nnoremap <leader>u :UltiSnipsEdit<CR>
 nnoremap <leader>U :UltiSnipsEdit!<CR>
 
-vnoremap <leader>p :PrettierAsync<cr> " allow block formatting
 nnoremap <leader>t :call OpenNewTerminal()<CR>
 nnoremap <leader>w :call OpenNewWindow()<CR>
 
-nnoremap <silent> <leader>tn :TestNearest<CR>
-nnoremap <silent> <leader>tf :TestFile<CR>
-nnoremap <silent> <leader>tl :TestLast<CR>
+nnoremap <silent> <leader>tn :cclose<Bar>TestNearest<CR>
+nnoremap <silent> <leader>tf :cclose<Bar>TestFile<CR>
+nnoremap <silent> <leader>tl :cclose<Bar>TestLast<CR>
 
 " 4gb => switch to buffer 4
 " ,bn => switch to next buffer
