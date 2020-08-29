@@ -229,8 +229,9 @@ runtime macros/sandwich/keymap/surround.vim
 let g:syntastic_python_checkers = ['python']
 let g:syntastic_python_python_exec = 'python3'
 let g:syntastic_cpp_compiler_options = ' -std=c++11 -stdlib=libc++'
-let g:syntastic_javascript_checkers = ['eslint']
-let g:syntastic_javascript_eslint_exec = ['yarn lint -- ']
+" " did not wait for prettier formatting
+" let g:syntastic_javascript_checkers = ['eslint']
+" let g:syntastic_javascript_eslint_exec = ['yarn lint -- ']
 let g:syntastic_mode_map = {"mode": "active", "passive_filetypes": ["asm"]}
 let g:delimitMate_expand_cr = 2
 let g:delimitMate_expand_space = 1
@@ -266,7 +267,6 @@ let g:airline#extensions#tabline#switch_buffers_and_tabs = 1
 let g:prettier#quickfix_enabled = 1 " Display the quickfix box for errors
 let g:prettier#autoformat = 0 " Don't automatically format
 let g:prettier#autoformat_config_present = 1 " Automatically format when there is a config file
-autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.vue,*.yaml,*.html PrettierAsync
 " Below removed temporarily for project-wise config files to take effect
 " let g:prettier#config#tab_width = 4 " number of spaces per indentation level
 " let g:prettier#config#use_tabs = 'true' " use tabs over spaces
@@ -360,6 +360,11 @@ let g:test#strategy = {
 
 " START autocmd settings -------- {{{
 
+augroup prettier_related
+	autocmd!
+	autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.vue,*.yaml PrettierAsync 
+	" ,*.html
+augroup END
 augroup html_related
 	autocmd!
 	autocmd FileType vtl let b:syntax=html
