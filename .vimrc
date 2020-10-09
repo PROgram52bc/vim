@@ -95,6 +95,8 @@ func! RunResult()
 		exec "!java %<"
 	elseif &filetype == "sh"
 		exec "!bash %"
+	elseif &filetype == "dart"
+		exec "!dart %"
 	elseif &filetype == "vb"
 		exec "!mono %<.exe"
 	elseif &filetype == "cs"
@@ -118,6 +120,8 @@ func! OpenNewWindow()
 	" Assuming nautilus is the file explorer
 	exec "!nautilus %:p:h &"
 endfunc
+
+command! Term :botright terminal ++rows=10
 
 
 " END Terminal function -------- }}}
@@ -209,6 +213,7 @@ Plug 'iamcco/mathjax-support-for-mkdp', { 'for': 'markdown' }
 Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
 Plug 'posva/vim-vue', { 'for': 'vue' }
 Plug 'PROgram52bc/wmgraphviz.vim'
+Plug 'dart-lang/dart-vim-plugin'
 " Plug 'leafOfTree/vim-vue-plugin' 		"Alternative plugin for vue
 
 " File Management
@@ -232,7 +237,7 @@ let g:syntastic_cpp_compiler_options = ' -std=c++11 -stdlib=libc++'
 " " did not wait for prettier formatting
 " let g:syntastic_javascript_checkers = ['eslint']
 " let g:syntastic_javascript_eslint_exec = ['yarn lint -- ']
-let g:syntastic_mode_map = {"mode": "active", "passive_filetypes": ["asm"]}
+let g:syntastic_mode_map = {"mode": "active", "passive_filetypes": ["asm", "dart"]}
 let g:delimitMate_expand_cr = 2
 let g:delimitMate_expand_space = 1
 let g:closetag_filenames = '*.vtl,*.html,*.xhtml,*.phtml,*.vue,*.md'
@@ -402,6 +407,14 @@ augroup latex_related
 	" \ '{': {'pair': [{'o':'\\{', '\\}':')'}]}
 	" \ })
 augroup END
+augroup terminal_buffer
+	autocmd!
+	autocmd BufWinEnter * if &buftype == 'terminal' | setlocal nobuflisted | endif
+augroup END
+augroup dart 
+	autocmd!
+	autocmd FileType dart setlocal expandtab
+augroup END
 
 " END autocmd settings -------- }}}
 
@@ -468,8 +481,8 @@ nnoremap <leader>bl :ls<CR>
 
 " 4,bd => delete buffer 4
 " ,bd => delete current buffer
-nnoremap <silent> <leader>bd 	:<C-U>exe "bd".(v:count ? " ".v:count : "")<CR>
-nnoremap <silent> gd 			:<C-U>exe "bd".(v:count ? " ".v:count : "")<CR>
+nnoremap <silent> <leader>bd 	:<C-U>exe (v:count ? "bd ".v:count : "bn\|bd #")<CR>
+nnoremap <silent> gd 			:<C-U>exe (v:count ? "bd ".v:count : "bn\|bd #")<CR>
 
 " match next email address
 " onoremap in@ :exec "normal! /[[:alnum:]_-]\\+@[[:alnum:]-]\\+\\.[[:alpha:]]\\{2,3}\r:noh\rgn"<CR>
@@ -520,6 +533,12 @@ EOF
 	return result
 endfunction
 " END url encode/decode -------- }}}
+
+" terminal mode mappings
+tnoremap <C-J> <C-W><C-J>
+tnoremap <C-K> <C-W><C-K>
+tnoremap <C-H> <C-W><C-H>
+tnoremap <C-L> <C-W><C-L>
 
 " END common map settings -------- }}}
 
