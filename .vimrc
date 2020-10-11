@@ -539,6 +539,10 @@ tnoremap <C-J> <C-W><C-J>
 tnoremap <C-K> <C-W><C-K>
 tnoremap <C-H> <C-W><C-H>
 tnoremap <C-L> <C-W><C-L>
+" kill the line
+tnoremap <C-W><C-K> <C-K>
+" kill the terminal
+tnoremap <silent> <C-W><C-D> <C-W>:bw!<CR>
 
 " END common map settings -------- }}}
 
