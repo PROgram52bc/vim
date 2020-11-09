@@ -177,7 +177,7 @@ call plug#begin('~/.vim/bundle')
 Plug 'bling/vim-airline'
 
 " Formatting
-Plug 'prettier/vim-prettier', { 'do': 'npm install' }
+Plug 'prettier/vim-prettier', { 'branch': 'release/1.x', 'do': 'npm install' }
 Plug 'scrooloose/syntastic'
 Plug 'mtscout6/syntastic-local-eslint.vim'
 Plug 'tell-k/vim-autopep8', { 'do': 'pip install --user --upgrade autopep8' }
@@ -368,7 +368,7 @@ let g:test#strategy = {
 augroup prettier_related
 	autocmd!
 	autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.vue,*.yaml PrettierAsync 
-	" ,*.html
+	" autocmd BufWritePre *.html PrettierAsync
 augroup END
 augroup html_related
 	autocmd!
@@ -394,7 +394,6 @@ augroup md_related
 	autocmd!
 	autocmd FileType markdown nnoremap <F7> :MarkdownPreview<CR>
 	autocmd FileType markdown let b:delimitMate_matchpairs = "(:),[:],{:}"
-	autocmd FileType markdown setlocal formatoptions+=a
 augroup END
 augroup latex_related
 	autocmd!
