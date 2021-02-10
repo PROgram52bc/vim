@@ -182,6 +182,7 @@ Plug 'tell-k/vim-autopep8', { 'do': 'pip install --user --upgrade autopep8' }
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-dispatch'
 Plug 'vim-test/vim-test'
+Plug 'whonore/Coqtail'
 
 " Text objects
 Plug 'machakann/vim-sandwich'
@@ -357,6 +358,7 @@ let g:test#strategy = {
   \ 'last':	   'dispatch',
   \ 'file':    'dispatch_background',
 \}
+
 " END Plugins settings -------- }}}
 
 " START autocmd settings -------- {{{
