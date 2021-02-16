@@ -70,6 +70,8 @@ func! CompileCode()
 		exec "!javac %"
 	elseif &filetype == "dot"
 		exec "!dot -Tpng % | magick display png:-"
+	elseif &filetype == "haskell"
+		exec "!ghc -outputdir build %"
 	endif
 endfunc
 
@@ -79,7 +81,8 @@ func! RunResult()
 		exec "!mpirun -np 4 ./%<"
 	elseif &filetype == "cpp" ||
 				\ &filetype == "c" ||
-				\ &filetype == "ada"
+				\ &filetype == "ada" ||
+				\ &filetype == "haskell"
 		if expand("%<") =~ "^/"
 			exec "! %<"
 		else
@@ -97,6 +100,8 @@ func! RunResult()
 		exec "!mono %<.exe"
 	elseif &filetype == "cs"
 		exec "!mono %<.exe"
+	elseif &filetype == "prolog"
+		exec "!prolog -s %"
 	endif
 endfunc
 map <F5> :call CompileCode()<CR>
