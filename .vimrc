@@ -72,6 +72,10 @@ func! CompileCode()
 		exec "!dot -Tpng % | magick display png:-"
 	elseif &filetype == "haskell"
 		exec "!ghc -outputdir build %"
+	" TODO: parameterize antlr4 path, 
+	" possibly turning it into a mini-plugin <2021-02-25, David Deng> "
+	elseif &filetype == "antlr4"
+		exec "!java -Xmx500M -cp \"/usr/local/lib/antlr-4.9-complete.jar:$CLASSPATH\" org.antlr.v4.Tool -o build % && javac build/%<*.java"
 	endif
 endfunc
 
@@ -102,6 +106,10 @@ func! RunResult()
 		exec "!mono %<.exe"
 	elseif &filetype == "prolog"
 		exec "!prolog -s %"
+	elseif &filetype == "antlr4"
+		" TODO: parameterize the tree/gui option and the antlr command <2021-02-25, David Deng> "
+		let l:target = input("Target name: ")
+		exec "!java -Xmx500M -cp \"/usr/local/lib/antlr-4.9-complete.jar:$CLASSPATH:build\" org.antlr.v4.gui.TestRig %< " . l:target . " -tree"
 	endif
 endfunc
 map <F5> :call CompileCode()<CR>
@@ -216,6 +224,7 @@ Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
 Plug 'posva/vim-vue', { 'for': 'vue' }
 Plug 'PROgram52bc/wmgraphviz.vim'
 Plug 'dart-lang/dart-vim-plugin'
+Plug 'dylon/vim-antlr'
 " Plug 'leafOfTree/vim-vue-plugin' 		"Alternative plugin for vue
 
 " File Management
