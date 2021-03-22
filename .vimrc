@@ -109,7 +109,9 @@ func! RunResult()
 	elseif &filetype == "antlr4"
 		" TODO: parameterize the tree/gui option and the antlr command <2021-02-25, David Deng> "
 		let l:target = input("Target name: ")
-		exec "!java -Xmx500M -cp \"/usr/local/lib/antlr-4.9-complete.jar:$CLASSPATH:build\" org.antlr.v4.gui.TestRig %< " . l:target . " -tree"
+		exec "!java -Xmx500M -cp \"/usr/local/lib/antlr-4.9-complete.jar:$CLASSPATH:build\" org.antlr.v4.gui.TestRig %< " . l:target . " -gui"
+	elseif &filetype == "perl"
+		exec "!perl %"
 	endif
 endfunc
 map <F5> :call CompileCode()<CR>
@@ -206,6 +208,7 @@ Plug 'tpope/vim-abolish'
 Plug 'vim-scripts/ReplaceWithRegister'
 Plug 'wellle/targets.vim'
 Plug 'machakann/vim-swap'
+Plug 'coderifous/textobj-word-column.vim'
 
 " Completion/snippets
 Plug 'raimondi/delimitmate'
@@ -225,6 +228,7 @@ Plug 'posva/vim-vue', { 'for': 'vue' }
 Plug 'PROgram52bc/wmgraphviz.vim'
 Plug 'dart-lang/dart-vim-plugin'
 Plug 'dylon/vim-antlr'
+Plug 'sheerun/vim-polyglot' " A language pack for many languages
 " Plug 'leafOfTree/vim-vue-plugin' 		"Alternative plugin for vue
 
 " File Management
