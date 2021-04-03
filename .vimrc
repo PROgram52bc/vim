@@ -188,9 +188,10 @@ call plug#begin('~/.vim/bundle')
 Plug 'bling/vim-airline'
 
 " Formatting
-Plug 'prettier/vim-prettier', { 'branch': 'release/1.x', 'do': 'npm install' }
-Plug 'scrooloose/syntastic'
-Plug 'mtscout6/syntastic-local-eslint.vim'
+" Plug 'prettier/vim-prettier', { 'branch': 'release/1.x', 'do': 'npm install' }
+" Plug 'scrooloose/syntastic'
+" Plug 'mtscout6/syntastic-local-eslint.vim'
+Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 Plug 'tell-k/vim-autopep8', { 'do': 'pip install --user --upgrade autopep8' }
 Plug 'dhruvasagar/vim-table-mode'
 
@@ -248,13 +249,13 @@ call plug#end()
 " START Plugins settings -------- {{{
 runtime macros/sandwich/keymap/surround.vim
 
-let g:syntastic_python_checkers = ['python']
-let g:syntastic_python_python_exec = 'python3'
-let g:syntastic_cpp_compiler_options = ' -std=c++11 -stdlib=libc++'
-" " did not wait for prettier formatting
+" let g:syntastic_python_checkers = ['python']
+" let g:syntastic_python_python_exec = 'python3'
+" let g:syntastic_cpp_compiler_options = ' -std=c++11 -stdlib=libc++'
 " let g:syntastic_javascript_checkers = ['eslint']
 " let g:syntastic_javascript_eslint_exec = ['yarn lint -- ']
-let g:syntastic_mode_map = {"mode": "active", "passive_filetypes": ["asm", "dart"]}
+" let g:syntastic_mode_map = {"mode": "active", "passive_filetypes": ["asm", "dart"]}
+let g:coc_disable_startup_warning = 1
 let g:delimitMate_expand_cr = 2
 let g:delimitMate_expand_space = 1
 let g:closetag_filenames = '*.vtl,*.html,*.xhtml,*.phtml,*.vue,*.md'
