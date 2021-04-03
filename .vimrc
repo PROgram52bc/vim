@@ -230,6 +230,7 @@ Plug 'PROgram52bc/wmgraphviz.vim'
 Plug 'dart-lang/dart-vim-plugin'
 Plug 'dylon/vim-antlr'
 Plug 'sheerun/vim-polyglot' " A language pack for many languages
+Plug 'tfnico/vim-gradle'
 " Plug 'leafOfTree/vim-vue-plugin' 		"Alternative plugin for vue
 
 " File Management
