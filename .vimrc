@@ -192,6 +192,7 @@ Plug 'prettier/vim-prettier', { 'branch': 'release/1.x', 'do': 'npm install' }
 Plug 'scrooloose/syntastic'
 Plug 'mtscout6/syntastic-local-eslint.vim'
 Plug 'tell-k/vim-autopep8', { 'do': 'pip install --user --upgrade autopep8' }
+Plug 'dhruvasagar/vim-table-mode'
 
 " Integration
 Plug 'tpope/vim-fugitive'
@@ -376,6 +377,9 @@ let g:test#strategy = {
   \ 'last':	   'dispatch',
   \ 'file':    'dispatch_background',
 \}
+
+" vim-table-mode
+let g:table_mode_corner='|'
 
 " END Plugins settings -------- }}}
 
