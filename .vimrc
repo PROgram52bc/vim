@@ -163,7 +163,7 @@ set hlsearch				" highlight search
 set foldmethod=syntax	   	" fold according to syntax highlighting items
 set foldcolumn=1			" display folder column
 
-set autochdir				" automatically change the current directory to that of the opened file
+set noautochdir				" automatically change the current directory to that of the opened file
 set path+=**				" search all subdirectories recursively
 set wildignore+= 			" ignored paths in expanding wildcards
 			\ */node_modules/* 
@@ -379,6 +379,7 @@ let g:test#strategy = {
   \ 'last':	   'dispatch',
   \ 'file':    'dispatch_background',
 \}
+let g:test#java#runner = 'gradletest'
 
 " vim-table-mode
 let g:table_mode_corner='|'
