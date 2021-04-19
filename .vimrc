@@ -310,7 +310,13 @@ let g:sandwich#recipes = deepcopy(g:sandwich#default_recipes)
 let g:sandwich#recipes += [
 			\   {'buns': ['{ ', ' }'], 'nesting': 1, 'match_syntax': 1,
 			\    'kind': ['add', 'replace'], 'action': ['add'], 'input': ['{']},
-			\
+			\   {
+			\     'buns'        : ['{', '}'],
+			\     'motionwise'  : ['line'],
+			\     'kind'        : ['add'],
+			\     'linewise'    : 1,
+			\     'command'     : ["'[+1,']-1normal! >>"],
+			\   },
 			\   {'buns': ['[ ', ' ]'], 'nesting': 1, 'match_syntax': 1,
 			\    'kind': ['add', 'replace'], 'action': ['add'], 'input': ['[']},
 			\
