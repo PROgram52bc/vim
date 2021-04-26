@@ -85,8 +85,7 @@ func! RunResult()
 		exec "!mpirun -np 4 ./%<"
 	elseif &filetype == "cpp" ||
 				\ &filetype == "c" ||
-				\ &filetype == "ada" ||
-				\ &filetype == "haskell"
+				\ &filetype == "ada"
 		if expand("%<") =~ "^/"
 			exec "! %<"
 		else
@@ -94,6 +93,8 @@ func! RunResult()
 		endif
 	elseif &filetype == "python"
 		exec "!python3 %"
+	elseif &filetype == "haskell"
+		exec "!ghci %"
 	elseif &filetype == "java"
 		exec "!java %<"
 	elseif &filetype == "sh"
