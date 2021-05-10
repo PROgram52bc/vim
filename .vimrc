@@ -265,7 +265,7 @@ let g:closetag_filenames = '*.vtl,*.html,*.xhtml,*.phtml,*.vue,*.md'
 let g:ctrlp_map='<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
 let g:ctrlp_custom_ignore = {
-			\ 'dir':  '\v[\/](build|__pycache__|node_modules|\.git|lib)$',
+			\ 'dir':  '\v[\/](build|bin|__pycache__|node_modules|\.git|lib)$',
 			\ 'file': '\v\.(pyc|swp|o)$',
 			\ }
 let g:ctrlp_show_hidden = 1
