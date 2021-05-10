@@ -516,6 +516,8 @@ nnoremap <silent> gd 			:<C-U>exe (v:count ? "bd ".v:count : "bn\|bd #")<CR>
 " match next email address
 " onoremap in@ :exec "normal! /[[:alnum:]_-]\\+@[[:alnum:]-]\\+\\.[[:alpha:]]\\{2,3}\r:noh\rgn"<CR>
 
+" echo the visual selected text
+vnoremap <leader>e y:echo getreg('"')<CR>
 
 " START url encode/decode -------- {{{
 
