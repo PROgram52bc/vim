@@ -519,9 +519,33 @@ nnoremap <silent> gd 			:<C-U>exe (v:count ? "bd ".v:count : "bn\|bd #")<CR>
 " echo the visual selected text
 vnoremap <leader>e y:echo getreg('"')<CR>
 
+" trim trailing spaces
+function! s:TrimTrailingSpace()
+	let v:errmsg = ""
+	normal m`
+	let l:msg = execute('%s/\s\+$//g', "silent!")
+	normal ``
+	if v:errmsg != ""
+		echom "no trailing spaces detected"
+	else
+		echom l:msg == ""
+					\ ? "trailing spaces removed"
+					\ : substitute(l:msg,
+					\ '\v.*\d+ substitutions on (\d+) lines.*',
+					\ 'removed trailing spaces on \1 lines',
+					\ "")
+	endif
+endfunction
+nnoremap <silent> <leader><space> :call <SID>TrimTrailingSpace()<CR>
+
+" toggle between tabs and spaces
+" nnoremap <silent> <leader>< :echo "HI!"<CR> :echo "YOU"<CR>
+
+
+
 " START url encode/decode -------- {{{
 
-nnoremap <silent> gee :set opfunc=<SID>EncodeUrlOpfunc<CR>g@
+nnoremap <silent> gee :set opfunc=<SID>encodeUrlOpfunc<CR>g@
 nnoremap <silent> ged :set opfunc=<SID>DecodeUrlOpfunc<CR>g@
 vnoremap <silent> gee d:silent exe "normal!" "\"=\<SID>ProcessedUrl(0, @@)\rP"<CR>
 vnoremap <silent> ged d:silent exe "normal!" "\"=\<SID>ProcessedUrl(1, @@)\rP"<CR>
