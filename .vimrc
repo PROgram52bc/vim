@@ -1,5 +1,3 @@
-" START Custom function -------- {{{
-
 " START compile function -------- {{{
 func! CompileGcc()
 	exec "w"
@@ -72,7 +70,7 @@ func! CompileCode()
 		exec "!dot -Tpng % | magick display png:-"
 	elseif &filetype == "haskell"
 		exec "!ghc -outputdir build %"
-	" TODO: parameterize antlr4 path, 
+	" TODO: parameterize antlr4 path,
 	" possibly turning it into a mini-plugin <2021-02-25, David Deng> "
 	elseif &filetype == "antlr4"
 		exec "!java -Xmx500M -cp \"/usr/local/lib/antlr-4.9-complete.jar:$CLASSPATH\" org.antlr.v4.Tool -o build % && javac build/%<*.java"
@@ -121,61 +119,47 @@ vmap <F5> <ESC>:call CompileCode()<CR>
 map <F6> :call RunResult()<CR>
 " END compile function -------- }}}
 
-" START Terminal function -------- {{{
-func! OpenNewTerminal()
-	" TODO: Add terminal environment detection and activate only if
-	" gnome-terminal is available <2020-04-04, David Deng> "
-	exec "!gnome-terminal --working-directory='%:p:h'"
-endfunc
-
-func! OpenNewWindow()
-	" Assuming nautilus is the file explorer
-	exec "!nautilus %:p:h &"
-endfunc
+" START Custom commands -------- {{{
 
 command! Term :botright terminal ++rows=10
-
-
-" END Terminal function -------- }}}
-
 command! BuildCtags :!ctags -R .
 
-" END Custom function -------- }}}
+" END Custom commands -------- }}}
 
 " START Common settings -------- {{{
 syntax on					" display syntax
 set background=dark			" dark background
 set number relativenumber	" display relative line number
-set incsearch			   	" dynamically show result while typing the search
-set ignorecase			  	" ignore case in search
+set incsearch				" dynamically show result while typing the search
+set ignorecase				" ignore case in search
 set smartcase				" ignore case, but not when there is upper case in searched word
-set autoindent			  	" apply current indent to the new line
-set smartindent			 	" c-style autoindent on new line
+set autoindent				" apply current indent to the new line
+set smartindent				" c-style autoindent on new line
 set laststatus=2			" always show status line
 set history=1000			" maximum commandline entries remembered
 set backspace=2				" same as set backspace="indent,eol,start". allow backspace over original text in insert mode
-set showmatch			   	" show matching parenthesis briefly when paired up
-set noexpandtab			   	" set tab behavior
+set showmatch				" show matching parenthesis briefly when paired up
+set noexpandtab				" set tab behavior
 set tabstop=4
 set shiftwidth=4
 set autoread				" auto read in when file is edited out of vim
 set hidden					" keep closed buffers. required by CtrlSpace
 set hlsearch				" highlight search
-set foldmethod=syntax	   	" fold according to syntax highlighting items
+set foldmethod=syntax		" fold according to syntax highlighting items
 set foldcolumn=1			" display folder column
 
 set noautochdir				" automatically change the current directory to that of the opened file
 set path+=**				" search all subdirectories recursively
-set wildignore+= 			" ignored paths in expanding wildcards
-			\ */node_modules/* 
+set wildignore+=			" ignored paths in expanding wildcards
+			\ */node_modules/*
 			\ */venv/*
 			\ */__pycache__/*
 set wildmenu				" display option list when using tab completion
 set tags=tags;/				" keep searching up for tag files until root
 
-"set ruler				   	" show status line at the bottom, this is automatically enabled by vim-airline
+"set ruler					" show status line at the bottom, this is automatically enabled by vim-airline
 "set showcmd				" show the command typed. no effect when vim-airline is enabled
-"set cursorline			  	" add visual cues for the cursor poisition
+"set cursorline				" add visual cues for the cursor poisition
 "set cursorcolumn
 
 " END Common settings --------- }}}
@@ -382,10 +366,10 @@ let g:snips_author="David Deng"
 
 " testing
 let g:test#strategy = {
-  \ 'nearest': 'dispatch',
-  \ 'last':	   'dispatch',
-  \ 'file':    'dispatch_background',
-\}
+			\ 'nearest': 'dispatch',
+			\ 'last':	   'dispatch',
+			\ 'file':    'dispatch_background',
+			\}
 let g:test#java#runner = 'gradletest'
 
 " vim-table-mode
@@ -397,7 +381,7 @@ let g:table_mode_corner='|'
 
 augroup prettier_related
 	autocmd!
-	autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.vue,*.yaml PrettierAsync 
+	autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.vue,*.yaml PrettierAsync
 	" autocmd BufWritePre *.html PrettierAsync
 augroup END
 augroup html_related
@@ -440,7 +424,7 @@ augroup terminal_buffer
 	autocmd!
 	autocmd BufWinEnter * if &buftype == 'terminal' | setlocal nobuflisted | endif
 augroup END
-augroup dart 
+augroup dart
 	autocmd!
 	autocmd FileType dart setlocal expandtab
 augroup END
@@ -485,6 +469,16 @@ nnoremap <leader>cl :cclose<CR>
 nnoremap <leader>u :UltiSnipsEdit<CR>
 nnoremap <leader>U :UltiSnipsEdit!<CR>
 
+func! OpenNewTerminal()
+	" TODO: Add terminal environment detection and activate only if
+	" gnome-terminal is available <2020-04-04, David Deng> "
+	exec "!gnome-terminal --working-directory='%:p:h'"
+endfunc
+
+func! OpenNewWindow()
+	" Assuming nautilus is the file explorer
+	exec "!nautilus %:p:h &"
+endfunc
 nnoremap <leader>t :call OpenNewTerminal()<CR>
 nnoremap <leader>w :call OpenNewWindow()<CR>
 
@@ -541,8 +535,6 @@ nnoremap <silent> <leader><space> :call <SID>TrimTrailingSpace()<CR>
 " toggle between tabs and spaces
 " nnoremap <silent> <leader>< :echo "HI!"<CR> :echo "YOU"<CR>
 
-
-
 " START url encode/decode -------- {{{
 
 nnoremap <silent> gee :set opfunc=<SID>encodeUrlOpfunc<CR>g@
@@ -562,7 +554,7 @@ endfunction
 function! s:ReplaceWithProcessedUrl(type, decode)
 	let sel_save = &selection
 	let reg_save = @"
-	let &selection = "inclusive" 	" cursor can past line, last char included 
+	let &selection = "inclusive" 	" cursor can past line, last char included
 	if a:type == "line"				" linewise motion
 		silent exe "normal! '[V']d"
 	else							" if a:type == 'char' character wise motion
@@ -645,7 +637,7 @@ inoreabbrev makr mark
 function! Eslint(...)
 	if a:0 == 0
 		let l:entry = expand("%") 	" if no arguments, lint only the current file
-		let l:options = "" 
+		let l:options = ""
 	else
 		let l:entry = a:1			" otherwise, search for vue and js files
 		let l:options = "--ext js,vue "
@@ -669,9 +661,9 @@ function! SetupEnvironment()
 		" autocmd BufWritePost *.vue make
 		setlocal expandtab " Use space instead of tabs in the project
 		if &filetype == 'vue' ||
-					\ &filetype == 'javascript' || 
-					\ &filetype == 'yaml' || 
-					\ &filetype == 'json' || 
+					\ &filetype == 'javascript' ||
+					\ &filetype == 'yaml' ||
+					\ &filetype == 'json' ||
 					\ &filetype == 'typescript' " for vue/js/yaml files, tab is 2 spaces
 			setlocal tabstop=2 shiftwidth=2
 		else " for other(e.g. python) files, tab is 4 spaces
