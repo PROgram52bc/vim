@@ -77,46 +77,60 @@ func! CompileCode()
 	endif
 endfunc
 
-func! RunResult()
+func! RunResult(...)
 	exec "w"
 	if search("mpi\.h") != 0
-		exec "!mpirun -np 4 ./%<"
+		let cmd = "!mpirun -np 4 ./%<"
 	elseif &filetype == "cpp" ||
 				\ &filetype == "c" ||
 				\ &filetype == "ada"
 		if expand("%<") =~ "^/"
-			exec "! %<"
+			let cmd = "! %<"
 		else
-			exec "! ./%<"
+			let cmd = "! ./%<"
 		endif
 	elseif &filetype == "python"
-		exec "!python3 %"
+		let cmd = "!python3 %"
+	elseif &filetype == "scala"
+		let cmd = "!scala -nc %"
 	elseif &filetype == "haskell"
-		exec "!ghci %"
+		let cmd = "!ghci %"
 	elseif &filetype == "java"
-		exec "!java %<"
+		let cmd = "!java %<"
 	elseif &filetype == "sh"
-		exec "!bash %"
+		let cmd = "!bash %"
 	elseif &filetype == "dart"
-		exec "!dart %"
+		let cmd = "!dart %"
 	elseif &filetype == "vb"
-		exec "!mono %<.exe"
+		let cmd = "!mono %<.exe"
 	elseif &filetype == "cs"
-		exec "!mono %<.exe"
+		let cmd = "!mono %<.exe"
 	elseif &filetype == "prolog"
-		exec "!prolog -s %"
+		let cmd = "!prolog -s %"
 	elseif &filetype == "antlr4"
 		" TODO: parameterize the tree/gui option and the antlr command <2021-02-25, David Deng> "
 		let l:target = input("Target name: ")
-		exec "!java -Xmx500M -cp \"/usr/local/lib/antlr-4.9-complete.jar:$CLASSPATH:build\" org.antlr.v4.gui.TestRig %< " . l:target . " -gui"
+		let cmd = "!java -Xmx500M -cp \"/usr/local/lib/antlr-4.9-complete.jar:$CLASSPATH:build\" org.antlr.v4.gui.TestRig %< " . l:target . " -gui"
 	elseif &filetype == "perl"
-		exec "!perl %"
+		let cmd = "!perl %"
 	endif
+	let args = get(a:, 1, "")
+	if args =~# '\S'
+		let cmd .= " " . args
+	endif
+	exec cmd
 endfunc
+
+func! RunResultWithArguments()
+	let args = input("Arguments: ")
+	call RunResult(args)
+endfunc
+
 map <F5> :call CompileCode()<CR>
 imap <F5> <ESC>:call CompileCode()<CR>
 vmap <F5> <ESC>:call CompileCode()<CR>
 map <F6> :call RunResult()<CR>
+map <S-F6> :call RunResultWithArguments()<CR>
 " END compile function -------- }}}
 
 " START Custom commands -------- {{{
