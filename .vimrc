@@ -192,7 +192,7 @@ Plug 'bling/vim-airline'
 " Plug 'mtscout6/syntastic-local-eslint.vim'
 Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 Plug 'tell-k/vim-autopep8', { 'do': 'pip install --user --upgrade autopep8' }
-Plug 'dhruvasagar/vim-table-mode'
+Plug 'junegunn/vim-easy-align'
 
 " Integration
 Plug 'tpope/vim-fugitive'
@@ -231,6 +231,7 @@ Plug 'dart-lang/dart-vim-plugin'
 Plug 'dylon/vim-antlr'
 Plug 'sheerun/vim-polyglot' " A language pack for many languages
 Plug 'tfnico/vim-gradle'
+Plug '~/.vim/bundle/vim-scl'
 " Plug 'leafOfTree/vim-vue-plugin' 		"Alternative plugin for vue
 
 " File Management
@@ -255,18 +256,31 @@ runtime macros/sandwich/keymap/surround.vim
 " let g:syntastic_javascript_eslint_exec = ['yarn lint -- ']
 " let g:syntastic_mode_map = {"mode": "active", "passive_filetypes": ["asm", "dart"]}
 let g:coc_disable_startup_warning = 1
+if has('nvim-0.4.0') || has('patch-8.2.0750')
+	nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+	nnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+	inoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
+	inoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
+	vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+	vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+endif
+
 let g:delimitMate_expand_cr = 2
 let g:delimitMate_expand_space = 1
 let g:closetag_filenames = '*.vtl,*.html,*.xhtml,*.phtml,*.vue,*.md'
 
+" easy-align settings
+xmap ga <Plug>(EasyAlign)
+nmap ga <Plug>(EasyAlign)
+
 " ctrlp settings
-let g:ctrlp_map='<c-p>'
-let g:ctrlp_cmd = 'CtrlP'
-let g:ctrlp_custom_ignore = {
+let g:ctrlp_map                 = '<c-p>'
+let g:ctrlp_cmd                 = 'CtrlP'
+let g:ctrlp_custom_ignore       = {
 			\ 'dir':  '\v[\/](build|bin|__pycache__|node_modules|\.git|lib)$',
 			\ 'file': '\v\.(pyc|swp|o)$',
 			\ }
-let g:ctrlp_show_hidden = 1
+let g:ctrlp_show_hidden         = 1
 let g:ctrlp_open_multiple_files = '1ij'
 
 " nerdtree settings
@@ -278,6 +292,7 @@ let g:NERDTreeQuitOnOpen = 1
 if !exists('g:airline_symbols')
 	let g:airline_symbols = {}
 endif
+
 let g:airline_symbols.branch = '⎇'
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#fnamemod = ':t'
@@ -441,6 +456,10 @@ augroup END
 augroup dart
 	autocmd!
 	autocmd FileType dart setlocal expandtab
+augroup END
+augroup java
+	autocmd!
+	autocmd FileType java setlocal makeprg=gradle
 augroup END
 
 " END autocmd settings -------- }}}
