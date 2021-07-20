@@ -65,7 +65,9 @@ func! CompileCode()
 	elseif &filetype == "cs"
 		exec "!mcs %"
 	elseif &filetype == "java"
-		exec "!javac %"
+		exec "!mkdir -p build; javac -d build %"
+	elseif &filetype == "scala"
+		exec "!mkdir -p build; scalac -d build %"
 	elseif &filetype == "dot"
 		exec "!dot -Tpng % | magick display png:-"
 	elseif &filetype == "haskell"
@@ -91,12 +93,17 @@ func! RunResult(...)
 		endif
 	elseif &filetype == "python"
 		let cmd = "!python3 %"
-	elseif &filetype == "scala"
-		let cmd = "!scala -nc %"
 	elseif &filetype == "haskell"
 		let cmd = "!ghci %"
 	elseif &filetype == "java"
-		let cmd = "!java %<"
+		let cmd = "!java build/%<"
+	elseif &filetype == "scala"
+		if empty(glob("build/" . expand("%<") . ".class"))
+			let cmd = "!scala -nc %"
+		else
+			let cmd = "!scala -cp build %<"
+		endif
+		echom cmd
 	elseif &filetype == "sh"
 		let cmd = "!bash %"
 	elseif &filetype == "dart"
@@ -126,9 +133,33 @@ func! RunResultWithArguments()
 	call RunResult(args)
 endfunc
 
+func! CleanBuildDir()
+	if !empty(glob("build"))
+		let answer = input("Build directory contains:\n" .
+					\ system("ls build") .
+					\ "Remove? (Y/N)")
+		echo "\n"
+		if answer ==? "y"
+			call system("rm -rf build")
+			if v:shell_error == 0
+				echo "Build directory removed"
+			else
+				echo "Failed to remove build directory (return status: ". v:shell_error . ")"
+			endif
+		else
+			echo "Build directory not removed"
+		endif
+	else
+		echo "No build directory to be removed"
+	endif
+endfunc
+
+
+
 map <F5> :call CompileCode()<CR>
 imap <F5> <ESC>:call CompileCode()<CR>
 vmap <F5> <ESC>:call CompileCode()<CR>
+map <S-F5> :call CleanBuildDir()<CR>
 map <F6> :call RunResult()<CR>
 map <S-F6> :call RunResultWithArguments()<CR>
 " END compile function -------- }}}
