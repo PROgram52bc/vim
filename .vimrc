@@ -72,6 +72,8 @@ func! CompileCode()
 		exec "!dot -Tpng % | magick display png:-"
 	elseif &filetype == "haskell"
 		exec "!ghc -outputdir build %"
+	elseif &filetype == "racket"
+		exec "!racket -it %"
 	" TODO: parameterize antlr4 path,
 	" possibly turning it into a mini-plugin <2021-02-25, David Deng> "
 	elseif &filetype == "antlr4"
@@ -114,6 +116,8 @@ func! RunResult(...)
 		let cmd = "!mono %<.exe"
 	elseif &filetype == "prolog"
 		let cmd = "!prolog -s %"
+	elseif &filetype == "racket"
+		let cmd = "!racket %"
 	elseif &filetype == "antlr4"
 		" TODO: parameterize the tree/gui option and the antlr command <2021-02-25, David Deng> "
 		let l:target = input("Target name: ")
@@ -262,6 +266,7 @@ Plug 'dart-lang/dart-vim-plugin'
 Plug 'dylon/vim-antlr'
 Plug 'sheerun/vim-polyglot' " A language pack for many languages
 Plug 'tfnico/vim-gradle'
+Plug 'wlangstroth/vim-racket'
 Plug '~/.vim/bundle/vim-scl'
 " Plug 'leafOfTree/vim-vue-plugin' 		"Alternative plugin for vue
 
@@ -405,6 +410,11 @@ endif
 let g:tex_flavor = 'latex'
 
 " END vimtex settings }}}
+
+" racket
+let g:racket_hash_lang_dict = {
+			\ 'plai-typed': 'racket'
+			\ }
 
 let g:vue_pre_processors = [] "Make vue processing faster
 
