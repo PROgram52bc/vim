@@ -445,6 +445,12 @@ let g:test#java#runner = 'gradletest'
 " vim-table-mode
 let g:table_mode_corner='|'
 
+" source coc-nvim mappings
+
+if filereadable(expand("~/.vim/vimrc/coc-mappings.vim"))
+	source ~/.vim/vimrc/coc-mappings.vim
+endif
+
 " END Plugins settings -------- }}}
 
 " START autocmd settings -------- {{{
