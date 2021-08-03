@@ -233,7 +233,6 @@ Plug 'junegunn/vim-easy-align'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-dispatch'
 Plug 'vim-test/vim-test'
-Plug 'whonore/Coqtail'
 
 " Text objects
 Plug 'machakann/vim-sandwich'
@@ -267,6 +266,8 @@ Plug 'dylon/vim-antlr'
 Plug 'sheerun/vim-polyglot' " A language pack for many languages
 Plug 'tfnico/vim-gradle'
 Plug 'wlangstroth/vim-racket'
+Plug 'bohlender/vim-smt2'
+Plug 'whonore/Coqtail'
 Plug '~/.vim/bundle/vim-scl'
 " Plug 'leafOfTree/vim-vue-plugin' 		"Alternative plugin for vue
 
