@@ -261,13 +261,15 @@ Plug 'iamcco/mathjax-support-for-mkdp', { 'for': 'markdown' }
 Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
 Plug 'posva/vim-vue', { 'for': 'vue' }
 Plug 'PROgram52bc/wmgraphviz.vim'
-Plug 'dart-lang/dart-vim-plugin'
+Plug 'dart-lang/dart-vim-plugin', { 'for': 'dart' }
 Plug 'dylon/vim-antlr'
 Plug 'sheerun/vim-polyglot' " A language pack for many languages
 Plug 'tfnico/vim-gradle'
 Plug 'wlangstroth/vim-racket'
 Plug 'bohlender/vim-smt2'
 Plug 'whonore/Coqtail'
+Plug 'kevinoid/vim-jsonc'
+Plug 'derekwyatt/vim-scala'
 Plug '~/.vim/bundle/vim-scl'
 " Plug 'leafOfTree/vim-vue-plugin' 		"Alternative plugin for vue
 
@@ -314,7 +316,7 @@ nmap ga <Plug>(EasyAlign)
 let g:ctrlp_map                 = '<c-p>'
 let g:ctrlp_cmd                 = 'CtrlP'
 let g:ctrlp_custom_ignore       = {
-			\ 'dir':  '\v[\/](build|bin|__pycache__|node_modules|\.git|lib)$',
+			\ 'dir':  '\v[\/](build|bin|__pycache__|node_modules|\.git|lib|\.bloop)$',
 			\ 'file': '\v\.(pyc|swp|o)$',
 			\ }
 let g:ctrlp_show_hidden         = 1
@@ -458,7 +460,7 @@ endif
 
 augroup prettier_related
 	autocmd!
-	autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.vue,*.yaml PrettierAsync
+	" autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.vue,*.yaml PrettierAsync
 	" autocmd BufWritePre *.html PrettierAsync
 augroup END
 augroup html_related
