@@ -1,0 +1,34 @@
+snippet pv "print variable" b
+System.out.println("${1/"/\\"/g}: " + ${1:var});
+endsnippet
+
+snippet ms  "method static" b
+${1:public} static ${2:void} ${3:method}($4) {
+	$0
+}
+endsnippet
+
+snippet D "debugger log" b
+Debugger.log(${2:1}, ${1:var});$0
+endsnippet
+
+snippet Dm "debugger log message" b
+Debugger.log(${2:1}, "${1:log message}");$0
+endsnippet
+
+snippet Dv "debugger log variable" b
+Debugger.log(${2:1}, "${1/"/\\"/g}: " + ${1:var});$0
+endsnippet
+
+# assert override with messages
+snippet at "assert true with message" b
+assertTrue("${1:message}", ${2:actual});$0
+endsnippet
+
+snippet af "assert false with message" b
+assertFalse("${1:message}", ${2:actual});$0
+endsnippet
+
+snippet ae "assert equals with message" b
+assertEquals("${1:message}", ${2:expected}, ${3:actual});$0
+endsnippet

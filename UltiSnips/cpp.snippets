@@ -1,0 +1,11 @@
+snippet c "generate a debug snippet" w
+std::cout << "$1: " << ${1:expr} << std::endl;$0
+endsnippet	
+
+snippet D "debug macro" b
+D(${2:1}, std::cout << "${3:$1}: " << ${1:expr} << std::endl);$0
+endsnippet
+
+snippet Dm "debug message" b
+D(${2:1}, std::cout << "${1:message}" << std::endl);$0
+endsnippet

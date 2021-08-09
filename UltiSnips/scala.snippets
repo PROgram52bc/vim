@@ -1,0 +1,11 @@
+snippet p "print value" b
+println(s"${1:val}: \$\{$1\}")
+endsnippet
+
+snippet t "Template" b
+object ${1:`!p snip.rv = snip.basename`} {
+  def main(args: Array[String]): Unit = {
+    $0
+  }
+}
+endsnippet
