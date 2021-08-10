@@ -317,7 +317,7 @@ let g:ctrlp_map                 = '<c-p>'
 let g:ctrlp_cmd                 = 'CtrlP'
 let g:ctrlp_custom_ignore       = {
 			\ 'dir':  '\v[\/](build|bin|__pycache__|node_modules|\.git|lib|\.bloop)$',
-			\ 'file': '\v\.(pyc|swp|o)$',
+			\ 'file': '\v\.(pyc|swp|o|class|tasty)$',
 			\ }
 let g:ctrlp_show_hidden         = 1
 let g:ctrlp_open_multiple_files = '1ij'
