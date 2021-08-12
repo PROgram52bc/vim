@@ -33,7 +33,7 @@ set signcolumn=yes
 
 " Use tab for trigger completion with characters ahead and navigate.
 " Use command ':verbose imap <tab>' to make sure tab is not mapped by another plugin.
-inoremap <silent><expr> <TAB>
+inoremap <silent><expr> <C-n>
       \ pumvisible() ? "\<C-n>" :
       \ <SID>check_back_space() ? "\<TAB>" :
       \ coc#refresh()
@@ -148,4 +148,4 @@ nnoremap <silent> <space>tf :<C-u>CocCommand metals.revealInTreeView metalsPacka
 " Expand worksheet result
 nmap <space>ws <Plug>(coc-metals-expand-decoration)
 " set the background to be non-conflicting with Constant
-hi pmenu ctermbg=131
+hi pmenu ctermbg=145
