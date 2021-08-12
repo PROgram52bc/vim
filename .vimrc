@@ -21,6 +21,9 @@ func! CompileGcc()
 	if search("plot\.h") != 0
 		let compileflag .= " -lplot -lXaw -lXmu -lXt -lSM -lICE -lXext -lX11 -lpng -lz -lm"
 	endif
+	if search("z3\.h") != 0
+		let compileflag .= " -lz3"
+	endif
 	exec compilecmd." % ".compileflag
 endfunc
 func! CompileGpp()
@@ -50,6 +53,9 @@ func! CompileGpp()
 	endif
 	if search("<thread>") != 0
 		let compileflag .= " -pthread "
+	endif
+	if search("z3++\.h") != 0
+		let compileflag .= " -lz3 "
 	endif
 	exec compilecmd." % ".compileflag
 endfunc
