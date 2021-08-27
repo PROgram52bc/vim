@@ -365,6 +365,7 @@ let g:autopep8_disable_show_diff = 1
 " END autopep8 settings }}}
 
 " START Sandwich settings ------ {{{
+" FIXME: check whether the plugin is installed first
 let g:sandwich#recipes = deepcopy(g:sandwich#default_recipes)
 let g:sandwich#recipes += [
 			\   {'buns': ['{ ', ' }'], 'nesting': 1, 'match_syntax': 1,

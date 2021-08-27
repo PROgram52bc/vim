@@ -1,14 +1,14 @@
 #!/bin/bash
-# directory of the current script
-DIR=$(dirname "$(readlink -f "$0")") # get current directory
-if [ ! -f "$DIR/.vimrc" ]; then
-	echo ".vimrc not detected in $DIR, terminating script"
-	return -1
-fi
-
 realpath() {
 	perl -mCwd -e "print Cwd::abs_path('$1')"
 }
+
+# directory of the current script
+DIR=$(dirname `realpath $0`) # get current directory
+if [ ! -f "$DIR/.vimrc" ]; then
+	echo ".vimrc not detected in $DIR, terminating script"
+	exit -1
+fi
 
 # Create a link
 create_link() {
