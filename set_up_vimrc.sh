@@ -1,3 +1,4 @@
+#!/bin/bash
 # directory of the current script
 DIR=$(dirname "$(readlink -f "$0")") # get current directory
 if [ ! -f "$DIR/.vimrc" ]; then
@@ -5,10 +6,21 @@ if [ ! -f "$DIR/.vimrc" ]; then
 	return -1
 fi
 
+realpath() {
+	perl -mCwd -e "print Cwd::abs_path('$1')"
+}
+
 # Create a link
 create_link() {
 	echo "Creating a link of $1 to $2..."
-	ln -s "$1" "$2" && echo "done!" || echo "Error occurred when trying to create symbolic link" 
+	local src=`realpath "$1"`
+	local dest=`realpath "$2"`
+	ln -s "$src" "$dest"
+	if [ $? -eq 0 ]; then
+		echo "done!"
+	else
+		echo "Error occurred when trying to create symbolic link" 
+	fi
 }
 
 if [ -L $HOME/.vimrc -a "$(readlink $HOME/.vimrc)" -ef $DIR/.vimrc ]; then # if vimrc exists and is a link to the current directory
