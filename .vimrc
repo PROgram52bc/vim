@@ -80,6 +80,8 @@ func! CompileCode()
 		exec "!ghc -outputdir build %"
 	elseif &filetype == "racket"
 		exec "!racket -it %"
+	elseif &filetype == "rust"
+		exec "!rustc %"
 	" TODO: parameterize antlr4 path,
 	" possibly turning it into a mini-plugin <2021-02-25, David Deng> "
 	elseif &filetype == "antlr4"
@@ -93,7 +95,8 @@ func! RunResult(...)
 		let cmd = "!mpirun -np 4 ./%<"
 	elseif &filetype == "cpp" ||
 				\ &filetype == "c" ||
-				\ &filetype == "ada"
+				\ &filetype == "ada" ||
+				\ &filetype == "rust"
 		if expand("%<") =~ "^/"
 			let cmd = "! %<"
 		else
@@ -276,6 +279,7 @@ Plug 'bohlender/vim-smt2'
 Plug 'whonore/Coqtail'
 Plug 'kevinoid/vim-jsonc'
 Plug 'derekwyatt/vim-scala'
+Plug 'rhysd/vim-llvm'
 Plug '~/.vim/bundle/vim-scl'
 " Plug 'leafOfTree/vim-vue-plugin' 		"Alternative plugin for vue
 
@@ -322,7 +326,7 @@ nmap ga <Plug>(EasyAlign)
 let g:ctrlp_map                 = '<c-p>'
 let g:ctrlp_cmd                 = 'CtrlP'
 let g:ctrlp_custom_ignore       = {
-			\ 'dir':  '\v[\/](build|bin|__pycache__|node_modules|\.git|lib|\.bloop)$',
+			\ 'dir':  '\v[\/](build|bin|__pycache__|node_modules|\.git|\.bloop)$',
 			\ 'file': '\v\.(pyc|swp|o|class|tasty)$',
 			\ }
 let g:ctrlp_show_hidden         = 1
@@ -575,6 +579,8 @@ nnoremap <leader>w :call OpenNewWindow()<CR>
 nnoremap <silent> <leader>tn :cclose<Bar>TestNearest<CR>
 nnoremap <silent> <leader>tf :cclose<Bar>TestFile<CR>
 nnoremap <silent> <leader>tl :cclose<Bar>TestLast<CR>
+
+nnoremap <leader>cd :cd %:p:h<CR>:pwd<CR>
 
 " 4gb => switch to buffer 4
 " ,bn => switch to next buffer
