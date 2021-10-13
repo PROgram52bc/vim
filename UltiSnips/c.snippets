@@ -1,0 +1,8 @@
+snippet pr "printf" w
+printf("$1: %${2:s}\n", ${1:var});$0
+endsnippet
+snippet if-1 "c style library calls with error checking" b
+if ((${3:status = }${1:read}($2)) == -1) perror("$1");$0
+endsnippet
+
+
