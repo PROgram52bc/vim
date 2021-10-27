@@ -83,14 +83,13 @@ def transform_list_body(snip):
 	# remove all trailing spaces
 	body = re.sub(r'\s+$', '', body, flags=re.M)
 	# add \item in front of each line if not already there
-	body = re.sub(r'^(?!\\item )', r'\item ', body, flags=re.M)
+	body = re.sub(r'^(?!\\item )', r'\\item ', body, flags=re.M)
 	# indent the lines
 	lines = body.splitlines()
 	snip.rv = lines[0]
 	snip >> 1
 	for line in body.splitlines()[1:]:
 		snip += line
-		pass
 endglobal
 
 # Borrowed from texmath.snippets
