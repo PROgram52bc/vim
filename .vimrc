@@ -677,6 +677,39 @@ EOF
 endfunction
 " END url encode/decode -------- }}}
 
+" function to sum numbers in a row
+" Algorithm: first remove all characters from 'remove', then separate the
+" string by 'delim', then filter out all items not matching 'pat'
+" remove: characters to be removed, defualt to ' '
+" delim: number separator, default to '|'
+" pat: match fields against the pattern, default to '^[0-9]\+(\.[0-9]\+)\?$'
+" TODO: support arguments <2021-11-05, David Deng> "
+" maybe turn it into a generic fold method? Parameterize the operator as well
+function! SumRow(...)
+	let remove = get(a:, 1, ' ')
+	let delim = get(a:, 2, '|')
+	let pat = get(a:, 3, '^[0-9]\+\(\.[0-9]\+\)\?$')
+
+	let removed = substitute(getline('.'), remove, '', 'g')
+	echo removed
+	let fields = split(removed, delim)
+	echo fields
+	let filtered = filter(fields, 'v:val =~ pat')
+	echo filtered
+	let expr = join(filtered, '+')
+	echo expr
+	let result = expr != "" ? eval(expr) : ""
+	echo "Result: " . string(result)
+	return result
+endfunction
+
+" TODO: use something other than the expression register to print output
+" It only supports simple expression, For example, 
+" :pu =8*3 works, but
+" :pu =substitute("abc", "a", "c", "") doesn't work. <2021-11-05, David Deng> "
+" command! -nargs=* SumRow :pu =s:SumRow(<f-args>)
+command! -nargs=* SumRow :call SumRow(<f-args>)
+
 " terminal mode mappings
 tnoremap <C-J> <C-W><C-J>
 tnoremap <C-K> <C-W><C-K>
