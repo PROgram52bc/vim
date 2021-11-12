@@ -688,32 +688,32 @@ endfunction
 " remove: characters to be removed, defualt to ' '
 " delim: number separator, default to '|'
 " pat: match fields against the pattern, default to '^[0-9]\+(\.[0-9]\+)\?$'
-" TODO: support arguments <2021-11-05, David Deng> "
-" maybe turn it into a generic fold method? Parameterize the operator as well
+" For example, calling SumRow on the following line 
+" | 4.5  | 4    | 3.2 |
+" would result in 11.7 being pasted onto the next line
+" TODO: turn it into a generic FoldRow method, parameterize the operator as well
 function! SumRow(...)
 	let remove = get(a:, 1, ' ')
 	let delim = get(a:, 2, '|')
 	let pat = get(a:, 3, '^[0-9]\+\(\.[0-9]\+\)\?$')
 
 	let removed = substitute(getline('.'), remove, '', 'g')
-	echo removed
 	let fields = split(removed, delim)
-	echo fields
 	let filtered = filter(fields, 'v:val =~ pat')
-	echo filtered
 	let expr = join(filtered, '+')
-	echo expr
-	let result = expr != "" ? eval(expr) : ""
-	echo "Result: " . string(result)
+	let result = expr != "" ? string(eval(expr)) : ""
+	echo "removed: " 	. string(removed)
+	echo "fields: "  	. string(fields)
+	echo "filtered: "	. string(filtered)
+	echo "expr: "    	. string(expr)
+	echo "result: " 	. string(result)
 	return result
 endfunction
 
-" TODO: use something other than the expression register to print output
-" It only supports simple expression, For example, 
+" NOTE: Expression register only supports simple expressions
 " :pu =8*3 works, but
-" :pu =substitute("abc", "a", "c", "") doesn't work. <2021-11-05, David Deng> "
-" command! -nargs=* SumRow :pu =s:SumRow(<f-args>)
-command! -nargs=* SumRow :call SumRow(<f-args>)
+" :pu =substitute("abc", "a", "c", "") doesn't work
+command! -nargs=* SumRow :let tmp=@a | let @a=SumRow(<f-args>) | if len(@a) > 0 | pu a | endif | let @a=tmp
 
 " terminal mode mappings
 tnoremap <C-J> <C-W><C-J>
