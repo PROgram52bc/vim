@@ -133,6 +133,11 @@ func! RunResult(...)
 		let cmd = "!java -Xmx500M -cp \"/usr/local/lib/antlr-4.9-complete.jar:$CLASSPATH:build\" org.antlr.v4.gui.TestRig %< " . l:target . " -gui"
 	elseif &filetype == "perl"
 		let cmd = "!perl %"
+	elseif &filetype == "smt2"
+		let cmd = "!z3 %"
+	else
+		echo "Filetype " . &filetype . " not supported."
+		return
 	endif
 	let args = get(a:, 1, "")
 	if args =~# '\S'
