@@ -9,3 +9,7 @@ endsnippet
 snippet Dm "debug message" b
 D(${2:1}, std::cout << "${1:message}" << std::endl);$0
 endsnippet
+
+snippet ASSERT "customized assert function" b
+ASSERT((${2:condition}), "${1:message}");$0
+endsnippet
