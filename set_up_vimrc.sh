@@ -86,6 +86,8 @@ else
 				curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 				if [ $? -eq 0 ]; then
 					echo "Plug installed in $PLUGPATH" 
+					vim +PlugInstall +qall
+					echo "Installed vim plugin"
 				else
 					echo "Failed to install Plug"
 				fi

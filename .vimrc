@@ -239,8 +239,11 @@ Plug 'bling/vim-airline'
 " Plug 'prettier/vim-prettier', { 'branch': 'release/1.x', 'do': 'npm install' }
 " Plug 'scrooloose/syntastic'
 " Plug 'mtscout6/syntastic-local-eslint.vim'
-Plug 'neoclide/coc.nvim', { 'branch': 'release' }
-Plug 'tell-k/vim-autopep8', { 'do': 'pip install --user --upgrade autopep8' }
+
+if version >= 800
+	Plug 'neoclide/coc.nvim', { 'branch': 'release' }
+endif
+Plug 'tell-k/vim-autopep8', { 'do': 'if command -v pip &> /dev/null; then pip install --user --upgrade autopep8; fi' }
 Plug 'junegunn/vim-easy-align'
 
 " Integration
@@ -374,36 +377,37 @@ let g:autopep8_disable_show_diff = 1
 " END autopep8 settings }}}
 
 " START Sandwich settings ------ {{{
-" FIXME: check whether the plugin is installed first
-let g:sandwich#recipes = deepcopy(g:sandwich#default_recipes)
-let g:sandwich#recipes += [
-			\   {'buns': ['{ ', ' }'], 'nesting': 1, 'match_syntax': 1,
-			\    'kind': ['add', 'replace'], 'action': ['add'], 'input': ['{']},
-			\   {
-			\     'buns'        : ['{', '}'],
-			\     'motionwise'  : ['line'],
-			\     'kind'        : ['add'],
-			\     'linewise'    : 1,
-			\     'command'     : ["'[+1,']-1normal! >>"],
-			\   },
-			\   {'buns': ['[ ', ' ]'], 'nesting': 1, 'match_syntax': 1,
-			\    'kind': ['add', 'replace'], 'action': ['add'], 'input': ['[']},
-			\
-			\   {'buns': ['( ', ' )'], 'nesting': 1, 'match_syntax': 1,
-			\    'kind': ['add', 'replace'], 'action': ['add'], 'input': ['(']},
-			\
-			\   {'buns': ['{\s*', '\s*}'],   'nesting': 1, 'regex': 1,
-			\    'match_syntax': 1, 'kind': ['delete', 'replace', 'textobj'],
-			\    'action': ['delete'], 'input': ['{']},
-			\
-			\   {'buns': ['\[\s*', '\s*\]'], 'nesting': 1, 'regex': 1,
-			\    'match_syntax': 1, 'kind': ['delete', 'replace', 'textobj'],
-			\    'action': ['delete'], 'input': ['[']},
-			\
-			\   {'buns': ['(\s*', '\s*)'],   'nesting': 1, 'regex': 1,
-			\    'match_syntax': 1, 'kind': ['delete', 'replace', 'textobj'],
-			\    'action': ['delete'], 'input': ['(']},
-			\ ]
+if exists('g:sandwich#default_recipes')
+	let g:sandwich#recipes = deepcopy(g:sandwich#default_recipes)
+	let g:sandwich#recipes += [
+				\   {'buns': ['{ ', ' }'], 'nesting': 1, 'match_syntax': 1,
+				\    'kind': ['add', 'replace'], 'action': ['add'], 'input': ['{']},
+				\   {
+				\     'buns'        : ['{', '}'],
+				\     'motionwise'  : ['line'],
+				\     'kind'        : ['add'],
+				\     'linewise'    : 1,
+				\     'command'     : ["'[+1,']-1normal! >>"],
+				\   },
+				\   {'buns': ['[ ', ' ]'], 'nesting': 1, 'match_syntax': 1,
+				\    'kind': ['add', 'replace'], 'action': ['add'], 'input': ['[']},
+				\
+				\   {'buns': ['( ', ' )'], 'nesting': 1, 'match_syntax': 1,
+				\    'kind': ['add', 'replace'], 'action': ['add'], 'input': ['(']},
+				\
+				\   {'buns': ['{\s*', '\s*}'],   'nesting': 1, 'regex': 1,
+				\    'match_syntax': 1, 'kind': ['delete', 'replace', 'textobj'],
+				\    'action': ['delete'], 'input': ['{']},
+				\
+				\   {'buns': ['\[\s*', '\s*\]'], 'nesting': 1, 'regex': 1,
+				\    'match_syntax': 1, 'kind': ['delete', 'replace', 'textobj'],
+				\    'action': ['delete'], 'input': ['[']},
+				\
+				\   {'buns': ['(\s*', '\s*)'],   'nesting': 1, 'regex': 1,
+				\    'match_syntax': 1, 'kind': ['delete', 'replace', 'textobj'],
+				\    'action': ['delete'], 'input': ['(']},
+				\ ]
+endif
 " END Sandwich settings }}}
 
 " START vimtex settings ------ {{{
@@ -465,8 +469,7 @@ let g:test#java#runner = 'gradletest'
 let g:table_mode_corner='|'
 
 " source coc-nvim mappings
-
-if filereadable(expand("~/.vim/vimrc/coc-mappings.vim"))
+if exists(':CocInfo') == 2 && filereadable(expand("~/.vim/vimrc/coc-mappings.vim"))
 	source ~/.vim/vimrc/coc-mappings.vim
 endif
 
@@ -716,14 +719,16 @@ endfunction
 command! -nargs=* SumRow :let tmp=@a | let @a=SumRow(<f-args>) | if len(@a) > 0 | pu a | endif | let @a=tmp
 
 " terminal mode mappings
-tnoremap <C-J> <C-W><C-J>
-tnoremap <C-K> <C-W><C-K>
-tnoremap <C-H> <C-W><C-H>
-tnoremap <C-L> <C-W><C-L>
-" kill the line
-tnoremap <C-W><C-K> <C-K>
-" kill the terminal
-tnoremap <silent> <C-W><C-D> <C-W>:bw!<CR>
+if has('terminal')
+	tnoremap <C-J> <C-W><C-J>
+	tnoremap <C-K> <C-W><C-K>
+	tnoremap <C-H> <C-W><C-H>
+	tnoremap <C-L> <C-W><C-L>
+	" kill the line
+	tnoremap <C-W><C-K> <C-K>
+	" kill the terminal
+	tnoremap <silent> <C-W><C-D> <C-W>:bw!<CR>
+endif
 
 " END common map settings -------- }}}
 
