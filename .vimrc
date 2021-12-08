@@ -85,7 +85,7 @@ func! CompileCode()
 	" TODO: parameterize antlr4 path,
 	" possibly turning it into a mini-plugin <2021-02-25, David Deng> "
 	elseif &filetype == "antlr4"
-		exec "!java -Xmx500M -cp \"/usr/local/lib/antlr-4.9-complete.jar:$CLASSPATH\" org.antlr.v4.Tool -o build % && javac build/%<*.java"
+		exec "!java -Xmx500M -cp \"/usr/local/lib/antlr-4.9.1-complete.jar:$CLASSPATH\" org.antlr.v4.Tool -o build % && javac build/%<*.java"
 	endif
 endfunc
 
@@ -130,7 +130,7 @@ func! RunResult(...)
 	elseif &filetype == "antlr4"
 		" TODO: parameterize the tree/gui option and the antlr command <2021-02-25, David Deng> "
 		let l:target = input("Target name: ")
-		let cmd = "!java -Xmx500M -cp \"/usr/local/lib/antlr-4.9-complete.jar:$CLASSPATH:build\" org.antlr.v4.gui.TestRig %< " . l:target . " -gui"
+		let cmd = "!java -Xmx500M -cp \"/usr/local/lib/antlr-4.9.1-complete.jar:$CLASSPATH:build\" org.antlr.v4.gui.TestRig %< " . l:target . " -gui"
 	elseif &filetype == "perl"
 		let cmd = "!perl %"
 	elseif &filetype == "smt2"
@@ -477,12 +477,12 @@ endif
 
 " START autocmd settings -------- {{{
 
-augroup prettier_related
+augroup prettier
 	autocmd!
 	" autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.vue,*.yaml PrettierAsync
 	" autocmd BufWritePre *.html PrettierAsync
 augroup END
-augroup html_related
+augroup html
 	autocmd!
 	autocmd FileType vtl let b:syntax=html
 	autocmd FileType vtl,html,xhtml,phtml,vue let b:delimitMate_matchpairs = "(:),[:],{:}"
@@ -490,24 +490,24 @@ augroup html_related
 	" allow block formatting
 	autocmd FileType markdown,typescript,vue,html,js vnoremap <buffer> <leader>p :PrettierAsync<cr>
 augroup END
-augroup python_related
+augroup python
 	autocmd!
 	autocmd FileType python set tabstop=4
 	autocmd FileType python noremap <buffer> <leader>p :Autopep8 -a -a<cr>
 augroup END
-augroup vim_related
+augroup vim
 	autocmd!
 	autocmd FileType vim setlocal foldmethod=marker
 	"autocmd FileType vim inoremap augroup augroup<c-o>ma<cr>augroup END<c-o>`a
 	"abbreviation for creating a new augroup
 	autocmd FileType vim inoreabbrev augroup augroup maautocmd!augroup END`a
 augroup END
-augroup md_related
+augroup md
 	autocmd!
 	autocmd FileType markdown nnoremap <F7> :MarkdownPreview<CR>
 	autocmd FileType markdown let b:delimitMate_matchpairs = "(:),[:],{:}"
 augroup END
-augroup latex_related
+augroup latex
 	autocmd!
 	autocmd FileType tex nnoremap <F7> :LLPStartPreview<CR>
 	autocmd FileType tex let b:delimitMate_autoclose = 0
@@ -517,6 +517,10 @@ augroup latex_related
 	" autocmd FileType tex autocmd User targets#mappings#user call targets#mappings#extend({
 	" \ '{': {'pair': [{'o':'\\{', '\\}':')'}]}
 	" \ })
+augroup END
+augroup llvm
+	autocmd!
+	autocmd FileType llvm setlocal commentstring=;\ %s
 augroup END
 augroup terminal_buffer
 	autocmd!
