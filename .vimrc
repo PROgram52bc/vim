@@ -225,6 +225,10 @@ set tags=tags;/				" keep searching up for tag files until root
 "set cursorline				" add visual cues for the cursor poisition
 "set cursorcolumn
 
+if has("gui_running")
+	set guifont=Consolas:h14
+endif
+
 " END Common settings --------- }}}
 
 " START Plug setting -------- {{{
