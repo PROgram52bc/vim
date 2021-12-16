@@ -469,11 +469,8 @@ let g:test#strategy = {
 			\}
 let g:test#java#runner = 'gradletest'
 
-" vim-table-mode
-let g:table_mode_corner='|'
-
 " source coc-nvim mappings
-if exists(':CocInfo') == 2 && filereadable(expand("~/.vim/vimrc/coc-mappings.vim"))
+if version >= 800 && filereadable(expand("~/.vim/vimrc/coc-mappings.vim"))
 	source ~/.vim/vimrc/coc-mappings.vim
 endif
 
