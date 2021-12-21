@@ -135,6 +135,8 @@ func! RunResult(...)
 		let cmd = "!perl %"
 	elseif &filetype == "smt2"
 		let cmd = "!z3 %"
+	elseif &filetype == "ps" || &filetype == "ps1"
+		let cmd = "!powershell.exe -File %"
 	else
 		echo "Filetype " . &filetype . " not supported."
 		return
