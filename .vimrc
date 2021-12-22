@@ -136,6 +136,7 @@ func! RunResult(...)
 	elseif &filetype == "smt2"
 		let cmd = "!z3 %"
 	elseif &filetype == "ps" || &filetype == "ps1"
+		" TODO: does not work very well under gvim in Windows <2021-12-22, David Deng> "
 		let cmd = "!powershell.exe -File %"
 	else
 		echo "Filetype " . &filetype . " not supported."
