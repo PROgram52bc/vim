@@ -138,6 +138,8 @@ func! RunResult(...)
 	elseif &filetype == "ps" || &filetype == "ps1"
 		" TODO: does not work very well under gvim in Windows <2021-12-22, David Deng> "
 		let cmd = "!powershell.exe -File %"
+	elseif &filetype == "r"
+		let cmd = "!Rscript %"
 	else
 		echo "Filetype " . &filetype . " not supported."
 		return
