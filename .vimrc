@@ -321,15 +321,6 @@ runtime macros/sandwich/keymap/surround.vim
 " let g:syntastic_javascript_checkers = ['eslint']
 " let g:syntastic_javascript_eslint_exec = ['yarn lint -- ']
 " let g:syntastic_mode_map = {"mode": "active", "passive_filetypes": ["asm", "dart"]}
-let g:coc_disable_startup_warning = 1
-if has('nvim-0.4.0') || has('patch-8.2.0750')
-	nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
-	nnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
-	inoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
-	inoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
-	vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
-	vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
-endif
 
 let g:delimitMate_expand_cr = 2
 let g:delimitMate_expand_space = 1
@@ -474,10 +465,25 @@ let g:test#strategy = {
 			\}
 let g:test#java#runner = 'gradletest'
 
+" START coc settings -------- {{{
+
+" let g:coc_start_at_startup = v:false " do not auto-start coc
+let g:coc_disable_startup_warning = 1
+
 " source coc-nvim mappings
+if has('nvim-0.4.0') || has('patch-8.2.0750')
+	nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+	nnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+	inoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
+	inoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
+	vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+	vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+endif
 if version >= 800 && filereadable(expand("~/.vim/vimrc/coc-mappings.vim"))
 	source ~/.vim/vimrc/coc-mappings.vim
 endif
+
+" END coc settings -------- }}}
 
 " END Plugins settings -------- }}}
 
