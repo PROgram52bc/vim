@@ -334,11 +334,12 @@ nmap ga <Plug>(EasyAlign)
 let g:ctrlp_map                 = '<c-p>'
 let g:ctrlp_cmd                 = 'CtrlP'
 let g:ctrlp_custom_ignore       = {
-			\ 'dir':  '\v[\/](build|bin|__pycache__|node_modules|\.git|\.bloop)$',
+			\ 'dir':  '\v[\/](target|build|bin|__pycache__|node_modules|\.git|\.bloop)$',
 			\ 'file': '\v\.(pyc|swp|o|class|tasty)$',
 			\ }
 let g:ctrlp_show_hidden         = 1
 let g:ctrlp_open_multiple_files = '1ij'
+let g:ctrlp_max_files 			= 0
 
 " nerdtree settings
 nnoremap <C-n> :NERDTreeFind<CR>
@@ -377,6 +378,11 @@ let g:autopep8_disable_show_diff = 1
 " END autopep8 settings }}}
 
 " START Sandwich settings ------ {{{
+
+if ! exists('g:sandwich#default_recipes')
+	runtime autoload/sandwich.vim
+endif
+
 if exists('g:sandwich#default_recipes')
 	let g:sandwich#recipes = deepcopy(g:sandwich#default_recipes)
 	let g:sandwich#recipes += [
