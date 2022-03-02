@@ -365,7 +365,11 @@ command! Todo :Grepper
       \ -noprompt
       \ -tool git
       \ -grepprg git grep -nIi '\(TODO\|FIXME\)'
+
 let g:airline#extensions#grepper#enabled = 1
+let g:grepper = {}
+let g:grepper.dir = 'repo,file'
+let g:grepper.prompt_text = '$t> '
 
 " START Prettier settings ------ {{{
 let g:prettier#quickfix_enabled = 1 " Display the quickfix box for errors
@@ -560,6 +564,12 @@ augroup END
 augroup java
     autocmd!
     autocmd FileType java setlocal makeprg=gradle
+augroup END
+augroup grepper
+    autocmd!
+    autocmd FileType GrepperSide
+      \  silent execute 'keeppatterns v#'.b:grepper_side.'#>'
+      \| silent normal! ggn
 augroup END
 
 " END autocmd settings -------- }}}
