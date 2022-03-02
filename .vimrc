@@ -303,6 +303,7 @@ Plug '~/.vim/bundle/vim-scl'
 " File Management
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeFind' }
+Plug 'mhinz/vim-grepper', { 'on': ['Grepper', '<plug>(GrepperOperator)'] }
 
 " Internals
 Plug 'tpope/vim-repeat'
@@ -357,6 +358,17 @@ let g:airline#extensions#tabline#fnamemod = ':t'
 let g:airline#extensions#tabline#buffer_nr_show = 1
 let g:airline#extensions#tabline#show_tabs = 0
 let g:airline#extensions#tabline#switch_buffers_and_tabs = 1
+
+" vim-grepper
+nnoremap <leader>g :Grepper -tool git<cr>
+nnoremap <leader>G :Grepper -tool ack<cr>
+nmap gk <plug>(GrepperOperator)
+xmap gk <plug>(GrepperOperator)
+
+command! Todo :Grepper
+      \ -noprompt
+      \ -tool git
+      \ -grepprg git grep -nIi '\(TODO\|FIXME\)'
 
 " START Prettier settings ------ {{{
 let g:prettier#quickfix_enabled = 1 " Display the quickfix box for errors
