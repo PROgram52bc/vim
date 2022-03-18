@@ -370,6 +370,10 @@ let g:airline#extensions#grepper#enabled = 1
 let g:grepper = {}
 let g:grepper.dir = 'repo,file'
 let g:grepper.prompt_text = '$t> '
+let g:grepper.prompt_quote = 1
+let g:grepper.highlight = 1
+let g:grepper.jump = 1
+let g:grepper.open = 0
 
 " START Prettier settings ------ {{{
 let g:prettier#quickfix_enabled = 1 " Display the quickfix box for errors
@@ -614,8 +618,8 @@ nnoremap <leader>U :UltiSnipsEdit!<CR>
 
 nnoremap <leader>g :Grepper -tool git<cr>
 nnoremap <leader>G :Grepper -tool ack<cr>
-nmap gk <plug>(GrepperOperator)
-xmap gk <plug>(GrepperOperator)
+nmap gi <plug>(GrepperOperator)
+xmap gi <plug>(GrepperOperator)
 
 func! OpenNewTerminal()
     " TODO: Add terminal environment detection and activate only if
