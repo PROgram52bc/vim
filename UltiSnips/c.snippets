@@ -1,8 +1,20 @@
 snippet pr "printf" w
-printf("$1: %${2:s}\n", ${1:var});$0
+printf("$1: %${2:d}\n", ${1:var});$0
 endsnippet
 snippet if-1 "c style library calls with error checking" b
 if ((${3:status = }${1:read}($2)) == -1) perror("$1");$0
 endsnippet
-
-
+snippet "([\ \t]+)ifd" "if debug for xinu" br
+#if XDEBUG
+`!p snip.rv = match.group(1)`$0
+#endif
+endsnippet
+snippet kp "kprintf for xinu" w
+kprintf("$1: %${2:d}\n", ${1:var});$0
+endsnippet
+snippet k "kprintf for xinu without format" w
+kprintf("${1:msg}\n");$0
+endsnippet
+snippet AS "assert" b
+ASSERT(${1:cond}, "${2:msg}");$0
+endsnippet
