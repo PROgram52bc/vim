@@ -374,6 +374,7 @@ let g:grepper.prompt_quote = 1
 let g:grepper.highlight = 1
 let g:grepper.jump = 1
 let g:grepper.open = 0
+let g:grepper.tools = ['git', 'ack', 'grep']
 
 " START Prettier settings ------ {{{
 let g:prettier#quickfix_enabled = 1 " Display the quickfix box for errors
