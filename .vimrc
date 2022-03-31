@@ -29,7 +29,7 @@ endfunc
 func! CompileGpp()
     exec "w"
     let compilecmd="!g++ "
-    let compileflag="-std=c++11 -o %< "
+    let compileflag="-std=c++2a -o %< "
     if search("mpi\.h") != 0
         let compilecmd = "!mpic++ "
     endif
