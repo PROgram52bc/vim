@@ -242,7 +242,7 @@ endif
 call plug#begin('~/.vim/bundle')
 
 " Display
-Plug 'bling/vim-airline'
+Plug 'bling/vim-airline', { 'tag': 'v0.11' }
 
 " Formatting
 " Plug 'prettier/vim-prettier', { 'branch': 'release/1.x', 'do': 'npm install' }
@@ -289,7 +289,10 @@ Plug 'posva/vim-vue', { 'for': 'vue' }
 Plug 'PROgram52bc/wmgraphviz.vim'
 Plug 'dart-lang/dart-vim-plugin', { 'for': 'dart' }
 Plug 'dylon/vim-antlr'
+
+let g:polyglot_disabled = ['sensible'] " prevent bug in shiftwidth adjustment
 Plug 'sheerun/vim-polyglot' " A language pack for many languages
+
 Plug 'tfnico/vim-gradle'
 Plug 'wlangstroth/vim-racket'
 Plug 'bohlender/vim-smt2'
@@ -375,8 +378,6 @@ let g:grepper.highlight = 1
 let g:grepper.jump = 1
 let g:grepper.open = 0
 let g:grepper.tools = ['git', 'ack', 'grep']
-
-let g:polyglot_disabled = ['sensible']
 
 " START Prettier settings ------ {{{
 let g:prettier#quickfix_enabled = 1 " Display the quickfix box for errors
