@@ -82,6 +82,8 @@ func! CompileCode()
         exec "!racket -it %"
     elseif &filetype == "rust"
         exec "!rustc %"
+    elseif &filetype == "koka"
+        exec "!koka %"
     " TODO: parameterize antlr4 path,
     " possibly turning it into a mini-plugin <2021-02-25, David Deng> "
     elseif &filetype == "antlr4"
@@ -140,6 +142,8 @@ func! RunResult(...)
         let cmd = "!powershell.exe -File %"
     elseif &filetype == "r"
         let cmd = "!Rscript %"
+    elseif &filetype == "koka"
+        let cmd = "!koka -p %"
     else
         echo "Filetype " . &filetype . " not supported."
         return
@@ -289,6 +293,7 @@ Plug 'posva/vim-vue', { 'for': 'vue' }
 Plug 'PROgram52bc/wmgraphviz.vim'
 Plug 'dart-lang/dart-vim-plugin', { 'for': 'dart' }
 Plug 'dylon/vim-antlr'
+Plug 'Nymphium/vim-koka'
 
 let g:polyglot_disabled = ['sensible'] " prevent bug in shiftwidth adjustment
 Plug 'sheerun/vim-polyglot' " A language pack for many languages
@@ -301,6 +306,8 @@ Plug 'kevinoid/vim-jsonc'
 Plug 'derekwyatt/vim-scala'
 Plug 'rhysd/vim-llvm'
 Plug '~/.vim/bundle/vim-scl'
+Plug 'PROgram52bc/vim-scallop'
+Plug 'PROgram52bc/vim-uclid'
 " Plug 'leafOfTree/vim-vue-plugin'         "Alternative plugin for vue
 
 " File Management
