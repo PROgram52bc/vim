@@ -280,6 +280,7 @@ Plug 'raimondi/delimitmate'
 Plug 'honza/vim-snippets'
 Plug 'tpope/vim-commentary'
 Plug 'alvan/vim-closetag'
+Plug 'chrisbra/unicode.vim'
 if has('python3')
     Plug 'SirVer/ultisnips'
 endif
@@ -336,6 +337,15 @@ runtime macros/sandwich/keymap/surround.vim
 let g:delimitMate_expand_cr = 2
 let g:delimitMate_expand_space = 1
 let g:closetag_filenames = '*.vtl,*.html,*.xhtml,*.phtml,*.vue,*.md'
+
+" remap ga to g@
+if has('nvim')
+    xnoremap g@ <Plug>(UnicodeGA)
+    nnoremap g@ <Plug>(UnicodeGA)
+else
+    xnoremap g@ ga
+    nnoremap g@ ga
+endif
 
 " easy-align settings
 xmap ga <Plug>(EasyAlign)
@@ -832,6 +842,14 @@ endif
 inoreabbrev makr mark
 
 " END vim programming practice/notes -------- }}}
+
+" START Digraphs -------- {{{
+digraphs [u 8852 " ⊔
+digraphs [U 8851 " ⊓
+digraphs [_ 8849 " ⊑
+digraphs [C 8847 " ⊏
+
+" END Digraphs -------- }}}
 
 " START project specific settings -------- {{{
 function! Eslint(...)
