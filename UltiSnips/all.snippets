@@ -4,6 +4,6 @@ endglobal
 
 # overwrite default date format
 # change tab sequence order
-snippet todo "TODO comment" bw
-`!p snip.rv=get_comment_format()[0]` ${2:TODO}: ${1:write something} <${4:`!v strftime('%Y-%m-%d')`}${5:, `!v g:snips_author`}> `!p snip.rv=get_comment_format()[2]`
+snippet todo "TODO comment" w
+`!p snip.rv=get_comment_format()[0]` ${1:TODO}: ${2:write something} <`!v strftime('%Y-%m-%d')`, `!v g:snips_author`> `!p snip.rv=get_comment_format()[2]`
 endsnippet
