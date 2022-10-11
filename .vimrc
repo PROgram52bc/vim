@@ -250,6 +250,7 @@ Plug 'bling/vim-airline', { 'tag': 'v0.11' }
 
 " Formatting
 " Plug 'prettier/vim-prettier', { 'branch': 'release/1.x', 'do': 'npm install' }
+Plug 'dense-analysis/ale'
 " Plug 'scrooloose/syntastic'
 " Plug 'mtscout6/syntastic-local-eslint.vim'
 
@@ -328,12 +329,15 @@ call plug#end()
 " START Plugins settings -------- {{{
 runtime macros/sandwich/keymap/surround.vim
 
+let g:syntastic_dafny_dafny_exec = 'dafny'
 " let g:syntastic_python_checkers = ['python']
 " let g:syntastic_python_python_exec = 'python3'
 " let g:syntastic_cpp_compiler_options = ' -std=c++11 -stdlib=libc++'
 " let g:syntastic_javascript_checkers = ['eslint']
 " let g:syntastic_javascript_eslint_exec = ['yarn lint -- ']
-" let g:syntastic_mode_map = {"mode": "active", "passive_filetypes": ["asm", "dart"]}
+let g:syntastic_mode_map = {
+        \ "mode": "passive",
+        \ "active_filetypes": ["dafny"] }
 
 let g:delimitMate_expand_cr = 2
 let g:delimitMate_expand_space = 1
