@@ -295,6 +295,7 @@ Plug 'PROgram52bc/wmgraphviz.vim'
 Plug 'dart-lang/dart-vim-plugin', { 'for': 'dart' }
 Plug 'dylon/vim-antlr'
 Plug 'Nymphium/vim-koka'
+Plug 'mlr-msft/vim-loves-dafny', { 'for': 'dafny' }
 
 let g:polyglot_disabled = ['sensible'] " prevent bug in shiftwidth adjustment
 Plug 'sheerun/vim-polyglot' " A language pack for many languages
