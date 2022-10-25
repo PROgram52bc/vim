@@ -329,7 +329,7 @@ call plug#end()
 " START Plugins settings -------- {{{
 runtime macros/sandwich/keymap/surround.vim
 
-let g:syntastic_dafny_dafny_exec = 'dafny'
+" let g:syntastic_dafny_dafny_exec = 'dafny'
 " let g:syntastic_python_checkers = ['python']
 " let g:syntastic_python_python_exec = 'python3'
 " let g:syntastic_cpp_compiler_options = ' -std=c++11 -stdlib=libc++'
@@ -337,7 +337,10 @@ let g:syntastic_dafny_dafny_exec = 'dafny'
 " let g:syntastic_javascript_eslint_exec = ['yarn lint -- ']
 let g:syntastic_mode_map = {
         \ "mode": "passive",
-        \ "active_filetypes": ["dafny"] }
+        \ "active_filetypes": [] }
+
+let g:ale_set_loclist = 0
+let g:ale_set_quickfix = 1
 
 let g:delimitMate_expand_cr = 2
 let g:delimitMate_expand_space = 1
