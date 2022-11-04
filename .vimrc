@@ -856,6 +856,15 @@ digraphs [u 8852 " ⊔
 digraphs [U 8851 " ⊓
 digraphs [_ 8849 " ⊑
 digraphs [C 8847 " ⊏
+digraphs uu 8915 " ⋓
+digraphs UU 8914 " ⋒
+digraphs o+ 8853 " ⊕
+digraphs ^t 7511 " ᵗ
+digraphs ^d 7496 " ᵈ
+digraphs ^T 7488 " ᵀ
+digraphs ^G 7475 " ᴳ
+digraphs _v 7525 " ᵥ
+digraphs _l 8343 " ₗ
 
 " END Digraphs -------- }}}
 
