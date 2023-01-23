@@ -228,6 +228,7 @@ set wildignore+=            " ignored paths in expanding wildcards
             \ */__pycache__/*
 set wildmenu                " display option list when using tab completion
 set tags=tags;/                " keep searching up for tag files until root
+set encoding=utf-8
 
 "set ruler                    " show status line at the bottom, this is automatically enabled by vim-airline
 "set showcmd                " show the command typed. no effect when vim-airline is enabled
