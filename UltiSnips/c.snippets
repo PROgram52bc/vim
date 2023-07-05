@@ -16,11 +16,20 @@ snippet "([\ \t]+)ifd" "if debug for xinu" br
 #endif
 endsnippet
 snippet kp "kprintf for xinu" w
-kprintf("$1: %${2:d}\n", ${1:var});$0
+kprintf("${3:$1: }%${2:d}\n", ${1:var});$0
 endsnippet
 snippet k "kprintf for xinu without format" w
 kprintf("${1:msg}\n");$0
 endsnippet
 snippet AS "assert" b
 ASSERT(${1:cond}, "${2:msg}");$0
+endsnippet
+snippet ASE "assert equal" b
+ASSERT_EQ(${1:lhs}, ${2:rhs});$0
+endsnippet
+snippet ASNE "assert not equal" b
+ASSERT_NEQ(${1:lhs}, ${2:rhs});$0
+endsnippet
+snippet ASH "assert with handler" b
+ASSERT_H(${1:cond}, "${2:msg}", ({${3:handler1()};${4: handler2();}}));$0
 endsnippet
