@@ -871,8 +871,14 @@ digraphs ^t 7511 " ᵗ
 digraphs ^d 7496 " ᵈ
 digraphs ^T 7488 " ᵀ
 digraphs ^G 7475 " ᴳ
-digraphs _v 7525 " ᵥ
-digraphs _l 8343 " ₗ
+digraphs ^e 7499 " ᵋ
+digraphs v_ 7525 " ᵥ
+digraphs l_ 8343 " ₗ
+digraphs \|- 8866 " ⊢
+digraphs \|> 9655 " ▷
+digraphs =^ 8796 " ≜
+digraphs dm 9830 " ♦
+digraphs (/ 8713 " ∉
 
 " END Digraphs -------- }}}
 
