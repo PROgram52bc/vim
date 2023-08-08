@@ -255,16 +255,19 @@ Plug 'dense-analysis/ale'
 " Plug 'scrooloose/syntastic'
 " Plug 'mtscout6/syntastic-local-eslint.vim'
 
-if version >= 800
-    Plug 'neoclide/coc.nvim', { 'branch': 'release' }
-endif
-Plug 'tell-k/vim-autopep8', { 'do': 'if command -v pip &> /dev/null; then pip install --user --upgrade autopep8; fi' }
+" if version >= 800
+"     Plug 'neoclide/coc.nvim', { 'branch': 'release' }
+" endif
+" Plug 'tell-k/vim-autopep8', { 'do': 'if command -v pip &> /dev/null; then pip install --user --upgrade autopep8; fi' }
 Plug 'junegunn/vim-easy-align'
 
 " Integration
 Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-dispatch'
-Plug 'vim-test/vim-test'
+" Plug 'tpope/vim-dispatch'
+" Plug 'vim-test/vim-test'
+Plug 'prabirshrestha/async.vim'
+Plug 'prabirshrestha/vim-lsp'
+Plug 'mattn/vim-lsp-settings'
 
 " Text objects
 Plug 'machakann/vim-sandwich'
@@ -276,6 +279,7 @@ Plug 'vim-scripts/ReplaceWithRegister'
 Plug 'wellle/targets.vim'
 Plug 'machakann/vim-swap'
 Plug 'coderifous/textobj-word-column.vim'
+Plug 'kana/vim-textobj-user'
 
 " Completion/snippets
 Plug 'raimondi/delimitmate'
@@ -283,8 +287,11 @@ Plug 'honza/vim-snippets'
 Plug 'tpope/vim-commentary'
 Plug 'alvan/vim-closetag'
 Plug 'chrisbra/unicode.vim'
+Plug 'prabirshrestha/asyncomplete.vim'
+Plug 'prabirshrestha/asyncomplete-lsp.vim'
 if has('python3')
     Plug 'SirVer/ultisnips'
+    Plug 'thomasfaingnaert/vim-lsp-ultisnips'
 endif
 
 " Filetypes
@@ -296,7 +303,7 @@ Plug 'posva/vim-vue', { 'for': 'vue' }
 Plug 'PROgram52bc/wmgraphviz.vim'
 Plug 'dart-lang/dart-vim-plugin', { 'for': 'dart' }
 Plug 'dylon/vim-antlr'
-Plug 'Nymphium/vim-koka'
+Plug 'Nymphium/vim-koka', { 'for': 'koka' }
 Plug 'mlr-msft/vim-loves-dafny', { 'for': 'dafny' }
 
 let g:polyglot_disabled = ['sensible'] " prevent bug in shiftwidth adjustment
@@ -309,9 +316,9 @@ Plug 'whonore/Coqtail'
 Plug 'kevinoid/vim-jsonc'
 Plug 'derekwyatt/vim-scala'
 Plug 'rhysd/vim-llvm'
-Plug '~/.vim/bundle/vim-scl'
-Plug 'PROgram52bc/vim-scallop'
-Plug 'PROgram52bc/vim-uclid'
+" Plug '~/.vim/bundle/vim-scl'
+" Plug 'PROgram52bc/vim-scallop'
+" Plug 'PROgram52bc/vim-uclid'
 " Plug 'leafOfTree/vim-vue-plugin'         "Alternative plugin for vue
 
 " File Management
