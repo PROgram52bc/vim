@@ -527,7 +527,7 @@ let g:test#java#runner = 'gradletest'
 
 " START coc settings -------- {{{
 
-" let g:coc_start_at_startup = v:false " do not auto-start coc
+let g:coc_start_at_startup = v:false " do not auto-start coc
 let g:coc_disable_startup_warning = 1
 
 " source coc-nvim mappings
@@ -578,6 +578,7 @@ augroup md
     autocmd!
     autocmd FileType markdown nnoremap <F7> :MarkdownPreview<CR>
     autocmd FileType markdown let b:delimitMate_matchpairs = "(:),[:],{:}"
+    autocmd BufRead,BufNewFile *.md setlocal comments=fb:>,fb:*,fb:+,fb:-
 augroup END
 augroup latex
     autocmd!
@@ -611,6 +612,10 @@ augroup grepper
     autocmd FileType GrepperSide
       \  silent execute 'keeppatterns v#'.b:grepper_side.'#>'
       \| silent normal! ggn
+augroup END
+augroup perl
+    autocmd!
+    autocmd FileType perl setlocal complete-=i
 augroup END
 
 " END autocmd settings -------- }}}
