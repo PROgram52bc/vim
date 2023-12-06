@@ -1,0 +1,17 @@
+snippet p "print" b
+print '$1: ' . ${1:var} . "\n";$0
+endsnippet
+snippet whileh "while loop over hash" b
+while (($${2:k}, $${3:v}) = each %${1:hash}) {
+	${4:# do things with k and v}
+}$0
+endsnippet
+snippet pr "print" b
+print "${1:msg}\n";$0
+endsnippet
+snippet pa "print array" b
+print "$_${2:\\n}" foreach @${1:array};$0
+endsnippet
+snippet ph "print hash" b
+print "$_ => " . %$1{$_} . ", " foreach (keys %${1:hash});$0
+endsnippet
