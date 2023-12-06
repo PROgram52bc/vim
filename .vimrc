@@ -109,7 +109,7 @@ func! RunResult(...)
     elseif &filetype == "haskell"
         let cmd = "!ghci %"
     elseif &filetype == "java"
-        let cmd = "!java build/%<"
+        let cmd = "!java -cp build %<"
     elseif &filetype == "scala"
         if empty(glob("build/" . expand("%<") . ".class"))
             let cmd = "!scala -nc %"
@@ -470,6 +470,12 @@ if exists('g:sandwich#default_recipes')
 endif
 " END Sandwich settings }}}
 
+" START textobj-user settings ------ {{{
+" TODO: implement enhanced sentence for Coq. skip ?, handle bullets + -,
+" etc. <2022-12-02, David Deng> "
+"
+" END textobj-user settings }}}
+
 " START vimtex settings ------ {{{
 " Output directory for build
 let g:vimtex_compiler_latexmk = {
@@ -518,32 +524,65 @@ let g:snips_author="David Deng"
 " END UltiSnips settings -------- }}}
 
 " testing
-let g:test#strategy = {
-            \ 'nearest': 'dispatch',
-            \ 'last':       'dispatch',
-            \ 'file':    'dispatch_background',
-            \}
-let g:test#java#runner = 'gradletest'
+" let g:test#strategy = {
+"             \ 'nearest': 'dispatch',
+"             \ 'last':       'dispatch',
+"             \ 'file':    'dispatch_background',
+"             \}
+" let g:test#java#runner = 'gradletest'
 
 " START coc settings -------- {{{
 
-let g:coc_start_at_startup = v:false " do not auto-start coc
-let g:coc_disable_startup_warning = 1
+" let g:coc_start_at_startup = v:false " do not auto-start coc
+" let g:coc_disable_startup_warning = 1
 
-" source coc-nvim mappings
-if has('nvim-0.4.0') || has('patch-8.2.0750')
-    nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
-    nnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
-    inoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
-    inoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
-    vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
-    vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
-endif
-if version >= 800 && filereadable(expand("~/.vim/vimrc/coc-mappings.vim"))
-    source ~/.vim/vimrc/coc-mappings.vim
-endif
+" " source coc-nvim mappings
+" if has('nvim-0.4.0') || has('patch-8.2.0750')
+"     nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+"     nnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+"     inoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
+"     inoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
+"     vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+"     vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+" endif
+" if version >= 800 && filereadable(expand("~/.vim/vimrc/coc-mappings.vim"))
+"     source ~/.vim/vimrc/coc-mappings.vim
+" endif
 
 " END coc settings -------- }}}
+
+" START vim-lsp settings -------- {{{
+let g:lsp_diagnostics_enabled = 0
+function! s:on_lsp_buffer_enabled() abort
+    setlocal omnifunc=lsp#complete
+    setlocal signcolumn=yes
+    if exists('+tagfunc') | setlocal tagfunc=lsp#tagfunc | endif
+    nmap <buffer> god <plug>(lsp-definition)
+    nmap <buffer> gos <plug>(lsp-document-symbol-search)
+    nmap <buffer> goS <plug>(lsp-workspace-symbol-search)
+    nmap <buffer> gor <plug>(lsp-references)
+    nmap <buffer> goi <plug>(lsp-implementation)
+    nmap <buffer> got <plug>(lsp-type-definition)
+    nmap <buffer> <leader>rn <plug>(lsp-rename)
+    nmap <buffer> [g <plug>(lsp-previous-diagnostic)
+    nmap <buffer> ]g <plug>(lsp-next-diagnostic)
+    nmap <buffer> K <plug>(lsp-hover)
+    nnoremap <buffer> <expr><c-f> lsp#scroll(+4)
+    nnoremap <buffer> <expr><c-b> lsp#scroll(-4)
+
+    let g:lsp_format_sync_timeout = 1000
+    autocmd! BufWritePre *.rs,*.go call execute('LspDocumentFormatSync')
+    
+    " refer to doc to add more commands
+endfunction
+
+augroup lsp_install
+    au!
+    " call s:on_lsp_buffer_enabled only for languages that has the server registered.
+    autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
+augroup END
+hi Pmenu ctermbg=lightCyan guibg=lightCyan
+" END vim-lsp settings -------- }}}
 
 " END Plugins settings -------- }}}
 
@@ -618,6 +657,15 @@ augroup perl
     autocmd FileType perl setlocal complete-=i
 augroup END
 
+if executable('ocamllsp')
+  au User lsp_setup call lsp#register_server({
+        \ 'name': 'ocamllsp',
+        \ 'cmd': {server_info->[&shell, &shellcmdflag, 'opam config exec -- ocamllsp']},
+        \ 'whitelist': ['ocaml'],
+        \ })
+endif
+
+
 " END autocmd settings -------- }}}
 
 " START common map settings -------- {{{
@@ -670,11 +718,16 @@ func! OpenNewTerminal()
 endfunc
 
 func! OpenNewWindow()
-    " Assuming nautilus is the file explorer
-    exec "!nautilus %:p:h &"
+    if has("wsl")
+        exec "!wslview %:p:h"
+    " else if ...
+    " TODO: implement for gvim in windows <2022-10-25, David Deng>
+    else " is linux
+        exec "!nautilus %:p:h &"
+    endif
 endfunc
-nnoremap <leader>t :call OpenNewTerminal()<CR>
-nnoremap <leader>w :call OpenNewWindow()<CR>
+" nnoremap <leader>t :call OpenNewTerminal()<CR>
+" nnoremap <leader>w :call OpenNewWindow()<CR>
 
 nnoremap <silent> <leader>tn :cclose<Bar>TestNearest<CR>
 nnoremap <silent> <leader>tf :cclose<Bar>TestFile<CR>
