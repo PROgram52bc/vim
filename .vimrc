@@ -285,7 +285,7 @@ Plug 'kana/vim-textobj-user'
 Plug 'raimondi/delimitmate'
 Plug 'honza/vim-snippets'
 Plug 'tpope/vim-commentary'
-Plug 'alvan/vim-closetag'
+Plug 'alvan/vim-closetag', { 'for': [ 'html' ] }
 Plug 'chrisbra/unicode.vim'
 Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'prabirshrestha/asyncomplete-lsp.vim'
@@ -300,29 +300,23 @@ Plug 'iamcco/markdown-preview.vim', { 'for': 'markdown' }
 Plug 'iamcco/mathjax-support-for-mkdp', { 'for': 'markdown' }
 Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
 Plug 'posva/vim-vue', { 'for': 'vue' }
-Plug 'PROgram52bc/wmgraphviz.vim'
+" Plug 'PROgram52bc/wmgraphviz.vim'
 Plug 'dart-lang/dart-vim-plugin', { 'for': 'dart' }
-Plug 'dylon/vim-antlr'
+Plug 'dylon/vim-antlr', { 'for': 'antlr4' }
 Plug 'Nymphium/vim-koka', { 'for': 'koka' }
 Plug 'mlr-msft/vim-loves-dafny', { 'for': 'dafny' }
 
 let g:polyglot_disabled = ['sensible'] " prevent bug in shiftwidth adjustment
-Plug 'sheerun/vim-polyglot' " A language pack for many languages
-
 Plug 'tfnico/vim-gradle'
-Plug 'wlangstroth/vim-racket'
-Plug 'bohlender/vim-smt2'
-Plug 'whonore/Coqtail'
+Plug 'wlangstroth/vim-racket', { 'for' : 'racket' }
+Plug 'bohlender/vim-smt2', { 'for' : 'smt2' }
+Plug 'whonore/Coqtail', { 'for' : 'coq' }
 Plug 'kevinoid/vim-jsonc'
-Plug 'derekwyatt/vim-scala'
-Plug 'rhysd/vim-llvm'
-" Plug '~/.vim/bundle/vim-scl'
-" Plug 'PROgram52bc/vim-scallop'
-" Plug 'PROgram52bc/vim-uclid'
-" Plug 'leafOfTree/vim-vue-plugin'         "Alternative plugin for vue
+Plug 'derekwyatt/vim-scala', { 'for' : 'scala' }
+Plug 'rhysd/vim-llvm', { 'for' : 'llvm' }
 
 " File Management
-Plug 'ctrlpvim/ctrlp.vim'
+Plug 'ctrlpvim/ctrlp.vim', { 'on': '<plug>(ctrlp)' }
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeFind' }
 Plug 'mhinz/vim-grepper', { 'on': ['Grepper', '<plug>(GrepperOperator)'] }
 
@@ -331,6 +325,12 @@ Plug 'tpope/vim-repeat'
 Plug 'aymericbeaumet/vim-symlink'            "Automatically resolve the symlink
 Plug 'junegunn/vim-plug'
 call plug#end()
+
+
+" START Plugins lazy-load settings -------- {{{
+let g:vim_gradle_autoload = 0
+
+" END Plugins lazy-load settings -------- }}}
 
 " END Plug setting -------- }}}
 
