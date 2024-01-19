@@ -316,7 +316,7 @@ Plug 'derekwyatt/vim-scala', { 'for' : 'scala' }
 Plug 'rhysd/vim-llvm', { 'for' : 'llvm' }
 
 " File Management
-Plug 'ctrlpvim/ctrlp.vim', { 'on': '<plug>(ctrlp)' }
+Plug 'ctrlpvim/ctrlp.vim'
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeFind' }
 Plug 'mhinz/vim-grepper', { 'on': ['Grepper', '<plug>(GrepperOperator)'] }
 
