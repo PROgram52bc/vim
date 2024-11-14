@@ -957,6 +957,7 @@ digraphs \|> 9655 " ▷
 digraphs =^ 8796 " ≜
 digraphs dm 9830 " ♦
 digraphs (/ 8713 " ∉
+digraphs \"- 8873 " ⊩
 
 " END Digraphs -------- }}}
 
