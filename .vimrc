@@ -117,6 +117,8 @@ func! RunResult(...)
             let cmd = "!scala -cp build %<"
         endif
         echom cmd
+    elseif &filetype == "lean"
+        let cmd = "!lean --run %"
     elseif &filetype == "sh"
         let cmd = "!bash %"
     elseif &filetype == "dart"
@@ -268,6 +270,8 @@ Plug 'tpope/vim-fugitive'
 Plug 'prabirshrestha/async.vim'
 Plug 'prabirshrestha/vim-lsp'
 Plug 'mattn/vim-lsp-settings'
+Plug 'neovim/nvim-lspconfig'
+Plug 'nvim-lua/plenary.nvim'
 
 " Text objects
 Plug 'machakann/vim-sandwich'
@@ -305,6 +309,7 @@ Plug 'dart-lang/dart-vim-plugin', { 'for': 'dart' }
 Plug 'dylon/vim-antlr', { 'for': 'antlr4' }
 Plug 'Nymphium/vim-koka', { 'for': 'koka' }
 Plug 'mlr-msft/vim-loves-dafny', { 'for': 'dafny' }
+Plug 'Julian/lean.nvim'
 
 let g:polyglot_disabled = ['sensible'] " prevent bug in shiftwidth adjustment
 Plug 'tfnico/vim-gradle'
@@ -326,6 +331,11 @@ Plug 'aymericbeaumet/vim-symlink'            "Automatically resolve the symlink
 Plug 'junegunn/vim-plug'
 call plug#end()
 
+" for color scheme in newer nvim
+" https://www.reddit.com/r/neovim/comments/1d66jlw/color_scheme_problems_in_0100/
+if has('nvim-0.10.0') && filereadable(expand("$VIMRUNTIME/colors/vim.lua"))
+	source $VIMRUNTIME/colors/vim.lua
+endif
 
 " START Plugins lazy-load settings -------- {{{
 let g:vim_gradle_autoload = 0
@@ -552,6 +562,16 @@ let g:snips_author="David Deng"
 " END coc settings -------- }}}
 
 " START vim-lsp settings -------- {{{
+
+au User lsp_setup call lsp#register_server({
+   \ 'name': 'metals',
+   \ 'cmd': ['metals'],
+   \ 'initialization_options': { 'rootPatterns': 'build.sbt', 'isHttpEnabled': 'true' },
+   \ 'allowlist': [ 'scala', 'sbt' ],
+   \ })
+" nnoremap <silent> gd :LspDefinition<CR>
+set omnifunc=lsp#complete
+
 let g:lsp_diagnostics_enabled = 0
 function! s:on_lsp_buffer_enabled() abort
     setlocal omnifunc=lsp#complete
