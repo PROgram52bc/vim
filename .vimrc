@@ -183,8 +183,6 @@ func! CleanBuildDir()
     endif
 endfunc
 
-
-
 map <F5> :call CompileCode()<CR>
 imap <F5> <ESC>:call CompileCode()<CR>
 vmap <F5> <ESC>:call CompileCode()<CR>
@@ -297,6 +295,11 @@ if has('python3')
     Plug 'SirVer/ultisnips'
     Plug 'thomasfaingnaert/vim-lsp-ultisnips'
 endif
+" cmp-lsp
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/cmp-buffer'
+Plug 'hrsh7th/cmp-path'
+Plug 'hrsh7th/nvim-cmp'
 
 " Filetypes
 Plug 'lervag/vimtex', { 'for': 'tex' }
@@ -310,6 +313,10 @@ Plug 'dylon/vim-antlr', { 'for': 'antlr4' }
 Plug 'Nymphium/vim-koka', { 'for': 'koka' }
 Plug 'mlr-msft/vim-loves-dafny', { 'for': 'dafny' }
 Plug 'Julian/lean.nvim'
+" Agda
+" Plug 'kana/vim-textobj-user' " Already in Text objects section
+" Plug 'neovimhaskell/nvim-hs.vim'
+" Plug 'isovector/cornelis', { 'do': 'stack build' }
 
 let g:polyglot_disabled = ['sensible'] " prevent bug in shiftwidth adjustment
 Plug 'tfnico/vim-gradle'
@@ -341,6 +348,24 @@ endif
 let g:vim_gradle_autoload = 0
 
 " END Plugins lazy-load settings -------- }}}
+" START Cornelis settings --- {{{
+au BufRead,BufNewFile *.agda call AgdaFiletype()
+au QuitPre *.agda :CornelisCloseInfoWindows
+function! AgdaFiletype()
+    nnoremap <buffer> <leader>l :CornelisLoad<CR>
+    nnoremap <buffer> <leader>r :CornelisRefine<CR>
+    nnoremap <buffer> <leader>d :CornelisMakeCase<CR>
+    nnoremap <buffer> <leader>, :CornelisTypeContext<CR>
+    nnoremap <buffer> <leader>. :CornelisTypeContextInfer<CR>
+    nnoremap <buffer> <leader>n :CornelisSolve<CR>
+    nnoremap <buffer> <leader>a :CornelisAuto<CR>
+    nnoremap <buffer> gd        :CornelisGoToDefinition<CR>
+    nnoremap <buffer> [/        :CornelisPrevGoal<CR>
+    nnoremap <buffer> ]/        :CornelisNextGoal<CR>
+    nnoremap <buffer> <C-A>     :CornelisInc<CR>
+    nnoremap <buffer> <C-X>     :CornelisDec<CR>
+endfunction
+" END Cornelis setting -------- }}}
 
 " END Plug setting -------- }}}
 
@@ -958,6 +983,10 @@ digraphs =^ 8796 " ≜
 digraphs dm 9830 " ♦
 digraphs (/ 8713 " ∉
 digraphs \"- 8873 " ⊩
+digraphs ,< 10216 " ⟨
+digraphs .> 10217 " ⟩
+digraphs .- 8760 " ∸
+
 
 " END Digraphs -------- }}}
 
