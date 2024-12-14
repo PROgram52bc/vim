@@ -118,3 +118,6 @@ if [ -d "${DIR}/UltiSnips" ]; then # if snippet folder exists in current directo
 		echo "Undetected file type: ${ULTISNIPSPATH}, symlink not created"
 	fi
 fi
+
+mkdir -p ~/.config/nvim/plugin
+cp lua/*.lua ~/.config/nvim/plugin
