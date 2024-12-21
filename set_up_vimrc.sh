@@ -120,4 +120,4 @@ if [ -d "${DIR}/UltiSnips" ]; then # if snippet folder exists in current directo
 fi
 
 mkdir -p ~/.config/nvim/plugin
-cp lua/*.lua ~/.config/nvim/plugin
+cp nv/lua/*.lua ~/.config/nvim/plugin
