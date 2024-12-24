@@ -986,7 +986,24 @@ digraphs \"- 8873 " ⊩
 digraphs ,< 10216 " ⟨
 digraphs .> 10217 " ⟩
 digraphs .- 8760 " ∸
-
+digraphs .* 11037 " ⬝
+digraphs 0_ 8320 " ₀
+digraphs 1_ 8321 " ₁
+digraphs 2_ 8322 " ₂
+digraphs 3_ 8323 " ₃
+digraphs 4_ 8324 " ₄
+digraphs 5_ 8325 " ₅
+digraphs 6_ 8326 " ₆
+digraphs 7_ 8327 " ₇
+digraphs 8_ 8328 " ₈
+digraphs 9_ 8329 " ₉
+digraphs 0* 12295 " 〇
+digraphs C\| 8450 " ℂ
+digraphs N\| 8469 " ℕ 
+digraphs P\| 8473 " ℕ 
+digraphs Q\| 8474 " ℚ
+digraphs R\| 8477 " ℝ
+digraphs Z\| 8484 " ℤ 
 
 " END Digraphs -------- }}}
 
