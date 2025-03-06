@@ -970,6 +970,7 @@ digraphs [C 8847 " ⊏
 digraphs uu 8915 " ⋓
 digraphs UU 8914 " ⋒
 digraphs o+ 8853 " ⊕
+digraphs o- 8854 " ⊖
 digraphs ^t 7511 " ᵗ
 digraphs ^d 7496 " ᵈ
 digraphs ^T 7488 " ᵀ
@@ -1004,6 +1005,7 @@ digraphs P\| 8473 " ℕ
 digraphs Q\| 8474 " ℚ
 digraphs R\| 8477 " ℝ
 digraphs Z\| 8484 " ℤ 
+digraphs v\| 8659 " ⇓
 
 " END Digraphs -------- }}}
 
