@@ -501,6 +501,13 @@ if exists('g:sandwich#default_recipes')
                 \   {'buns': ['(\s*', '\s*)'],   'nesting': 1, 'regex': 1,
                 \    'match_syntax': 1, 'kind': ['delete', 'replace', 'textobj'],
                 \    'action': ['delete'], 'input': ['(']},
+                \
+                \   {'buns': ['⟨', '⟩'], 'nesting': 1, 'match_syntax': 1,
+                \    'kind': ['add', 'replace'], 'action': ['add'], 'input': ['.>']},
+				\
+                \   {'buns': ['⟨\s*', '\s*⟩'],   'nesting': 1, 'regex': 1,
+                \    'match_syntax': 1, 'kind': ['delete', 'replace', 'textobj'],
+                \    'action': ['delete'], 'input': ['.>']},
                 \ ]
 endif
 " END Sandwich settings }}}
@@ -700,6 +707,11 @@ augroup END
 augroup perl
     autocmd!
     autocmd FileType perl setlocal complete-=i
+augroup END
+augroup lean 
+	autocmd!
+	" make it more readable
+	autocmd FileType lean hi DiffDelete ctermfg=white guifg=white
 augroup END
 
 if executable('ocamllsp')
