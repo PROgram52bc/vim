@@ -119,5 +119,40 @@ if [ -d "${DIR}/UltiSnips" ]; then # if snippet folder exists in current directo
 	fi
 fi
 
-mkdir -p ~/.config/nvim/plugin
-cp nv/lua/*.lua ~/.config/nvim/plugin
+
+while true; do
+	echo "Set up nvim?"
+	echo "y) yes"
+	echo "*) no, don't touch the nvim directory"
+	read -n 1 answer
+	echo
+	case $answer in
+		y)
+			if [ ! -f ~/.config/nvim/init.vim ]; then
+				mkdir -p ~/.config/nvim
+				echo "Creating ~/.config/nvim/init.vim..."
+				cat > ~/.config/nvim/init.vim << 'HERE'
+" Make Neovim see Vim runtime and packages
+set runtimepath^=~/.vim runtimepath+=~/.vim/after
+let &packpath = &runtimepath
+
+" Load old vimrc
+source ~/.vimrc
+HERE
+				echo "Done"
+			else
+				echo "~/.config/nvim/init.vim already exists. Remove it and rerun this script to set it up again."
+			fi
+			echo "Copying lua plugins into ~/.config/nvim/plugin"
+			mkdir -p ~/.config/nvim/plugin
+			cp ./nv/lua/*.lua ~/.config/nvim/plugin 2>/dev/null
+			echo "Done"
+			break
+			;;
+		*)
+			echo "skip setting up nvim"
+			break
+			;;
+	esac
+done
+

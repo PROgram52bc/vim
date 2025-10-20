@@ -1,5 +1,5 @@
 -- Taken from https://github.com/Julian/lean.nvim/wiki/Getting-Started-From-the-Ground-Up
-local cmp = require'cmp'
+local cmp = require 'cmp'
 cmp.setup{
     mapping = cmp.mapping.preset.insert({
       -- ['<C-b>'] = cmp.mapping.scroll_docs(-4),
