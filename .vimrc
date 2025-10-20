@@ -217,7 +217,7 @@ set shiftwidth=4
 set autoread                " auto read in when file is edited out of vim
 set hidden                    " keep closed buffers. required by CtrlSpace
 set hlsearch                " highlight search
-set foldmethod=syntax        " fold according to syntax highlighting items
+set foldmethod=manual        " fold according to syntax highlighting items
 set foldcolumn=1            " display folder column
 
 set noautochdir                " automatically change the current directory to that of the opened file
@@ -247,7 +247,7 @@ endif
 call plug#begin('~/.vim/bundle')
 
 " Display
-Plug 'bling/vim-airline', { 'tag': 'v0.11' }
+Plug 'bling/vim-airline'
 
 " Formatting
 " Plug 'prettier/vim-prettier', { 'branch': 'release/1.x', 'do': 'npm install' }
@@ -266,9 +266,9 @@ Plug 'tpope/vim-fugitive'
 " Plug 'tpope/vim-dispatch'
 " Plug 'vim-test/vim-test'
 Plug 'prabirshrestha/async.vim'
-Plug 'prabirshrestha/vim-lsp'
-Plug 'mattn/vim-lsp-settings'
-Plug 'neovim/nvim-lspconfig'
+" Plug 'prabirshrestha/vim-lsp'
+" Plug 'mattn/vim-lsp-settings'
+" Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-lua/plenary.nvim'
 
 " Text objects
@@ -289,17 +289,17 @@ Plug 'honza/vim-snippets'
 Plug 'tpope/vim-commentary'
 Plug 'alvan/vim-closetag', { 'for': [ 'html' ] }
 Plug 'chrisbra/unicode.vim'
-Plug 'prabirshrestha/asyncomplete.vim'
-Plug 'prabirshrestha/asyncomplete-lsp.vim'
+" Plug 'prabirshrestha/asyncomplete.vim'
+" Plug 'prabirshrestha/asyncomplete-lsp.vim'
 if has('python3')
     Plug 'SirVer/ultisnips'
-    Plug 'thomasfaingnaert/vim-lsp-ultisnips'
+    " Plug 'thomasfaingnaert/vim-lsp-ultisnips'
 endif
 " cmp-lsp
-Plug 'hrsh7th/cmp-nvim-lsp'
-Plug 'hrsh7th/cmp-buffer'
-Plug 'hrsh7th/cmp-path'
-Plug 'hrsh7th/nvim-cmp'
+" Plug 'hrsh7th/cmp-nvim-lsp'
+" Plug 'hrsh7th/cmp-buffer'
+" Plug 'hrsh7th/cmp-path'
+" Plug 'hrsh7th/nvim-cmp'
 
 " Filetypes
 Plug 'lervag/vimtex', { 'for': 'tex' }
@@ -319,7 +319,7 @@ Plug 'Julian/lean.nvim'
 " Plug 'isovector/cornelis', { 'do': 'stack build' }
 
 let g:polyglot_disabled = ['sensible'] " prevent bug in shiftwidth adjustment
-Plug 'tfnico/vim-gradle'
+" Plug 'tfnico/vim-gradle'
 Plug 'wlangstroth/vim-racket', { 'for' : 'racket' }
 Plug 'bohlender/vim-smt2', { 'for' : 'smt2' }
 Plug 'whonore/Coqtail', { 'for' : 'coq' }
@@ -429,7 +429,6 @@ let g:airline#extensions#tabline#fnamemod = ':t'
 let g:airline#extensions#tabline#buffer_nr_show = 1
 let g:airline#extensions#tabline#show_tabs = 0
 let g:airline#extensions#tabline#switch_buffers_and_tabs = 1
-
 
 " vim-grepper
 command! Todo :Grepper

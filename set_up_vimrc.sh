@@ -143,9 +143,9 @@ HERE
 			else
 				echo "~/.config/nvim/init.vim already exists. Remove it and rerun this script to set it up again."
 			fi
-			echo "Copying lua plugins into ~/.config/nvim/plugin"
+			echo "Creating symlinks of lua plugins into ~/.config/nvim/plugin"
 			mkdir -p ~/.config/nvim/plugin
-			cp ./nv/lua/*.lua ~/.config/nvim/plugin 2>/dev/null
+			find ./nv/lua/ -name "*.lua" -exec ln -s {} ~/.config/nvim/plugin ';'
 			echo "Done"
 			break
 			;;
