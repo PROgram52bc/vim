@@ -1,10 +1,10 @@
 #!/bin/bash
 realpath() {
-	perl -mCwd -e "print Cwd::abs_path('$1')"
+	perl -MCwd -le 'print Cwd::abs_path($ARGV[0])' "$1"
 }
 
 # directory of the current script
-DIR=$(dirname `realpath $0`) # get current directory
+DIR=$(dirname "$(realpath "$0")") # get current directory
 if [ ! -f "$DIR/.vimrc" ]; then
 	echo ".vimrc not detected in $DIR, terminating script"
 	exit -1
