@@ -247,8 +247,14 @@ endif
 call plug#begin('~/.vim/bundle')
 
 " Display
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
+if has('nvim')
+	Plug 'nvim-lualine/lualine.nvim'
+	Plug 'nvim-tree/nvim-web-devicons'
+else
+	Plug 'vim-airline/vim-airline'
+	Plug 'vim-airline/vim-airline-themes'
+endif
+
 Plug 'morhetz/gruvbox'
 
 " Formatting
