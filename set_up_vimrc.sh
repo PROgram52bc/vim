@@ -145,7 +145,17 @@ HERE
 			fi
 			echo "Creating symlinks of lua plugins into ~/.config/nvim/plugin"
 			mkdir -p ~/.config/nvim/plugin
-			find ./nv/lua/ -name "*.lua" -exec ln -s {} ~/.config/nvim/plugin ';'
+			for f in "$DIR"/nv/lua/*.lua; do
+				dest=~/.config/nvim/plugin/$(basename "$f")
+				if [ -L "$dest" ] && [ "$(readlink "$dest")" -ef "$f" ]; then
+					echo "$dest already points to $f"
+					continue
+				fi
+				if [ -e "$dest" ] || [ -L "$dest" ]; then
+					rm "$dest"
+				fi
+				create_link "$f" "$dest"
+			done
 			echo "Done"
 			break
 			;;
