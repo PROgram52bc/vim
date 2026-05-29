@@ -247,11 +247,13 @@ endif
 call plug#begin('~/.vim/bundle')
 
 " Display
-Plug 'bling/vim-airline'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'morhetz/gruvbox'
 
 " Formatting
 " Plug 'prettier/vim-prettier', { 'branch': 'release/1.x', 'do': 'npm install' }
-Plug 'dense-analysis/ale'
+" Plug 'dense-analysis/ale'
 " Plug 'scrooloose/syntastic'
 " Plug 'mtscout6/syntastic-local-eslint.vim'
 
@@ -268,7 +270,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'prabirshrestha/async.vim'
 " Plug 'prabirshrestha/vim-lsp'
 " Plug 'mattn/vim-lsp-settings'
-" Plug 'neovim/nvim-lspconfig'
+Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-lua/plenary.nvim'
 
 " Text objects
@@ -340,8 +342,8 @@ call plug#end()
 
 " for color scheme in newer nvim
 " https://www.reddit.com/r/neovim/comments/1d66jlw/color_scheme_problems_in_0100/
-if has('nvim-0.10.0') && filereadable(expand("$VIMRUNTIME/colors/vim.lua"))
-	source $VIMRUNTIME/colors/vim.lua
+if has('nvim-0.10.0')
+	colorscheme habamax
 endif
 
 " START Plugins lazy-load settings -------- {{{
@@ -383,7 +385,7 @@ let g:syntastic_mode_map = {
         \ "active_filetypes": [] }
 
 let g:ale_set_loclist = 0
-let g:ale_set_quickfix = 1
+let g:ale_set_quickfix = 0
 
 let g:delimitMate_expand_cr = 2
 let g:delimitMate_expand_space = 1
