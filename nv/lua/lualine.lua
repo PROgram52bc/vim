@@ -47,7 +47,15 @@ require('lualine').setup {
     lualine_y = {},
     lualine_z = {}
   },
-  tabline = {},
+  tabline = {
+    lualine_a = {
+      {
+        'buffers',
+        mode = 2, -- show buffer number + filename
+      },
+    },
+    lualine_z = { 'tabs' },
+  },
   winbar = {},
   inactive_winbar = {},
   extensions = {}
